@@ -1,0 +1,195 @@
+
+
+/* ==== Reset ==== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+[hidden] { display: none !important; }
+
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; overflow-x: clip; }
+
+/* Скроллбар скрыт: контент получает всю ширину окна (на Windows classic-полоса
+   съедала 16px и макет не попадал в 1440), модалка не дёргает вёрстку.
+   Скролл работает колесом, тачем, клавиатурой и через Lenis. */
+html { scrollbar-width: none; }                 /* Firefox, Chrome 121+ */
+html::-webkit-scrollbar { display: none; }      /* Chrome/Safari/Edge постарше */
+
+/* Lenis smooth-scroll */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+.lenis.lenis-scrolling iframe { pointer-events: none; }
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  color: var(--color-body);
+  background: var(--color-bg);
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+  /* text-rendering НЕ трогаем: optimizeLegibility в Chrome двигает глифы
+     и мешает растеризации при дробных кеглях от --wm. Кернинг и так включён */
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+}
+body > main { flex: 1 0 auto; }
+
+img, picture, svg, video { display: block; max-width: 100%; height: auto; }
+
+a { color: inherit; text-decoration: none; }
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; background: none; border: none; }
+ul, ol { list-style: none; }
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: calc(3 * var(--wm));
+  border-radius: 2px;
+}
+
+/* ==== Типографика — по стилям макета ====
+   Веса пока не заданы (в макете не видно) — уточнить и проставить. */
+/* text-wrap: balance НЕ ставим: он выравнивает строки по длине и ломает переносы
+   не там, где в макете. Перенос задаёт ширина блока или <br> */
+h1, h2, h3, h4, h5, h6 { color: var(--color-heading); }
+
+/* Playfair (Ag) */
+h1 {
+  font-family: var(--font-display);
+  font-size: var(--text-h1);
+  font-weight: var(--weight-h1);
+  line-height: var(--leading-h1);
+}
+h2 {
+  font-family: var(--font-display);
+  font-size: var(--text-h2);
+  font-weight: var(--weight-h2);
+  line-height: var(--leading-h2);
+}
+
+/* Gilroy (T) */
+h3 { font-size: var(--text-h3); line-height: var(--leading-h3); font-weight: var(--weight-h3); }
+h4 { font-size: var(--text-h4); line-height: var(--leading-h4); font-weight: var(--weight-h4); }
+h5 { font-size: var(--text-h5); line-height: var(--leading-h5); font-weight: var(--weight-h5); }
+
+p  { line-height: var(--leading-normal); }
+
+/* Текстовые стили макета */
+.text-s   { font-size: var(--text-s);   line-height: var(--leading-s);   font-weight: var(--weight-s); }
+.text-s-2 { font-size: var(--text-s-2); line-height: var(--leading-s-2); font-weight: var(--weight-s-2); }
+.text-m   { font-size: var(--text-m);   line-height: var(--leading-m);   font-weight: var(--weight-m); }
+.text-l   { font-size: var(--text-l);   line-height: var(--leading-l);   font-weight: var(--weight-l); }
+
+.menu { font-size: var(--text-menu); line-height: var(--leading-menu); font-weight: var(--weight-menu); }
+.descriptor {
+  font-family: var(--font-display);
+  font-size: var(--text-descriptor);
+  font-weight: var(--weight-descriptor);
+  line-height: var(--leading-descriptor);
+  text-transform: uppercase;
+}
+.numbers-l {
+  font-family: var(--font-display);
+  font-size: var(--text-numbers-l);
+  font-weight: var(--weight-numbers-l);
+  line-height: var(--leading-numbers-l);
+}
+
+/* ==== Раскладка ==== */
+/* Общий контейнер: до границ экрана 40px. Футер — исключение, фон тянется до краёв */
+.container {
+  width: 100%;
+  padding-inline: var(--container-pad);
+}
+
+/* Половина ритма с каждой стороны: соседние блоки в сумме дают 150 */
+.section { padding-block: calc(var(--space-section) / 2); }
+.section--surface { background: var(--color-surface); }
+.section--dark { background: var(--color-surface-dark); color: rgba(255,255,255,0.82); }
+.section--dark h1, .section--dark h2, .section--dark h3 { color: var(--color-white); }
+
+/* ==== Утилиты ==== */
+.text-accent, .u-accent { color: var(--color-accent); }
+
+/* Ссылка с волнистой линией — общий эффект шапки и футера.
+   Линия на mask + currentColor, поэтому красится вместе с текстом.
+   При наведении текст и линия плавно едут вверх вместе */
+.link-line {
+  position: relative;
+  transition: color var(--duration-base) var(--ease-out),
+              transform var(--duration-base) var(--ease-out);
+}
+.link-line::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(-8 * var(--wm));       /* 2 — зазор до текста, 6 — высота линии */
+  height: calc(6 * var(--wm));
+  background: currentColor;
+  -webkit-mask: var(--link-line-svg) no-repeat center / 100% 100%;
+          mask: var(--link-line-svg) no-repeat center / 100% 100%;
+  opacity: 0;
+  transition: opacity var(--duration-base) var(--ease-out);
+}
+.link-line:hover { transform: translateY(calc(-2 * var(--wm))); }
+.link-line:hover::after,
+.link-line.is-active::after { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .link-line, .link-line::after { transition: none; }
+  .link-line:hover { transform: none; }
+}
+
+/* Ссылка с прямой линией — видна всегда, в отличие от волнистой .link-line.
+   Линия на box-shadow, а не border: отбив ровно 2 по макету и по ширине текста */
+.link-solid {
+  align-self: flex-start;
+  font-size: var(--text-menu);
+  font-weight: var(--weight-menu);
+  line-height: var(--leading-menu);
+  color: var(--main-blue);
+  box-shadow: 0 calc(2 * var(--wm)) 0 currentColor;
+  transition: color var(--duration-base) var(--ease-out);
+}
+/* Линия на currentColor — красится вместе с текстом, своего правила не нужно */
+.link-solid:hover { color: var(--text-pale-blue); }
+
+@media (prefers-reduced-motion: reduce) {
+  .link-solid { transition: none; }
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0);
+  white-space: nowrap; border: 0;
+}
+
+/* Переключение переносов десктоп/мобайл */
+.u-br-d { display: inline; }
+.u-br-m { display: none; }
+@media (max-width: 600px) {
+  .u-br-d { display: none; }
+  .u-br-m { display: inline; }
+}
+
+/* ==== Reveal-on-scroll ==== */
+.reveal {
+  opacity: 0; transform: translateY(24px);
+  transition: opacity var(--duration-slow) var(--ease-out),
+              transform var(--duration-slow) var(--ease-out);
+}
+.reveal.is-visible { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+  }
+  .reveal { opacity: 1; transform: none; }
+}

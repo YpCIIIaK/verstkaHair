@@ -1,0 +1,2635 @@
+
+
+/* ==== Кнопки ====
+   Базовая .btn, варианты меняют только --_bg / --_fg */
+.btn {
+  --_bg: var(--main-white);
+  --_fg: var(--main-blue);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(10 * var(--wm));
+  padding-inline: calc(24 * var(--wm));
+  padding-block: calc(16 * var(--wm)) calc(14 * var(--wm));
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--_bg);
+  color: var(--_fg);
+  font-family: var(--font-sans);
+  font-size: var(--text-menu);
+  font-weight: var(--weight-semibold);
+  line-height: 1;
+  white-space: nowrap;
+  transition: background-color var(--duration-base) var(--ease-out),
+              border-color var(--duration-base) var(--ease-out),
+              color var(--duration-base) var(--ease-out);
+}
+.btn:hover { --_bg: var(--accent-lime); }
+
+/* Обводка вместо заливки. В Figma обводка рисуется внутрь размера, в CSS —
+   прибавляется к нему, поэтому снимаем по 1 с падингов: кнопка остаётся 46,
+   как залитая, и совпадает с макетом */
+.btn--outline {
+  --_bg: transparent;
+  border: 1px solid var(--main-blue);
+  padding-inline: calc(23 * var(--wm));
+  padding-block: calc(15 * var(--wm)) calc(13 * var(--wm));
+  font-weight: var(--weight-menu);
+}
+/* Обводка заливается синим — то есть ведёт себя обратно залитой кнопке */
+.btn--outline:hover {
+  --_bg: var(--main-blue);
+  --_fg: var(--main-white);
+}
+.btn--block { width: 100%; }
+
+/* ==== Блоки страниц ====
+   Стили блока — здесь. Медиа-запросы блока класть СРАЗУ за самим блоком. */
+
+/* ==== Шапка внутренней страницы ==== */
+/* Купол начинается от самого верха, шапка сайта ложится поверх него.
+   ЖДЁМ: экспорта шапки для этой страницы — таблетку убрал по скрину */
+.page--hero .header {
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  z-index: var(--z-header);
+}
+.page--hero .header__pill { background: transparent; }
+
+.page-hero {
+  position: relative;
+  width: 100%;
+  height: calc(235 * var(--wm));
+  overflow: hidden;
+}
+/* Эллипс шире экрана (1658 при макете 1440) — бока срезаются, остаётся дуга */
+.page-hero__dome {
+  position: absolute;
+  left: 50%;
+  translate: -50%;
+  top: calc(-193 * var(--wm));
+  width: calc(1658 * var(--wm));
+  height: calc(428 * var(--wm));
+  border-radius: 50%;
+  background: var(--main-blue);
+}
+.page-hero h1 {
+  position: absolute;
+  left: 50%;
+  translate: -50%;
+  top: calc(150 * var(--wm));
+  /* По макету это стиль h2 (Playfair 500 32/35), а не h1 — тег по смыслу */
+  font-size: var(--text-h2);
+  font-weight: var(--weight-h2);
+  line-height: var(--leading-h2);
+  color: var(--text-white);
+  white-space: nowrap;
+}
+
+/* ==== О центре — страница ==== */
+/* Сверху 25 — по макету, от купола. Снизу общий ритм: половина от 150,
+   как у .section, иначе блок упирается в следующий */
+.about-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(25 * var(--wm));
+  padding-top: calc(25 * var(--wm));
+  padding-bottom: calc(var(--space-section) / 2);
+}
+.about-page__intro {
+  width: calc(726 * var(--wm));
+  font-size: var(--text-m);
+  font-weight: var(--weight-m);
+  line-height: var(--leading-m);
+  color: var(--text-dark);
+  text-align: center;
+}
+.about-page__media { width: calc(670 * var(--wm)); }
+.about-page__media img {
+  width: 100%;
+  height: calc(424 * var(--wm));
+  object-fit: cover;
+  border-radius: calc(50 * var(--wm));
+}
+
+/* ==== Страница услуги ==== */
+.service {
+  padding-top: calc(50 * var(--wm));   /* от шапки до крошек */
+  padding-bottom: calc(var(--space-section) / 2);
+}
+
+.crumbs {
+  display: flex;
+  align-items: center;
+  gap: calc(5 * var(--wm));
+}
+.service .crumbs { margin-bottom: calc(45 * var(--wm)); }
+/* Ссылки и разделитель без классов — через родителя (под натяжку на WP) */
+.crumbs a,
+.crumbs span {
+  font-size: var(--text-s);
+  font-weight: var(--weight-s);
+  line-height: var(--leading-s);
+  color: var(--text-pale-blue);
+  transition: color var(--duration-base) var(--ease-out);
+}
+.crumbs a:hover { color: var(--text-dark); }
+.crumbs [aria-current] { color: var(--text-dark); }
+
+/* Заголовок лежит на фото — отсюда position на обёртке */
+.service__hero {
+  position: relative;
+  margin-bottom: calc(20 * var(--wm));
+}
+.service__hero img {
+  width: 100%;
+  height: calc(335 * var(--wm));
+  object-fit: cover;
+  border-radius: calc(16 * var(--wm));
+}
+.service__hero h1 {
+  position: absolute;
+  left: calc(25 * var(--wm));
+  top: calc(275 * var(--wm));
+  /* По макету это Gilroy 600 32/35 — стиль h3, а не h1 */
+  font-family: var(--font-sans);
+  font-size: var(--text-h3);
+  font-weight: var(--weight-h3);
+  line-height: var(--leading-h3);
+  color: var(--text-white);
+}
+
+.service__methods { display: flex; gap: calc(20 * var(--wm)); }
+
+.method-card {
+  flex: none;
+  width: calc(440 * var(--wm));
+  padding: calc(32 * var(--wm)) calc(25 * var(--wm));
+  border-radius: calc(24 * var(--wm));
+  background: var(--main-white);
+  display: flex;
+  flex-direction: column;
+  gap: calc(12 * var(--wm));
+}
+/* Без классов внутри — через родителя (под натяжку на WP) */
+.method-card h3 {
+  font-size: var(--text-h4);
+  font-weight: var(--weight-h4);
+  line-height: var(--leading-h4);
+  color: var(--text-dark);
+}
+.method-card p {
+  font-size: var(--text-s);
+  font-weight: var(--weight-s);
+  line-height: var(--leading-s);
+  color: var(--text-dark);
+}
+
+/* ==== Страница подкатегории ==== */
+.method {
+  padding-top: calc(50 * var(--wm));   /* от шапки до крошек */
+}
+.method .crumbs { margin-bottom: calc(40 * var(--wm)); }
+
+.method__intro {
+  width: calc(690 * var(--wm));
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(40 * var(--wm));
+}
+.method__head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(25 * var(--wm));
+}
+/* По макету это Playfair 500 32/35 — стиль h2, а не h1. Тег по смыслу */
+.method__head h1 {
+  font-size: var(--text-h2);
+  font-weight: var(--weight-h2);
+  line-height: var(--leading-h2);
+  text-align: center;
+}
+.method__head p {
+  font-size: var(--text-l);
+  font-weight: var(--weight-l);
+  line-height: var(--leading-l);
+  color: var(--text-dark);
+  text-align: center;
+}
+
+/* Панель результатов ниже: 50 от блока, снизу общий ритм */
+.method-results {
+  padding-top: calc(50 * var(--wm));
+  padding-bottom: calc(var(--space-section) / 2);
+}
+
+/* ==== История ==== */
+.history__label {
+  font-family: var(--font-display);
+  font-size: var(--text-descriptor);
+  font-weight: var(--weight-descriptor);
+  line-height: var(--leading-descriptor);
+  text-transform: uppercase;
+  color: var(--text-dark);
+}
+
+/* Лента шире экрана: крайние годы срезаются краями окна — так и в макете */
+.history__strip {
+  position: relative;
+  height: calc(115 * var(--wm));
+  margin-top: calc(40 * var(--wm));
+  overflow: hidden;
+}
+.history__axis {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(28 * var(--wm));      /* ЖДЁМ: линии-подложки (в экспорте 1440×39 SVG) нет */
+  height: 1px;
+  background: var(--timeline-line);
+}
+
+/* Шаг 337 задан шириной пункта — центры годов расходятся сами, без координат */
+.history__track {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  transform: translateX(calc((2 - var(--active, 0)) * 337 * var(--wm)));
+  transition: transform var(--duration-slow) var(--ease-out);
+}
+.history__item {
+  flex: none;
+  width: calc(337 * var(--wm));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(12 * var(--wm));
+}
+/* Огонёк из макета. Заливка уведена на currentColor — активный и обычный
+   состояния красятся одним свойством, второй файл не нужен */
+.history__flame {
+  width: calc(11 * var(--wm));
+  height: calc(39 * var(--wm));
+  color: var(--timeline-line);   /* ЖДЁМ: цвет неактивного огонька — взят от линии */
+  transition: color var(--duration-base) var(--ease-out);
+}
+.history__item.is-active .history__flame { color: var(--main-blue); }
+
+.history__year {
+  font-family: var(--font-display);
+  font-size: var(--text-numbers-l);
+  font-weight: var(--weight-numbers-l);
+  line-height: var(--leading-numbers-l);
+  color: var(--text-pale-blue);
+  transition: color var(--duration-base) var(--ease-out);
+}
+.history__item.is-active .history__year { color: var(--text-dark); }
+
+/* Карточка 670 + зазор 20 + фото 670 = 1360 */
+.history__slides { margin-top: calc(40 * var(--wm)); }
+.history__slide { display: none; gap: calc(20 * var(--wm)); }
+.history__slide.is-active { display: flex; }
+
+.history__card {
+  flex: none;
+  width: calc(670 * var(--wm));
+  height: calc(337 * var(--wm));
+  padding: calc(24 * var(--wm));
+  border-radius: calc(24 * var(--wm));
+  background: var(--main-white);
+  display: flex;
+  flex-direction: column;
+}
+.history__card h3 {
+  width: calc(259 * var(--wm));
+  font-size: var(--text-h4);
+  font-weight: var(--weight-h4);
+  line-height: var(--leading-h4);
+  color: var(--text-dark);
+  margin-bottom: calc(20 * var(--wm));
+}
+.history__card p {
+  font-size: var(--text-m);
+  font-weight: var(--weight-m);
+  line-height: var(--leading-m);
+  color: var(--text-dark);
+}
+/* Стрелки и счётчик прижаты к низу карточки */
+.history__nav {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.history__arrows { display: flex; align-items: center; gap: calc(12 * var(--wm)); }
+.history__counter {
+  font-size: var(--text-m);
+  font-weight: var(--weight-m);
+  line-height: var(--leading-m);
+  color: var(--text-dark);
+}
+
+.history__media { flex: none; width: calc(670 * var(--wm)); }
+.history__media img {
+  width: 100%;
+  height: calc(337 * var(--wm));
+  object-fit: cover;
+  border-radius: calc(24 * var(--wm));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .history__track { transition: none; }
+}
+
+/* ==== Команда ==== */
+/* Дескриптор слева, заголовок по центру — сетка, как в «Услугах» */
+.team__head {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: start;
+  margin-bottom: calc(40 * var(--wm));
+}
+.team__label {
+  font-family: var(--font-display);
+  font-size: var(--text-descriptor);
+  font-weight: var(--weight-descriptor);
+  line-height: var(--leading-descriptor);
+  text-transform: uppercase;
+  color: var(--text-dark);
+}
+.team__head h2 {
+  grid-column: 2;
+  width: calc(555 * var(--wm));
+  text-align: center;
+}
+
+/* 4×325 + 3×20 = 1360 */
+.team__grid { display: flex; gap: calc(20 * var(--wm)); }
+
+.team-card {
+  flex: none;
+  width: calc(325 * var(--wm));
+  height: calc(512 * var(--wm));
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  /* «Подробнее» прижата к низу — у карточек с ролью в одну и в две строки
+     ссылка встаёт на одну линию */
+  justify-content: space-between;
+  gap: calc(16 * var(--wm));
+}
+.team-card__top {
+  display: flex;
+  flex-direction: column;
+  gap: calc(16 * var(--wm));
+}
+/* Обёртка обязательна: зум обрезается ей, иначе фото вылезло бы за скругление */
+.team-card__photo {
+  height: calc(401 * var(--wm));
+  border-radius: calc(24 * var(--wm));
+  overflow: hidden;
+}
+.team-card__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--duration-slow) var(--ease-out);
+}
+.team-card:hover .team-card__photo img { transform: scale(1.2); }
+
+@media (prefers-reduced-motion: reduce) {
+  .team-card__photo img { transition: none; }
+  .team-card:hover .team-card__photo img { transform: none; }
+}
+.team-card__person {
+  width: calc(280 * var(--wm));
+  display: flex;
+  flex-direction: column;
+  gap: calc(5 * var(--wm));
+}
+.team-card__name {
+  font-size: var(--text-h5);
+  font-weight: var(--weight-h5);
+  line-height: var(--leading-h5);
+  color: var(--text-dark);
+}
+.team-card__role {
+  font-size: var(--text-s);
+  font-weight: var(--weight-s);
+  line-height: var(--leading-s);
+  color: var(--text-pale-blue);
+}
+
+/* ==== Сертификаты ==== */
+.certs {
+  position: relative;
+  height: calc(481 * var(--wm));
+  padding: calc(40 * var(--wm));
+  border-radius: calc(24 * var(--wm));
+  background: var(--main-white);
+  overflow: hidden;
+}
+.certs__label {
+  font-family: var(--font-display);
+  font-size: var(--text-descriptor);
+  font-weight: var(--weight-descriptor);
+  line-height: var(--leading-descriptor);
+  text-transform: uppercase;
+  color: var(--text-dark);
+}
+/* Стрелки в левом нижнем углу, на одном отступе 40 с дескриптором */
+.certs__arrows {
+  position: absolute;
+  left: calc(40 * var(--wm));
+  bottom: calc(40 * var(--wm));
+  display: flex;
+  align-items: center;
+  gap: calc(12 * var(--wm));
+}
+
+/* Лента начинается на 230 и уезжает за правый край — карточка её обрезает */
+.certs__track {
+  position: absolute;
+  left: calc(230 * var(--wm));
+  top: calc(40 * var(--wm));
+  right: 0;
+  display: flex;
+  gap: calc(20 * var(--wm));
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+}
+.certs__track::-webkit-scrollbar { display: none; }
+
+.certs__item {
+  flex: none;
+  width: calc(325 * var(--wm));
+  scroll-snap-align: start;
+}
+.certs__item img {
+  width: 100%;
+  height: calc(401 * var(--wm));
+  object-fit: cover;
+  border-radius: calc(16 * var(--wm));
+}
+
+/* ==== Hero ==== */
+.hero { padding-top: calc(20 * var(--wm)); }   /* отбив от шапки */
+
+/* 670 + 20 + 670 = 1360 — ровно контейнер */
+.hero__inner {
+  display: flex;
+  gap: calc(20 * var(--wm));
+}
+
+.hero__media {
+  flex: none;
+  width: calc(670 * var(--wm));
+  height: calc(700 * var(--wm));
+  border-radius: calc(50 * var(--wm));
+  overflow: hidden;
+}
+.hero__media img,
+.hero__media video { width: 100%; height: 100%; object-fit: cover; }
+
+.hero__text {
+  flex: none;
+  width: calc(670 * var(--wm));
+  padding: calc(80 * var(--wm)) calc(109 * var(--wm)) calc(100 * var(--wm)) calc(110 * var(--wm));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* 80 + 132(h1 в три строки) + 67 + 210(кнопка) + 67 + 44(подпись) + 100 = 700 */
+  gap: calc(67 * var(--wm));
+}
+.hero__text h1 { text-align: center; }
+.hero__text p {
+  font-size: var(--text-l);
+  font-weight: var(--weight-l);
+  line-height: var(--leading-l);
+  color: var(--text-dark);
+  text-align: center;
+}
+
+/* Кнопка «Начать лечение»: кольцо 180, ореол 160, диск 134, подпись.
+   Всё центрируется гридом — координаты 15/25/38 из макета получаются сами */
+.hero__cta {
+  position: relative;
+  width: calc(210 * var(--wm));
+  height: calc(210 * var(--wm));
+  display: grid;
+  place-items: center;
+  animation: hero-pulse 3500ms ease-in-out infinite;
+}
+/* Масштабируется кнопка целиком — кольцо, ореол, диск и подпись едут вместе,
+   поэтому анимация одна, на родителе */
+@keyframes hero-pulse {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.2); }
+}
+.hero__cta > * { grid-area: 1 / 1; }
+
+/* Кольцо во всю кнопку: при r=88 глифы уходят наружу от базовой линии,
+   и в прежние 180 их макушки не помещались */
+.hero__ring {
+  width: calc(210 * var(--wm));
+  height: calc(210 * var(--wm));
+}
+/* Кегль в единицах viewBox: SVG отрисован на 180*wm, значит 16 здесь = 16*wm на экране */
+.hero__ring text {
+  fill: var(--accent-pale-green);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: var(--weight-regular);
+}
+
+.hero__halo {
+  width: calc(160 * var(--wm));
+  height: calc(160 * var(--wm));
+  border-radius: 50%;
+  background: var(--halo-lime);
+}
+.hero__disc {
+  width: calc(134 * var(--wm));
+  height: calc(134 * var(--wm));
+  border-radius: 50%;
+  background: var(--accent-lime);
+}
+
+.hero__cta-label {
+  font-size: var(--text-h5);
+  font-weight: var(--weight-h5);
+  line-height: 1;                    /* по макету 16/16, а не 16/1.2 как у h5 */
+  color: var(--text-dark);
+  text-align: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__cta { animation: none; }
+}
+
+/* ==== О центре ==== */
+.about__inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+/* Две колонки: дескриптор 230, контент 508. Картинка вынесена вправо */
+.about__left {
+  width: calc(738 * var(--wm));
+  padding-top: calc(40 * var(--wm));
+  display: grid;
+  grid-template-columns: calc(230 * var(--wm)) calc(508 * var(--wm));
+}
+
+.about__label {
+  grid-column: 1;
+  font-family: var(--font-display);
+  font-size: var(--text-descriptor);
+  font-weight: var(--weight-descriptor);
+  line-height: var(--leading-descriptor);
+  text-transform: uppercase;
+  color: var(--text-dark);
+}
+
+.about__head {
+  grid-column: 2;
+  margin-bottom: calc(25 * var(--wm));
+}
+/* Заголовок без класса — через родителя (под натяжку на WP).
+   Ширина 343 даёт перенос по макету, <br> не нужен */
+.about__head h2 { width: calc(343 * var(--wm)); }
+
+.about__body {
+  grid-column: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: calc(40 * var(--wm));
+}
+.about__body p {
+  font-size: var(--text-m);
+  font-weight: var(--weight-m);
+  line-height: var(--leading-m);
+  color: var(--text-dark);
+}
+
+.about__media { flex: none; width: calc(555 * var(--wm)); }
+.about__media img {
+  width: 100%;
+  height: calc(361 * var(--wm));
+  object-fit: cover;
+  border-radius: calc(24 * var(--wm));   /* ЖДЁМ: в экспорте радиуса нет, снял со скрина */
+}
+
+/* ==== Услуги ==== */
+.services__inner {
+  display: flex;
+  flex-direction: column;
+  gap: calc(40 * var(--wm));
+}
+
+/* Дескриптор слева, заголовок по центру всей ширины.
+   Пустая третья колонка держит центр — в макете h2 стоит на середине 1360 */
+.services__head {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: start;
+}
+.services__label {
+  font-family: var(--font-display);
+  font-size: var(--text-descriptor);
+  font-weight: var(--weight-descriptor);
+  line-height: var(--leading-descriptor);
+  text-transform: uppercase;
+  color: var(--text-dark);
+}
+.services__head h2 { grid-column: 2; text-align: center; }
+
+/* Похожие услуги: те же карточки, но 2 в ряд — 2×440 + 20 = 900.
+   Ширину держит обёртка, сетка сама переносит */
+.services--related .services__inner {
+  width: calc(900 * var(--wm));
+  margin-inline: auto;
+}
+
+/* Страница услуг: сверху 40 от купола по макету, снизу общий ритм */
+.services-page {
+  padding-top: calc(40 * var(--wm));
+  padding-bottom: calc(var(--space-section) / 2);
+}
+
+/* 3 в ряд, остаток по центру: 3×440 + 2×20 = 1360 ровно */
+.services__grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: calc(20 * var(--wm));
+}
+
+.service-card {
+  display: flex;
+  flex-direction: column;
+  width: calc(440 * var(--wm));
+  height: calc(510 * var(--wm));
+  border-radius: calc(24 * var(--wm));
+  background: var(--main-white);
+}
+
+/* Шапка карточки 90 — заголовок и стрелка стоят на разной высоте (32 и 17),
+   поэтому позиционируем от неё, а не флексом.
+   На ховере растёт до 176 — освобождает место под подкатегории.
+   Картинку ужимать не нужно: высота карточки задана, media сожмётся сам (510-176=334) */
+.service-card__head {
+  position: relative;
+  flex: none;
+  height: calc(90 * var(--wm));
+  transition: height var(--duration-base) var(--ease-out);
+}
+/* Растём только если есть что показать: в блоке похожих услуг подкатегорий нет */
+.service-card:hover:has(.service-card__subs) .service-card__head { height: calc(176 * var(--wm)); }
+
+.service-card__title {
+  position: absolute;
+  left: calc(25 * var(--wm));
+  top: calc(32 * var(--wm));
+  width: calc(301 * var(--wm));
+  display: flex;
+  flex-direction: column;
+  gap: calc(10 * var(--wm));
+}
+/* Заголовок без класса — через родителя (под натяжку на WP) */
+.service-card__title h3 {
+  width: calc(286 * var(--wm));
+  font-size: var(--text-h4);
+  font-weight: var(--weight-h4);
+  line-height: var(--leading-h4);
+  color: var(--text-dark);
+}
+
+/* 300, а не 119 из макета: там были короткие заглушки, а настоящие названия
+   переносились и наезжали на фото */
+.service-card__subs {
+  width: calc(300 * var(--wm));
+  display: flex;
+  flex-direction: column;
+  gap: calc(6 * var(--wm));
+  opacity: 0;
+  transition: opacity var(--duration-base) var(--ease-out);
+}
+.service-card:hover .service-card__subs { opacity: 1; }
+.service-card__subs li {
+  font-size: var(--text-m);
+  font-weight: var(--weight-m);
+  line-height: var(--leading-m);
+  color: var(--text-dark);
+}
+
+/* Стрелка: обводка → заливка синим, сама стрелка выворачивается в белый.
+   Один SVG на оба состояния вместо двух файлов */
+.service-card__arrow {
+  position: absolute;
+  right: calc(17 * var(--wm));
+  top: calc(17 * var(--wm));
+  width: calc(56 * var(--wm));
+  height: calc(56 * var(--wm));
+}
+.service-card__arrow rect,
+.service-card__arrow path {
+  transition: fill var(--duration-base) var(--ease-out);
+}
+.service-card__arrow rect { fill: transparent; }
+.service-card__arrow path { fill: var(--main-blue); }
+.service-card:hover .service-card__arrow rect { fill: var(--main-blue); }
+.service-card:hover .service-card__arrow path { fill: var(--main-white); }
+
+/* Голубая подложка с рамкой 10 вокруг фото.
+   min-height: 0 обязателен — иначе флекс не даёт ужаться ниже картинки,
+   и на ховере (шапка 90 → 176) карточка распирается вместо сжатия медиа */
+.service-card__media {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  padding: calc(10 * var(--wm));
+  border-radius: calc(24 * var(--wm));
+  background: var(--main-light-blue);
+}
+.service-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: calc(16 * var(--wm));
+}
+
+/* ==== Страница результатов ====
+   Категории идут колонкой с ритмом 50. Внутри каждой — лента карточек:
+   3 видны (3×440 + 2×20 = 1360), 4-я уезжает за край, стрелки листают */
+.results-page {
+  display: flex;
+  flex-direction: column;
+  gap: calc(50 * var(--wm));
+  padding-top: calc(40 * var(--wm));
+  padding-bottom: calc(var(--space-section) / 2);
+}
+
+/* Заголовок по центру всей ширины, стрелки прижаты вправо — как в макете.
+   Высоту держат стрелки (46), до карточек 75 сверху → добираем 29 */
+.results-cat__head {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(46 * var(--wm));
+  margin-bottom: calc(29 * var(--wm));
+}
+.results-cat__head h2 { text-align: center; }
+.results-cat__arrows {
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  gap: calc(12 * var(--wm));
+}
+
+.results-cat__track {
+  display: flex;
+  gap: calc(20 * var(--wm));
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+}
+.results-cat__track::-webkit-scrollbar { display: none; }
+.results-cat__track .result-card { flex: none; scroll-snap-align: start; }
+
+/* ==== Результаты (блок на главной) ====
+   Белая панель во всю ширину, без отступов до границ экрана */
+.results {
+  width: 100%;
+  padding: calc(40 * var(--wm));
+  border-radius: calc(50 * var(--wm));
+  background: var(--main-white);
+  display: flex;
+  flex-direction: column;
+  gap: calc(40 * var(--wm));
+}
+
+.results__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.results__label {
+  font-family: var(--font-display);
+  font-size: var(--text-descriptor);
+  font-weight: var(--weight-descriptor);
+  line-height: var(--leading-descriptor);
+  text-transform: uppercase;
+  color: var(--text-dark);
+}
+
+/* 3 в ряд: 3×440 + 2×20 = 1360 — ровно внутренняя ширина панели */
+.results__grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(20 * var(--wm));
+}
+
+.result-card {
+  width: calc(440 * var(--wm));
+  /* 9, а не 10: рамка в CSS прибавляется к размеру, а в Figma рисуется внутрь.
+     Так контент отступает от края те же 10, а карточка остаётся 354 */
+  padding: calc(9 * var(--wm));
+  border: 1px solid var(--accent-pale-lime);
+  border-radius: calc(24 * var(--wm));
+  background: var(--main-white);
+  display: flex;
+  flex-direction: column;
+  gap: calc(16 * var(--wm));
+  transition: background-color var(--duration-base) var(--ease-out);
+}
+.result-card:hover { background: var(--accent-pale-lime); }
+/* Заголовок без класса — через родителя (под натяжку на WP).
+   Слева 16 при падинге карточки 10 → добираем 6 */
+.result-card h3 {
+  margin-left: calc(6 * var(--wm));
+  margin-bottom: calc(6 * var(--wm));
+  font-size: var(--text-h4);
+  font-weight: var(--weight-h4);
+  line-height: var(--leading-h4);
+  color: var(--text-dark);
+}
+
+/* --- Сравнение до/после --- */
+.result-card__compare {
+  position: relative;
+  height: calc(286 * var(--wm));
+  border-radius: calc(14 * var(--wm));
+  overflow: hidden;
+  touch-action: pan-y;                   /* тянем шторку, страница скроллится вертикально */
+  user-select: none;
+}
+.result-card__img {
+  width: calc(420 * var(--wm));
+  height: 100%;
+  max-width: none;                       /* иначе «До» сожмётся вместе со шторкой */
+  object-fit: cover;
+}
+
+/* Шторка: режем «До» по ширине, картинка внутри стоит на месте */
+.result-card__before {
+  position: absolute;
+  inset: 0;
+  width: var(--split, 50%);
+  overflow: hidden;
+}
+
+.result-card__badge {
+  position: absolute;
+  bottom: calc(12 * var(--wm));
+  padding: calc(9 * var(--wm)) calc(10 * var(--wm)) calc(7 * var(--wm));
+  border-radius: calc(24 * var(--wm));
+  background: var(--accent-lime);
+  color: var(--text-dark);
+  font-size: var(--text-s-2);
+  font-weight: var(--weight-s-2);
+  line-height: var(--leading-s-2);
+  white-space: nowrap;
+}
+.result-card__badge--before { left: calc(12 * var(--wm)); }
+.result-card__badge--after  { right: calc(10 * var(--wm)); }
+
+.result-card__handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--split, 50%);
+  width: calc(46 * var(--wm));
+  margin-left: calc(-23 * var(--wm));
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* Вертикальная линия шторки */
+.result-card__handle::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: calc(2 * var(--wm));
+  background: var(--main-white);
+}
+/* Кружок со стрелочками: 9 падинга + 8 стрелка с каждой стороны = 46 */
+.result-card__knob {
+  position: relative;
+  width: calc(46 * var(--wm));
+  height: calc(46 * var(--wm));
+  padding-inline: calc(9 * var(--wm));
+  border-radius: 50%;
+  background: var(--main-white);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.result-card__knob svg { width: calc(8 * var(--wm)); height: calc(15 * var(--wm)); }
+/* Иконка смотрит влево — правую получаем отражением */
+.result-card__knob svg:last-child { transform: scaleX(-1); }
+
+/* Нативный range поверх: даёт клавиатуру и скринридер бесплатно.
+   Сам невидим, тянется вся площадь картинки */
+.result-card__range {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: ew-resize;
+  -webkit-appearance: none;
+  appearance: none;
+  background: none;
+}
+.result-card__range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: calc(46 * var(--wm));
+  height: calc(286 * var(--wm));
+  cursor: ew-resize;
+}
+.result-card__range::-moz-range-thumb {
+  width: calc(46 * var(--wm));
+  height: calc(286 * var(--wm));
+  border: none;
+  cursor: ew-resize;
+}
+.result-card__compare:has(.result-card__range:focus-visible) .result-card__handle::after {
+  outline: 2px solid var(--color-accent);
+  outline-offset: calc(2 * var(--wm));
+}
+
+/* ==== Круглая стрелка ====
+   Кружок и стрелка на currentColor, поэтому состояние красится одним свойством */
+.arrow-btn {
+  flex: none;
+  width: calc(46 * var(--wm));
+  height: calc(46 * var(--wm));
+  color: var(--main-blue);
+  transition: color var(--duration-base) var(--ease-out);
+}
+.arrow-btn svg { width: 100%; height: 100%; }
+/* Иконка из макета смотрит влево — правую получаем отражением, второй файл не нужен */
+.arrow-btn--next svg { transform: scaleX(-1); }
+.arrow-btn:disabled { color: var(--main-blue-50); cursor: default; }
+
+/* Наводим — кружок заливается, стрелка выворачивается. Как у карточек услуг */
+.arrow-btn rect,
+.arrow-btn path { transition: fill var(--duration-base) var(--ease-out); }
+.arrow-btn rect { fill: transparent; }
+.arrow-btn:hover:not(:disabled) rect { fill: currentColor; }
+.arrow-btn:hover:not(:disabled) path { fill: var(--main-white); }
+
+/* ==== Отзывы ==== */
+.reviews__inner {
+  display: flex;
+  flex-direction: column;
+  gap: calc(25 * var(--wm));
+}
+
+.reviews__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.reviews__label {
+  font-family: var(--font-display);
+  font-size: var(--text-descriptor);
+  font-weight: var(--weight-descriptor);
+  line-height: var(--leading-descriptor);
+  text-transform: uppercase;
+  color: var(--text-dark);
+}
+.reviews__arrows { display: flex; align-items: center; gap: calc(12 * var(--wm)); }
+
+/* Слайдер на нативном скролле: стрелки просто листают, а палец и трекпад
+   работают сами. Полоса скрыта — как у страницы */
+.reviews__track {
+  display: flex;
+  gap: calc(20 * var(--wm));
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+}
+.reviews__track::-webkit-scrollbar { display: none; }
+
+.review-card {
+  position: relative;
+  flex: none;
+  width: calc(325 * var(--wm));       /* 285 текста + 20 падинга с двух сторон */
+  padding: calc(20 * var(--wm));
+  border-radius: calc(24 * var(--wm));
+  background: var(--main-white);
+  overflow: hidden;
+  scroll-snap-align: start;
+
+  /* Автор прижат к низу: высота карточки фиксирована по макету */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: calc(20 * var(--wm));
+  height: calc(350 * var(--wm));
+}
+.review-card__text {
+  font-size: var(--text-s);
+  font-weight: var(--weight-s);
+  line-height: var(--leading-s);
+  color: var(--text-dark);
+}
+.review-card__author {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  gap: calc(5 * var(--wm));
+}
+.review-card__name {
+  font-size: var(--text-h5);
+  font-weight: var(--weight-h5);
+  line-height: var(--leading-h5);
+  color: var(--text-dark);
+}
+.review-card__service {
+  font-size: var(--text-s);
+  font-weight: var(--weight-s);
+  line-height: var(--leading-s);
+  color: var(--text-pale-blue);
+}
+
+/* Наводим — карточка целиком заменяется видеоотзывом.
+   visibility и pointer-events обязательны: прозрачный слой иначе перехватывал бы клики */
+.review-card__video {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity var(--duration-base) var(--ease-out),
+              visibility var(--duration-base);
+}
+.review-card:hover .review-card__video,
+.review-card:focus-within .review-card__video {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+.review-card__video img { width: 100%; height: 100%; object-fit: cover; }
+
+.review-card__play {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  width: calc(46 * var(--wm));
+  height: calc(46 * var(--wm));
+  transition: transform var(--duration-base) var(--ease-out);
+}
+.review-card__play:hover { transform: scale(1.08); }
+.review-card__play svg { width: 100%; height: 100%; }
+
+@media (prefers-reduced-motion: reduce) {
+  .review-card__video, .review-card__play { transition: none; }
+  .review-card__play:hover { transform: none; }
+}
+
+/* ==== Запись на консультацию ==== */
+/* В макете форма стоит на 106 сверху при высоте картинки 552 и своей 339:
+   снизу остаётся 107 — то есть она просто отцентрована, числа не нужны */
+/* Панель 1360: картинка 670 вплотную слева, дальше 122 + форма 446 + 122 справа */
+.lead__inner {
+  display: flex;
+  align-items: center;
+  gap: calc(122 * var(--wm));
+  padding-inline-end: calc(122 * var(--wm));
+  background: var(--main-white);
+  border-radius: calc(24 * var(--wm));
+}
+
+/* Фото — вырезанный PNG с прозрачным фоном, голубая подложка видна сквозь него */
+.lead__media {
+  flex: none;
+  width: calc(670 * var(--wm));
+  height: calc(552 * var(--wm));
+  border-radius: calc(24 * var(--wm));
+  background: var(--main-light-blue);
+  overflow: hidden;
+}
+.lead__media img { width: 100%; height: 100%; object-fit: cover; }
+
+.lead__form { flex: none; width: calc(446 * var(--wm)); }
+
+.lead__head {
+  display: flex;
+  flex-direction: column;
+  gap: calc(12 * var(--wm));
+  margin-bottom: calc(25 * var(--wm));
+}
+.lead__head p {
+  font-size: var(--text-l);
+  font-weight: var(--weight-l);
+  line-height: var(--leading-l);
+  color: var(--text-dark);
+}
+
+/* Кнопка и поля по макету уже 440 — ширину задаёт форма */
+.lead__form form { width: calc(440 * var(--wm)); }
+
+.lead__fields,
+.modal__fields {
+  display: flex;
+  flex-direction: column;
+  gap: calc(20 * var(--wm));
+  margin-bottom: calc(40 * var(--wm));
+}
+/* Сами поля — из компонента .field */
+
+/* ==== Модалка ==== */
+.modal {
+  width: calc(566 * var(--wm));
+  height: calc(459 * var(--wm));
+  padding: calc(60 * var(--wm));
+  border: none;
+  border-radius: calc(24 * var(--wm));
+  background: var(--main-white);
+  color: var(--text-dark);
+  overflow: hidden;
+  /* dialog по умолчанию с margin auto, но только в открытом состоянии */
+  margin: auto;
+}
+.modal::backdrop { background: rgba(36, 62, 82, 0.4); }   /* ЖДЁМ: цвета подложки в макете нет */
+
+/* ЖДЁМ: иконку крестика (в экспорте 15×15, base64-SVG — до меня не дошла) */
+.modal__close {
+  position: absolute;
+  top: calc(24 * var(--wm));
+  right: calc(24 * var(--wm));
+  width: calc(15 * var(--wm));
+  height: calc(15 * var(--wm));
+  color: var(--text-dark);
+  transition: color var(--duration-base) var(--ease-out);
+}
+.modal__close:hover { color: var(--main-blue); }
+.modal__close svg { width: 100%; height: 100%; }
+
+.modal__head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(12 * var(--wm));
+  margin-bottom: calc(25 * var(--wm));
+}
+.modal__head h2 { text-align: center; }
+.modal__head p {
+  font-size: var(--text-l);
+  font-weight: var(--weight-l);
+  line-height: var(--leading-l);
+  color: var(--text-dark);
+}
+
+/* ==== FAQ ==== */
+/* Заголовок по центру всей ширины, дескриптор слева — как в «Услугах» */
+.faq__head {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: start;
+  margin-bottom: calc(40 * var(--wm));
+}
+.faq__label {
+  font-family: var(--font-display);
+  font-size: var(--text-descriptor);
+  font-weight: var(--weight-descriptor);
+  line-height: var(--leading-descriptor);
+  text-transform: uppercase;
+  color: var(--text-dark);
+}
+.faq__head h2 { grid-column: 2; text-align: center; }
+
+.faq__list {
+  width: calc(900 * var(--wm));
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: calc(20 * var(--wm));
+}
+
+.faq-item {
+  padding: calc(20 * var(--wm)) calc(24 * var(--wm));
+  border: 1px solid var(--main-blue-50);
+  border-radius: calc(16 * var(--wm));
+  background: var(--main-white);
+  transition: border-color var(--duration-base) var(--ease-out),
+              box-shadow var(--duration-base) var(--ease-out);
+}
+.faq-item.is-open {
+  border-color: var(--accent-pale-lime);
+  box-shadow: var(--shadow-faq);
+}
+
+/* Вопрос без классов внутри заголовка — всё через родителя (под натяжку на WP) */
+.faq-item h3 { font: inherit; }
+.faq-item h3 button {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: calc(10 * var(--wm));
+  text-align: left;
+}
+.faq-item h3 span {
+  font-size: var(--text-h4);
+  font-weight: var(--weight-h4);
+  line-height: var(--leading-h4);
+  color: var(--text-dark);
+}
+/* ЖДЁМ: иконку (в экспорте Frame 29, base64-SVG — до меня не дошёл).
+   Пока кружок по размерам макета, шеврон переворачивается на раскрытии */
+.faq-item h3 svg {
+  flex: none;
+  width: calc(46 * var(--wm));
+  height: calc(46 * var(--wm));
+  color: var(--accent-pale-lime);
+  transition: transform var(--duration-base) var(--ease-out);
+  transform: rotate(180deg);
+}
+.faq-item.is-open h3 svg { transform: none; }
+
+/* Раскрытие через grid 0fr → 1fr: высота анимируется сама, без замеров в JS */
+.faq-item__body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--duration-base) var(--ease-out);
+}
+.faq-item__body > div { overflow: hidden; }
+.faq-item.is-open .faq-item__body { grid-template-rows: 1fr; }
+
+.faq-item__body p {
+  padding-top: calc(20 * var(--wm));
+  font-size: var(--text-m);
+  font-weight: var(--weight-m);
+  line-height: var(--leading-m);
+  color: var(--text-dark);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .faq-item, .faq-item h3 svg, .faq-item__body { transition: none; }
+}
+
+/* ==== Страница блога ==== */
+.blog-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(40 * var(--wm));
+  padding-top: calc(40 * var(--wm));
+  padding-bottom: calc(var(--space-section) / 2);
+}
+
+/* Заголовок и подзаголовок по центру, ширина текста 555 */
+.blog-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(25 * var(--wm));
+  width: calc(555 * var(--wm));
+  text-align: center;
+}
+/* h1 через родителя: макет 32/35 Playfair — это стиль h2, а не дефолтный h1 40 */
+.blog-hero h1 {
+  font-family: var(--font-display);
+  font-size: var(--text-h2);
+  font-weight: var(--weight-h2);
+  line-height: var(--leading-h2);
+  color: var(--text-dark);
+}
+.blog-hero p {
+  font-size: var(--text-l);
+  line-height: var(--leading-l);
+  color: var(--text-dark);
+}
+
+/* Фильтр-чипы: активный залит accent-pale-lime, остальные — он же на 30% */
+.blog-filter {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: calc(12 * var(--wm));
+}
+.blog-chip {
+  padding: calc(9 * var(--wm)) calc(10 * var(--wm)) calc(7 * var(--wm));
+  border-radius: calc(24 * var(--wm));
+  background: var(--chip-idle);
+  font-size: var(--text-s-2);
+  font-weight: var(--weight-s-2);
+  line-height: var(--leading-s-2);
+  color: var(--text-dark);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color var(--duration-base) var(--ease-out);
+}
+.blog-chip.is-active { background: var(--accent-pale-lime); }
+
+/* Сетка страницы: те же карточки, но переносим по 3 в ряд */
+.blog__grid--page {
+  flex-wrap: wrap;
+  row-gap: calc(20 * var(--wm));
+  width: 100%;
+}
+.blog__grid--page > li { display: flex; }
+
+/* --- Заголовочный (последний) пост: широкая карточка --- */
+.blog-featured {
+  position: relative;
+  width: 100%;
+  padding: calc(20 * var(--wm));
+  border-radius: calc(24 * var(--wm));
+  background: var(--main-white);
+  display: flex;
+  gap: calc(20 * var(--wm));
+}
+.blog-featured__media {
+  flex: none;
+  width: calc(650 * var(--wm));
+  height: calc(307 * var(--wm));
+  border-radius: calc(16 * var(--wm));
+  overflow: hidden;
+}
+/* Обесцвечена, цвет возвращается при наведении — как у карточек сетки */
+.blog-featured__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1);
+  transition: filter var(--duration-base) var(--ease-out);
+}
+.blog-featured:hover .blog-featured__media img,
+.blog-featured:focus-within .blog-featured__media img { filter: grayscale(0); }
+
+.blog-featured__body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: calc(40 * var(--wm)) 0;
+}
+.blog-featured__date {
+  font-size: var(--text-s-2);
+  font-weight: var(--weight-s-2);
+  line-height: var(--leading-s-2);
+  color: var(--text-dark);
+}
+/* 40 от даты до заголовка (макет: дата y20, заголовок y60) */
+.blog-featured__text {
+  margin-top: calc(25 * var(--wm));
+  display: flex;
+  flex-direction: column;
+  gap: calc(12 * var(--wm));
+  width: calc(606 * var(--wm));
+}
+.blog-featured__text h3 {
+  font-size: var(--text-h4);
+  font-weight: var(--weight-h4);
+  line-height: var(--leading-h4);
+  color: var(--text-dark);
+}
+.blog-featured__text p {
+  font-size: var(--text-s);
+  font-weight: var(--weight-s);
+  line-height: var(--leading-s);
+  color: var(--text-dark);
+}
+/* Низ карточки: слева ярлык категории, справа «Читать статью» */
+.blog-featured__foot {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ==== Служебные страницы: спасибо / 404 ==== */
+.utility {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.thanks   { padding-block: calc(227 * var(--wm)); }   /* до шапки и подвала */
+.notfound { padding-block: calc(280 * var(--wm)); }
+.utility p {
+  font-size: var(--text-l);
+  line-height: var(--leading-l);
+  color: var(--text-dark);
+}
+
+/* Спасибо: смайлик, текст, кнопка — по центру колонкой */
+.thanks__icon { width: calc(80 * var(--wm)); height: calc(80 * var(--wm)); }
+.thanks__text {
+  margin-top: calc(50 * var(--wm));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(12 * var(--wm));
+}
+.thanks .btn { margin-top: calc(40 * var(--wm)); }
+
+/* 404: крупная надпись слева, текст и кнопка справа */
+.notfound {
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: calc(40 * var(--wm));
+  text-align: left;
+}
+.notfound__art { width: calc(370 * var(--wm)); height: calc(160 * var(--wm)); }
+.notfound__body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: calc(40 * var(--wm));
+}
+.notfound__text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: calc(12 * var(--wm));
+}
+
+/* ==== Страница контактов ==== */
+.contacts-page {
+  display: flex;
+  flex-direction: column;
+  padding-top: calc(50 * var(--wm));
+  padding-bottom: calc(var(--space-section) / 2);
+}
+/* Заголовок и подзаголовок по центру, мера текста 713 */
+.contacts-page__head {
+  align-self: center;
+  width: calc(713 * var(--wm));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(25 * var(--wm));
+  text-align: center;
+}
+.contacts-page__head p {
+  font-size: var(--text-l);
+  line-height: var(--leading-l);
+  color: var(--text-dark);
+}
+/* Карта во всю ширину; 40 от шапки, 20 до блока «свяжитесь с нами» */
+.contacts-page__map {
+  margin-top: calc(40 * var(--wm));
+  width: 100%;
+  height: calc(335 * var(--wm));
+  border-radius: calc(24 * var(--wm));
+  overflow: hidden;
+}
+.contacts-page__map iframe { width: 100%; height: 100%; border: 0; display: block; }
+.contacts-page .contacts__grid { margin-top: calc(20 * var(--wm)); }
+
+/* ==== Страница статьи ==== */
+/* Колонка по центру; кнопка «Назад» вынесена в левое поле. Крупные блоки
+   (шапка, фото, текст) разделены 40, секции текста внутри — 25 */
+.article {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(40 * var(--wm));
+  padding-top: calc(50 * var(--wm));
+  padding-bottom: calc(var(--space-section) / 2);
+}
+/* left = отступ контейнера, иначе абсолют встаёт в край сайта мимо падинга */
+.article__back {
+  position: absolute;
+  left: var(--container-pad);
+  top: calc(50 * var(--wm));
+}
+
+/* Шапка по ширине фото (900), весь текст выровнен влево. Мера абзаца — 732 */
+.article__head {
+  width: calc(900 * var(--wm));
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: calc(12 * var(--wm));
+}
+/* Заголовок статьи: Gilroy 600 32/35 — это стиль h3, тег h1 по смыслу */
+.article__head h1 {
+  margin-top: calc(18 * var(--wm));           /* до ярлыка ~30 */
+  font-family: var(--font-sans);
+  font-size: var(--text-h3);
+  font-weight: var(--weight-h3);
+  line-height: var(--leading-h3);
+  color: var(--text-dark);
+}
+.article__intro {
+  max-width: calc(732 * var(--wm));
+  font-size: var(--text-m);
+  line-height: var(--leading-m);
+  color: var(--text-dark);
+}
+.article__date {
+  margin-top: calc(18 * var(--wm));            /* после текста ~30 */
+  font-size: var(--text-s-2);
+  font-weight: var(--weight-s-2);
+  line-height: var(--leading-s-2);
+  color: var(--text-dark);
+}
+
+/* Фото цветное сразу, без обесцвечивания */
+.article__img {
+  width: calc(900 * var(--wm));
+  height: calc(424 * var(--wm));
+  border-radius: calc(24 * var(--wm));
+  object-fit: cover;
+}
+
+.article__body {
+  width: calc(900 * var(--wm));
+  display: flex;
+  flex-direction: column;
+  gap: calc(25 * var(--wm));
+}
+.article__body section {
+  display: flex;
+  flex-direction: column;
+  gap: calc(12 * var(--wm));
+}
+/* Подзаголовок секции: Gilroy 500 22/26 — стиль h4 (глобальный h2 — Playfair, перебиваем) */
+.article__body h2 {
+  font-family: var(--font-sans);
+  font-size: var(--text-h4);
+  font-weight: var(--weight-h4);
+  line-height: var(--leading-h4);
+  color: var(--text-dark);
+}
+.article__body p {
+  font-size: var(--text-m);
+  line-height: var(--leading-m);
+  color: var(--text-dark);
+}
+
+/* ==== Блог (на главной) ==== */
+/* Дескриптор слева, заголовок по центру, кнопка справа — центр держит сама сетка */
+.blog__head {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  margin-bottom: calc(40 * var(--wm));
+}
+.blog__label {
+  font-family: var(--font-display);
+  font-size: var(--text-descriptor);
+  font-weight: var(--weight-descriptor);
+  line-height: var(--leading-descriptor);
+  text-transform: uppercase;
+  color: var(--text-dark);
+}
+.blog__head h2 { grid-column: 2; text-align: center; }
+.blog__head .btn { grid-column: 3; justify-self: end; }
+
+/* 3 в ряд: 3×440 + 2×20 = 1360 */
+.blog__grid {
+  display: flex;
+  gap: calc(20 * var(--wm));
+}
+
+.post-card {
+  width: calc(440 * var(--wm));       /* 400 контента + 20 падинга с двух сторон */
+  height: 100%;
+  padding: calc(20 * var(--wm));
+  border-radius: calc(24 * var(--wm));
+  background: var(--main-white);
+  display: flex;
+  flex-direction: column;
+  gap: calc(24 * var(--wm));          /* до «Читать статью» */
+}
+/* Внутри группы отбивы по 20 — поэтому она отдельным контейнером, а не общим гапом */
+.post-card__top {
+  display: flex;
+  flex-direction: column;
+  gap: calc(20 * var(--wm));
+}
+/* Обесцвечена, цвет возвращается при наведении на карточку */
+.post-card img {
+  width: 100%;
+  height: calc(204 * var(--wm));
+  object-fit: cover;
+  border-radius: calc(16 * var(--wm));
+  filter: grayscale(1);
+  transition: filter var(--duration-base) var(--ease-out);
+}
+.post-card:hover img,
+.post-card:focus-visible img { filter: grayscale(0); }
+
+.post-card__meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.post-card__tag {
+  padding: calc(9 * var(--wm)) calc(10 * var(--wm)) calc(7 * var(--wm));
+  border-radius: calc(24 * var(--wm));
+  background: var(--accent-pale-lime);
+}
+.post-card__tag,
+.post-card__date {
+  font-size: var(--text-s-2);
+  font-weight: var(--weight-s-2);
+  line-height: var(--leading-s-2);
+  color: var(--text-dark);
+  white-space: nowrap;
+}
+
+.post-card__text {
+  display: flex;
+  flex-direction: column;
+  gap: calc(12 * var(--wm));
+}
+/* Заголовок без класса — через родителя (под натяжку на WP) */
+.post-card__text h3 {
+  font-size: var(--text-h4);
+  font-weight: var(--weight-h4);
+  line-height: var(--leading-h4);
+  color: var(--text-dark);
+}
+.post-card__text p {
+  font-size: var(--text-s);
+  font-weight: var(--weight-s);
+  line-height: var(--leading-s);
+  color: var(--text-dark);
+}
+
+/* Прижата к низу: у карточек разной длины ссылка стоит на одной линии.
+   Сама линия — из утилиты .link-solid (global.css) */
+.post-card__more { margin-top: auto; }
+
+/* ==== Контакты и заявка ==== */
+/* Две панели 670 с зазором 20 = 1360 */
+.contacts__grid {
+  display: flex;
+  gap: calc(20 * var(--wm));
+}
+.contacts__card,
+.cta-card {
+  flex: none;
+  width: calc(670 * var(--wm));
+  min-height: calc(377 * var(--wm));
+  padding: calc(40 * var(--wm));
+  border-radius: calc(24 * var(--wm));
+  display: flex;
+  flex-direction: column;
+}
+/* Оба заголовка — Gilroy 600 32/35, то есть стиль h3, а не h2 */
+.contacts__card h2,
+.cta-card h2 {
+  font-family: var(--font-sans);
+  font-size: var(--text-h3);
+  font-weight: var(--weight-h3);
+  line-height: var(--leading-h3);
+}
+
+/* --- Левая: контакты --- */
+.contacts__card {
+  border: 1px solid var(--text-pale-blue);
+  background: var(--main-white);
+}
+.contacts__card h2 { margin-bottom: calc(30 * var(--wm)); }
+
+/* Колонки в макете стоят на 0 / 190 / 386 при общей 523 — это сетка, а не разброс.
+   Адрес занимает первые две, e-mail — третью */
+.contacts__info {
+  width: calc(523 * var(--wm));
+  display: grid;
+  grid-template-columns: calc(190 * var(--wm)) calc(196 * var(--wm)) calc(137 * var(--wm));
+  row-gap: calc(16 * var(--wm));
+  align-items: start;
+}
+.contacts__col--address { grid-column: 1 / 3; }
+.contacts__col--email   { grid-column: 3; }
+
+.contacts__col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: calc(5 * var(--wm));
+}
+/* Подзаголовки без класса — через родителя (под натяжку на WP) */
+.contacts__col h3 {
+  font-size: var(--text-h5);
+  font-weight: var(--weight-h5);
+  line-height: var(--leading-h5);
+  color: var(--text-dark);
+}
+.contacts__col p,
+.contacts__col > a {
+  font-size: var(--text-s);
+  font-weight: var(--weight-s);
+  line-height: var(--leading-s);
+  color: var(--text-dark);
+}
+.contacts__socials {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: calc(12 * var(--wm));
+}
+
+.contacts__card .btn { margin-top: auto; }
+
+/* --- Правая: заявка --- */
+.cta-card {
+  background: var(--text-dark);
+  color: var(--text-white);
+}
+/* Цвет обязателен: у h1–h6 свой color, он перебивает белый, заданный панели */
+.cta-card h2 {
+  margin-bottom: calc(12 * var(--wm));
+  color: var(--text-white);
+}
+.cta-card__note {
+  font-size: var(--text-m);
+  font-weight: var(--weight-m);
+  line-height: var(--leading-m);
+  color: var(--text-white);
+}
+.cta-card form { margin-top: auto; }
+
+/* Имя и телефон в ряд по 285, список на всю ширину */
+.cta-card__fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: calc(20 * var(--wm));
+  margin-bottom: calc(40 * var(--wm));
+}
+/* Поля — из компонента .field. Кнопка списка повторяет их вид */
+.cta-card__fields .select__toggle {
+  height: calc(52 * var(--wm));
+  padding-inline: calc(24 * var(--wm));
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--field-bg-dark);
+  font-size: var(--text-m);
+  font-weight: var(--weight-m);
+  line-height: var(--leading-m);
+  color: var(--text-white);
+  transition: background-color var(--duration-base) var(--ease-out);
+}
+.cta-card__fields .select__toggle:hover { background: var(--field-bg-dark-active); }
+.select { grid-column: 1 / -1; }
+
+/* ==== Поле ввода ====
+   Одна база на обе панели: тема переключается модификатором, состояния —
+   локальными переменными, поэтому правил на каждое сочетание не нужно */
+.field {
+  --_bg:     var(--field-bg);
+  --_bg-on:  var(--field-bg-active);
+  --_line:   var(--field-line);
+  --_text:   var(--text-dark);
+  --_label:  var(--text-dark);
+  --_ok:     var(--field-success);
+
+  --_fill: var(--_bg);
+  --_edge: transparent;
+
+  position: relative;
+  height: calc(52 * var(--wm));
+  /* 23, а не 24: рамка в CSS прибавляется к размеру, в Figma рисуется внутрь.
+     Рамка есть всегда (прозрачная) — иначе поле дёргалось бы при её появлении */
+  padding-inline: calc(23 * var(--wm));
+  border: 1px solid var(--_edge);
+  border-radius: var(--radius-pill);
+  background: var(--_fill);
+  transition: background-color var(--duration-base) var(--ease-out),
+              border-color var(--duration-base) var(--ease-out);
+}
+.field--dark {
+  --_bg:    var(--field-bg-dark);
+  --_bg-on: var(--field-bg-dark-active);
+  --_line:  var(--field-line-dark);
+  --_text:  var(--text-white);
+  --_label: var(--text-white);
+  --_ok:    var(--field-success-dark);
+}
+
+.field:hover { --_fill: var(--_bg-on); }
+
+/* Поле без класса — через родителя (под натяжку на WP/CF7) */
+.field input {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: none;
+  background: none;
+  font-size: var(--text-m);
+  font-weight: var(--weight-m);
+  line-height: var(--leading-m);
+  color: var(--_text);
+}
+/* placeholder=" " нужен только чтобы работал :placeholder-shown — видимую
+   подпись даёт label, он же уезжает наверх */
+.field input::placeholder { color: transparent; }
+.field input:focus { outline: none; }
+
+/* Автозаполнение. Chrome закрашивает поле своим фоном и background из CSS
+   игнорирует, а подменить сплошным цветом нельзя — наша подложка полупрозрачная
+   и лежит на разных панелях. Поэтому откладываем закраску переходом:
+   фон Chrome не успевает прорисоваться и просвечивает --_fill */
+.field input:-webkit-autofill,
+.field input:-webkit-autofill:hover,
+.field input:-webkit-autofill:focus,
+.field input:-webkit-autofill:active {
+  -webkit-text-fill-color: var(--_text);
+  caret-color: var(--_text);
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+.field label {
+  position: absolute;
+  left: calc(24 * var(--wm));
+  top: 50%;
+  translate: 0 -50%;
+  font-size: var(--text-m);
+  font-weight: var(--weight-m);
+  line-height: var(--leading-m);
+  color: var(--_label);
+  pointer-events: none;
+  transition: top var(--duration-base) var(--ease-out),
+              translate var(--duration-base) var(--ease-out),
+              font-size var(--duration-base) var(--ease-out),
+              color var(--duration-base) var(--ease-out);
+}
+
+/* Набрано или в фокусе: подпись уезжает наверх, текст сдвигается под неё.
+   Внутри рамки: 10 + 10(подпись) + 20(текст) + 10 = 50, плюс рамка = 52.
+   :has обёрнут в :where — иначе он весит больше, чем .is-error, и состояние
+   ошибки не смогло бы перекрасить рамку заполненного поля */
+.field:focus-within,
+.field:where(:has(input:not(:placeholder-shown))) {
+  --_fill: var(--_bg-on);
+  --_edge: var(--_line);
+}
+.field:focus-within label,
+.field:where(:has(input:not(:placeholder-shown))) label {
+  top: calc(10 * var(--wm));
+  translate: 0 0;
+  font-size: calc(10 * var(--wm));
+  line-height: 1;
+}
+.field:focus-within input,
+.field:where(:has(input:not(:placeholder-shown))) input {
+  padding-block: calc(20 * var(--wm)) calc(10 * var(--wm));
+}
+/* На тёмной панели набранное поле гасит подпись до 50%, а в фокусе — нет */
+.field--dark:where(:has(input:not(:placeholder-shown))):not(:focus-within) {
+  --_label: var(--text-white-50);
+}
+
+/* Иконка одна на оба состояния: форма из mask, цвет из currentColor */
+.field__icon {
+  position: absolute;
+  right: calc(24 * var(--wm));
+  top: 50%;
+  translate: 0 -50%;
+  display: none;
+  background: currentColor;
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+          mask-size: 100% 100%;
+}
+
+.field.is-error   { --_edge: var(--field-error); --_label: var(--field-error); --_fill: var(--_bg); }
+.field.is-success { --_edge: var(--_ok);         --_label: var(--_ok);         --_fill: var(--_bg); }
+
+.field.is-error .field__icon,
+.field.is-success .field__icon { display: block; }
+.field.is-error .field__icon {
+  width: calc(8 * var(--wm));
+  height: calc(8 * var(--wm));
+  color: var(--field-error);
+  -webkit-mask-image: var(--icon-cross);
+          mask-image: var(--icon-cross);
+}
+.field.is-success .field__icon {
+  width: calc(12 * var(--wm));
+  height: calc(8 * var(--wm));
+  color: var(--_ok);
+  -webkit-mask-image: var(--icon-check);
+          mask-image: var(--icon-check);
+}
+/* В ошибке подпись — это текст ошибки, она стоит наверху всегда */
+.field.is-error label {
+  top: calc(11 * var(--wm));
+  translate: 0 0;
+  font-size: calc(10 * var(--wm));
+  line-height: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .field, .field label { transition: none; }
+}
+
+/* ==== Выпадающий список ==== */
+.select { position: relative; }
+.select__toggle {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: calc(10 * var(--wm));
+  text-align: left;
+}
+.select__toggle svg {
+  flex: none;
+  width: calc(15 * var(--wm));
+  height: calc(20 * var(--wm));
+  transition: transform var(--duration-base) var(--ease-out);
+}
+.select__toggle[aria-expanded="true"] svg { transform: rotate(180deg); }
+
+.select__list {
+  position: absolute;
+  top: calc(100% + 8 * var(--wm));
+  left: 0;
+  right: 0;
+  z-index: var(--z-menu);
+  padding: calc(8 * var(--wm));
+  border-radius: calc(24 * var(--wm));
+  background: var(--main-white);
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(calc(-6 * var(--wm)));
+  transition: opacity var(--duration-base) var(--ease-out),
+              transform var(--duration-base) var(--ease-out),
+              visibility var(--duration-base);
+}
+.select.is-open .select__list {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+.select__list li {
+  padding: calc(10 * var(--wm)) calc(18 * var(--wm));
+  border-radius: calc(24 * var(--wm));
+  font-size: var(--text-s);
+  font-weight: var(--weight-s);
+  line-height: var(--leading-s);
+  color: var(--text-dark);
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-out);
+}
+.select__list li:hover,
+.select__list li:focus-visible,
+.select__list li[aria-selected="true"] { background: var(--field-bg); }
+
+@media (prefers-reduced-motion: reduce) {
+  .select__list, .select__toggle svg { transition: none; }
+}
+
+@media (max-width: 767px) {
+  .btn {
+    min-height: calc(46 * var(--wm));
+    padding-inline: calc(24 * var(--wm));
+    padding-block: calc(16 * var(--wm)) calc(14 * var(--wm));
+    font-size: calc(16 * var(--wm));
+    line-height: 1;
+  }
+
+  .btn--outline {
+    padding-inline: calc(23 * var(--wm));
+    padding-block: calc(15 * var(--wm)) calc(13 * var(--wm));
+  }
+
+  .section { padding-block: calc(32 * var(--wm)); }
+
+  .hero {
+    padding-top: calc(10 * var(--wm));
+    padding-bottom: calc(64 * var(--wm));
+  }
+
+  .hero__inner {
+    flex-direction: column;
+    gap: calc(16 * var(--wm));
+  }
+
+  .hero__media {
+    width: 100%;
+    height: calc(310 * var(--wm));
+    border-radius: calc(50 * var(--wm));
+  }
+
+  .hero__text {
+    width: 100%;
+    padding: 0;
+    gap: calc(14 * var(--wm));
+  }
+
+  .hero__text h1 {
+    order: 1;
+    width: calc(338 * var(--wm));
+    font-size: calc(30 * var(--wm));
+    line-height: 1.1;
+  }
+
+  .hero__text p {
+    order: 2;
+    width: 100%;
+    font-size: calc(14 * var(--wm));
+    line-height: calc(17 / 14);
+  }
+
+  .hero__cta {
+    order: 3;
+    width: calc(210 * var(--wm));
+    height: calc(210 * var(--wm));
+    margin-top: calc(10 * var(--wm));
+  }
+
+  .hero__ring {
+    width: calc(210 * var(--wm));
+    height: calc(210 * var(--wm));
+  }
+
+  .about__inner {
+    flex-direction: column;
+    gap: calc(24 * var(--wm));
+  }
+
+  .about__left {
+    width: 100%;
+    padding-top: 0;
+    display: flex;
+    flex-direction: column;
+    gap: calc(16 * var(--wm));
+  }
+
+  .about__label,
+  .services__label,
+  .results__label,
+  .reviews__label,
+  .faq__label,
+  .blog__label {
+    font-size: calc(14 * var(--wm));
+    line-height: calc(17 / 14);
+  }
+
+  .about__head {
+    margin-bottom: 0;
+  }
+
+  .about__head h2 {
+    width: calc(261 * var(--wm));
+    font-size: calc(24 * var(--wm));
+    line-height: calc(26 / 24);
+  }
+
+  .about__body {
+    gap: calc(24 * var(--wm));
+  }
+
+  .about__body p {
+    font-size: calc(16 * var(--wm));
+    line-height: calc(21 / 16);
+  }
+
+  .about__body .btn {
+    width: 100%;
+    order: 2;
+  }
+
+  .about__media {
+    width: 100%;
+    order: 2;
+  }
+
+  .about__media img {
+    height: calc(300 * var(--wm));
+    border-radius: calc(24 * var(--wm));
+  }
+
+  .services__inner {
+    gap: calc(20 * var(--wm));
+  }
+
+  .services__head,
+  .faq__head,
+  .blog__head {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: calc(16 * var(--wm));
+    margin-bottom: 0;
+  }
+
+  .services__head h2,
+  .faq__head h2,
+  .blog__head h2 {
+    text-align: left;
+    font-size: calc(24 * var(--wm));
+    line-height: calc(26 / 24);
+  }
+
+  .services__grid {
+    flex-direction: column;
+    gap: calc(16 * var(--wm));
+  }
+
+  .service-card {
+    width: 100%;
+    height: calc(466 * var(--wm));
+    border-radius: calc(24 * var(--wm));
+    overflow: hidden;
+  }
+
+  .service-card__head,
+  .service-card:hover:has(.service-card__subs) .service-card__head {
+    height: calc(166 * var(--wm));
+  }
+
+  .service-card__title {
+    left: calc(16 * var(--wm));
+    top: calc(24 * var(--wm));
+    width: calc(321 * var(--wm));
+    gap: calc(10 * var(--wm));
+  }
+
+  .service-card__title h3 {
+    width: calc(220 * var(--wm));
+    font-size: calc(20 * var(--wm));
+    line-height: calc(24 / 20);
+  }
+
+  .service-card__subs {
+    width: 100%;
+    gap: calc(6 * var(--wm));
+    opacity: 1;
+  }
+
+  .service-card__subs li {
+    font-size: calc(16 * var(--wm));
+    line-height: calc(21 / 16);
+  }
+
+  .service-card__arrow {
+    right: calc(16 * var(--wm));
+    top: calc(16 * var(--wm));
+    width: calc(56 * var(--wm));
+    height: calc(56 * var(--wm));
+  }
+
+  .service-card__media {
+    height: calc(300 * var(--wm));
+    padding: calc(10 * var(--wm));
+    border-radius: calc(24 * var(--wm));
+  }
+
+  .service-card__media img {
+    border-radius: calc(16 * var(--wm));
+  }
+
+  .results {
+    padding: calc(40 * var(--wm)) calc(20 * var(--wm));
+    border-radius: calc(50 * var(--wm));
+    gap: calc(16 * var(--wm));
+  }
+
+  .results__head {
+    display: contents;
+  }
+
+  .results__label { order: 1; }
+
+  .results__grid {
+    order: 2;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: calc(16 * var(--wm));
+  }
+
+  .results__head .btn {
+    order: 3;
+    width: 100%;
+    margin-top: calc(2 * var(--wm));
+  }
+
+  .result-card {
+    width: 100%;
+    padding: calc(9 * var(--wm));
+    border-radius: calc(24 * var(--wm));
+    gap: calc(16 * var(--wm));
+  }
+
+  .result-card:nth-child(n + 4) {
+    display: none;
+  }
+
+  .result-card__compare {
+    height: calc(286 * var(--wm));
+    border-radius: calc(14 * var(--wm));
+  }
+
+  .result-card__img {
+    width: calc(333 * var(--wm));
+  }
+
+  .result-card h3 {
+    margin-left: calc(6 * var(--wm));
+    margin-bottom: calc(2 * var(--wm));
+    font-size: calc(20 * var(--wm));
+    line-height: calc(24 / 20);
+  }
+
+  .reviews {
+    overflow: hidden;
+  }
+
+  .reviews__inner {
+    gap: calc(16 * var(--wm));
+  }
+
+  .reviews__arrows {
+    display: none;
+  }
+
+  .reviews__track {
+    width: calc(100vw - 20 * var(--wm));
+    gap: calc(16 * var(--wm));
+  }
+
+  .review-card {
+    width: calc(261 * var(--wm));
+    height: calc(350 * var(--wm));
+    padding: calc(20 * var(--wm));
+  }
+
+  .review-card__text {
+    font-size: calc(14 * var(--wm));
+    line-height: calc(17 / 14);
+  }
+
+  .lead {
+    padding-inline: 0;
+  }
+
+  .lead__inner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: calc(40 * var(--wm));
+    padding-inline-end: 0;
+    padding-bottom: calc(40 * var(--wm));
+    border-radius: calc(24 * var(--wm));
+  }
+
+  .lead__media {
+    width: 100%;
+    height: calc(351 * var(--wm));
+    border-radius: calc(24 * var(--wm));
+  }
+
+  .lead__form {
+    width: auto;
+    margin-inline: calc(20 * var(--wm));
+  }
+
+  .lead__head {
+    align-items: center;
+    gap: calc(12 * var(--wm));
+    margin-bottom: calc(22 * var(--wm));
+    text-align: center;
+  }
+
+  .lead__head h2 {
+    font-size: calc(24 * var(--wm));
+    line-height: calc(26 / 24);
+  }
+
+  .lead__head p {
+    width: calc(335 * var(--wm));
+    font-size: calc(14 * var(--wm));
+    line-height: calc(17 / 14);
+  }
+
+  .lead__form form {
+    width: 100%;
+  }
+
+  .lead__fields,
+  .modal__fields {
+    gap: calc(12 * var(--wm));
+    margin-bottom: calc(22 * var(--wm));
+  }
+
+  .field {
+    height: calc(52 * var(--wm));
+    padding-inline: calc(23 * var(--wm));
+  }
+
+  .field input,
+  .field label {
+    font-size: calc(16 * var(--wm));
+    line-height: calc(20 / 16);
+  }
+
+  .faq {
+    display: flex;
+    flex-direction: column;
+    gap: calc(20 * var(--wm));
+  }
+
+  .faq__list {
+    width: 100%;
+    gap: calc(16 * var(--wm));
+  }
+
+  .faq-item {
+    padding: calc(16 * var(--wm));
+    border-radius: calc(16 * var(--wm));
+  }
+
+  .faq-item h3 button {
+    gap: calc(10 * var(--wm));
+  }
+
+  .faq-item h3 span {
+    max-width: calc(267 * var(--wm));
+    font-size: calc(16 * var(--wm));
+    line-height: calc(18 / 16);
+  }
+
+  .faq-item h3 svg {
+    width: calc(46 * var(--wm));
+    height: calc(46 * var(--wm));
+  }
+
+  .faq-item__body p {
+    padding-top: calc(16 * var(--wm));
+    font-size: calc(14 * var(--wm));
+    line-height: calc(17 / 14);
+  }
+
+  .blog {
+    display: flex;
+    flex-direction: column;
+    gap: calc(21 * var(--wm));
+  }
+
+  .blog__head {
+    display: contents;
+  }
+
+  .blog__label {
+    order: 1;
+  }
+
+  .blog__head h2 {
+    order: 2;
+    text-align: left;
+  }
+
+  .blog__grid {
+    order: 3;
+    flex-direction: column;
+    gap: calc(16 * var(--wm));
+  }
+
+  .blog__head .btn {
+    order: 4;
+    width: 100%;
+  }
+
+  .post-card {
+    width: 100%;
+    padding: calc(16 * var(--wm));
+    border-radius: calc(24 * var(--wm));
+    gap: calc(12 * var(--wm));
+  }
+
+  .post-card__top {
+    gap: calc(12 * var(--wm));
+  }
+
+  .post-card__meta {
+    order: 1;
+  }
+
+  .post-card img {
+    order: 2;
+    height: calc(150 * var(--wm));
+    border-radius: calc(16 * var(--wm));
+  }
+
+  .post-card__text {
+    order: 3;
+    gap: calc(8 * var(--wm));
+  }
+
+  .post-card__text h3 {
+    font-size: calc(16 * var(--wm));
+    line-height: calc(18 / 16);
+  }
+
+  .post-card__text p {
+    font-size: calc(14 * var(--wm));
+    line-height: calc(17 / 14);
+  }
+
+  .post-card__more {
+    display: none;
+  }
+
+  .page-home .contacts__grid {
+    flex-direction: column;
+    gap: calc(16 * var(--wm));
+  }
+
+  .page-home .contacts__card,
+  .page-home .cta-card {
+    width: 100%;
+    min-height: 0;
+    border-radius: calc(24 * var(--wm));
+  }
+
+  .page-home .contacts__card {
+    padding: calc(24 * var(--wm)) calc(20 * var(--wm));
+    border-color: var(--text-pale-blue);
+  }
+
+  .page-home .contacts__card h2 {
+    margin-bottom: calc(22 * var(--wm));
+    font-size: calc(24 * var(--wm));
+    font-weight: var(--weight-semibold);
+    line-height: calc(26 / 24);
+    text-align: center;
+  }
+
+  .page-home .contacts__info {
+    width: 100%;
+    display: grid;
+    grid-template-columns: minmax(0, calc(137 * var(--wm))) minmax(0, calc(168 * var(--wm)));
+    column-gap: calc(48 * var(--wm));
+    row-gap: calc(16 * var(--wm));
+    align-items: start;
+  }
+
+  .page-home .contacts__col {
+    gap: calc(6 * var(--wm));
+  }
+
+  .page-home .contacts__col:nth-child(1) {
+    grid-column: 1;
+    grid-row: 1;
+    max-width: calc(137 * var(--wm));
+  }
+
+  .page-home .contacts__col:nth-child(2) {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    max-width: calc(168 * var(--wm));
+  }
+
+  .page-home .contacts__col:nth-child(3) {
+    grid-column: 1;
+    grid-row: 3;
+    max-width: calc(137 * var(--wm));
+  }
+
+  .page-home .contacts__col--address {
+    grid-column: 2;
+    grid-row: 3;
+    max-width: calc(168 * var(--wm));
+  }
+
+  .page-home .contacts__col--email {
+    grid-column: 1;
+    grid-row: 2;
+    max-width: calc(137 * var(--wm));
+  }
+
+  .page-home .contacts__col h3 {
+    font-size: calc(16 * var(--wm));
+    font-weight: var(--weight-semibold);
+    line-height: calc(18 / 16);
+  }
+
+  .page-home .contacts__col p,
+  .page-home .contacts__col > a {
+    font-size: calc(14 * var(--wm));
+    line-height: calc(18 / 14);
+  }
+
+  .page-home .contacts__socials {
+    flex-direction: row;
+    gap: calc(16 * var(--wm));
+  }
+
+  .page-home .contacts__socials a {
+    width: calc(25 * var(--wm));
+    height: calc(25 * var(--wm));
+    box-shadow: none;
+  }
+
+  .page-home .contacts__socials img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .page-home .contacts__card .btn {
+    width: 100%;
+    margin-top: calc(24 * var(--wm));
+  }
+
+  .page-home .cta-card {
+    height: calc(371 * var(--wm));
+    max-height: calc(371 * var(--wm));
+    padding: calc(24 * var(--wm)) calc(20 * var(--wm));
+    background: var(--text-dark);
+  }
+
+  .page-home .cta-card h2 {
+    margin-bottom: calc(10 * var(--wm));
+    font-size: calc(24 * var(--wm));
+    font-weight: var(--weight-semibold);
+    line-height: calc(26 / 24);
+    text-align: center;
+  }
+
+  .page-home .cta-card__note {
+    width: 100%;
+    max-width: calc(353 * var(--wm));
+    margin-bottom: calc(20 * var(--wm));
+    font-size: calc(14 * var(--wm));
+    font-weight: var(--weight-regular);
+    line-height: 1.2;
+    text-align: center;
+    white-space: nowrap;
+    transform: scaleX(0.96);
+    transform-origin: center;
+  }
+
+  .page-home .cta-card form {
+    margin-top: 0;
+  }
+
+  .page-home .cta-card__fields {
+    grid-template-columns: 1fr;
+    gap: calc(12 * var(--wm));
+    margin-bottom: calc(24 * var(--wm));
+  }
+
+  .page-home .cta-card__fields .field,
+  .page-home .cta-card__fields .select__toggle {
+    height: calc(52 * var(--wm));
+    max-height: calc(52 * var(--wm));
+  }
+
+  .page-home .cta-card__fields .select__toggle {
+    padding-inline: calc(24 * var(--wm));
+    background: var(--field-bg-dark);
+    font-size: calc(16 * var(--wm));
+    line-height: calc(20 / 16);
+    color: var(--text-white);
+  }
+
+  .page-home .cta-card .btn {
+    min-height: 0;
+    height: calc(46 * var(--wm));
+    max-height: calc(46 * var(--wm));
+  }
+
+  .modal {
+    width: calc(353 * var(--wm));
+    height: auto;
+    padding: calc(48 * var(--wm)) calc(20 * var(--wm)) calc(24 * var(--wm));
+    border-radius: calc(24 * var(--wm));
+  }
+
+  .modal__head h2 {
+    font-size: calc(24 * var(--wm));
+    line-height: calc(26 / 24);
+  }
+
+  .modal__head p {
+    font-size: calc(14 * var(--wm));
+    line-height: calc(17 / 14);
+    text-align: center;
+  }
+}

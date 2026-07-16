@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Блог — Hairline</title>
+  <meta name="description" content="" />
+
+  <link rel="preload" as="font" type="font/woff2" href="assets/fonts/gilroy-500.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="assets/fonts/playfair-var.woff2" crossorigin />
+
+  <link rel="stylesheet" href="src/styles/main.css?v=64" />
+</head>
+<body>
+
+  <header class="header" data-header>
+    <div class="container">
+      <div class="header__pill">
+
+        <a class="header__logo" href="index.html" aria-label="Hairline — на главную">
+          <img src="assets/images/logoHeader.svg" alt="Hairline" width="46" height="50" />
+        </a>
+
+        <nav class="nav" aria-label="Основная навигация">
+          <a class="nav__link link-line" href="about.html">О центре</a>
+
+          <div class="nav__item" data-nav-drop>
+            <a class="nav__link link-line" href="services.html" aria-haspopup="true" aria-expanded="false">
+              Услуги
+              <svg class="nav__chevron" viewBox="0 0 9 10" fill="none" aria-hidden="true">
+                <path d="M1 3.5L4.5 7L8 3.5" stroke="currentColor" stroke-width="1.2"
+                      stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </a>
+
+            <div class="nav__drop">
+              <div class="nav__drop-inner">
+                <a href="services/hair.html">Пересадка волос</a>
+                <a href="services/brows.html">Пересадка бровей</a>
+                <a href="services/beard.html">Пересадка бороды</a>
+                <a href="services/injections.html">Инъекционная терапия кожи головы</a>
+                <a href="services/hair-loss.html">Лечение выпадения волос</a>
+              </div>
+            </div>
+          </div>
+
+          <a class="nav__link link-line" href="results.html">Результаты</a>
+          <a class="nav__link link-line is-active" href="blog.html" aria-current="page">Блог</a>
+          <a class="nav__link link-line" href="contacts.html">Контакты</a>
+        </nav>
+
+        <button class="btn header__cta" type="button" data-modal-open="modal-contact">Связаться с нами</button>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- ==== Модалка «Связаться с нами» ====
+       Нативный dialog: фокус, Esc и подложка — из коробки, без своего JS -->
+  <dialog class="modal" id="modal-contact" aria-labelledby="modal-contact-title">
+    <button class="modal__close" type="button" aria-label="Закрыть" data-modal-close>
+      <svg viewBox="0 0 15 15" fill="none" aria-hidden="true">
+        <path d="M1 1L14 14M14 1L1 14" stroke="currentColor" stroke-width="1.5"
+              stroke-linecap="round" />
+      </svg>
+    </button>
+
+    <div class="modal__head">
+      <h2 id="modal-contact-title">Начните путь к здоровым и<br />густым волосам уже сегодня!</h2>
+      <p>Наши менеджеры ответят вам в течение 10 минут</p>
+    </div>
+
+    <!-- Форма без класса — стили через родителя (под натяжку на WP/CF7) -->
+    <form action="#" method="post">
+      <div class="modal__fields">
+        <div class="field">
+                  <input id="modal-name" type="text" name="name" placeholder=" " required />
+                  <label for="modal-name">Имя*</label>
+                  <span class="field__icon" aria-hidden="true"></span>
+                </div>
+        <div class="field">
+                  <input id="modal-phone" type="tel" name="phone" placeholder=" " required />
+                  <label for="modal-phone">Номер телефона*</label>
+                  <span class="field__icon" aria-hidden="true"></span>
+                </div>
+      </div>
+      <button class="btn btn--outline btn--block" type="submit">Отправить заявку</button>
+    </form>
+  </dialog>
+
+  <main>
+
+    <div class="blog-page container">
+
+      <div class="blog-hero">
+        <h1>Блог Hairline</h1>
+        <p>Будьте в курсе последних достижений в области пересадки волос, инноваций
+          в лечении кожи головы и рекомендаций по самопомощи — все в одном месте</p>
+      </div>
+
+      <div class="blog-filter">
+        <button class="blog-chip is-active" type="button" data-blog-filter="all">Все</button>
+        <button class="blog-chip" type="button" data-blog-filter="Медицина">Медицина</button>
+        <button class="blog-chip" type="button" data-blog-filter="Пересадка волос">Пересадка волос</button>
+        <button class="blog-chip" type="button" data-blog-filter="Рекомендации">Рекомендации</button>
+      </div>
+
+      <!-- Заголовочный пост: самый новый из выбранной категории. Наполняет JS -->
+      <div class="blog-feat" data-blog-featured style="width:100%">
+        <article class="blog-featured">
+          <div class="blog-featured__media">
+            <img src="assets/images/blogImgBig.png" alt="" width="650" height="307" loading="lazy" />
+          </div>
+          <div class="blog-featured__body">
+            <span class="blog-featured__date">08.07.2026</span>
+            <div class="blog-featured__text">
+              <h3>Выпадение волос: причины и методы лечения</h3>
+              <p>Ежедневное выпадение части волос является естественным процессом обновления покровов. Но что делать, если волос стало в разы меньше, а на голове виднеются залысины?</p>
+            </div>
+            <div class="blog-featured__foot">
+              <span class="post-card__tag">Медицина</span>
+              <a class="link-solid" href="blog/hair-loss-causes.html">Читать статью</a>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <ul class="blog__grid blog__grid--page">
+        <li data-blog-card data-cat="Медицина" data-date="2026-07-08" hidden>
+          <a class="post-card" href="blog/hair-loss-causes.html">
+            <div class="post-card__top">
+              <img src="assets/images/colored.png" alt="" width="400" height="204" loading="lazy" />
+
+              <div class="post-card__meta">
+                <span class="post-card__tag">Медицина</span>
+                <span class="post-card__date">08.07.2026</span>
+              </div>
+
+              <div class="post-card__text">
+                <h3>Выпадение волос: причины и методы лечения</h3>
+                <p>Ежедневное выпадение части волос является естественным процессом обновления покровов. Но что делать, если волос стало в разы меньше, а на голове виднеются залысины?</p>
+              </div>
+            </div>
+
+            <span class="post-card__more link-solid">Читать статью</span>
+          </a>
+        </li>
+        <li data-blog-card data-cat="Пересадка волос" data-date="2026-07-06">
+          <a class="post-card" href="blog/seborrheic-dermatitis.html">
+            <div class="post-card__top">
+              <img src="assets/images/colored.png" alt="" width="400" height="204" loading="lazy" />
+
+              <div class="post-card__meta">
+                <span class="post-card__tag">Пересадка волос</span>
+                <span class="post-card__date">06.07.2026</span>
+              </div>
+
+              <div class="post-card__text">
+                <h3>Себорейный дерматит. Симптомы. Причины. Лечение</h3>
+                <p>Себорейный дерматит - это заболевание, проявляющееся в покраснении, зуде и шелушении кожного покрова волосистой части тела. Себорея поражает сальные железы кожи головы, тела и лица (крылья носа, надбровные дуги, подбородок).</p>
+              </div>
+            </div>
+
+            <span class="post-card__more link-solid">Читать статью</span>
+          </a>
+        </li>
+        <li data-blog-card data-cat="Рекомендации" data-date="2026-07-05">
+          <a class="post-card" href="blog/seborrheic-dermatitis.html">
+            <div class="post-card__top">
+              <img src="assets/images/colored.png" alt="" width="400" height="204" loading="lazy" />
+
+              <div class="post-card__meta">
+                <span class="post-card__tag">Рекомендации</span>
+                <span class="post-card__date">05.07.2026</span>
+              </div>
+
+              <div class="post-card__text">
+                <h3>Себорейный дерматит. Симптомы. Причины. Лечение</h3>
+                <p>Себорейный дерматит - это заболевание, проявляющееся в покраснении, зуде и шелушении кожного покрова волосистой части тела. Себорея поражает сальные железы кожи головы, тела и лица (крылья носа, надбровные дуги, подбородок).</p>
+              </div>
+            </div>
+
+            <span class="post-card__more link-solid">Читать статью</span>
+          </a>
+        </li>
+        <li data-blog-card data-cat="Медицина" data-date="2026-07-02">
+          <a class="post-card" href="blog/seborrheic-dermatitis.html">
+            <div class="post-card__top">
+              <img src="assets/images/colored.png" alt="" width="400" height="204" loading="lazy" />
+
+              <div class="post-card__meta">
+                <span class="post-card__tag">Медицина</span>
+                <span class="post-card__date">02.07.2026</span>
+              </div>
+
+              <div class="post-card__text">
+                <h3>Себорейный дерматит. Симптомы. Причины. Лечение</h3>
+                <p>Себорейный дерматит - это заболевание, проявляющееся в покраснении, зуде и шелушении кожного покрова волосистой части тела. Себорея поражает сальные железы кожи головы, тела и лица (крылья носа, надбровные дуги, подбородок).</p>
+              </div>
+            </div>
+
+            <span class="post-card__more link-solid">Читать статью</span>
+          </a>
+        </li>
+        <li data-blog-card data-cat="Пересадка волос" data-date="2026-07-01">
+          <a class="post-card" href="blog/seborrheic-dermatitis.html">
+            <div class="post-card__top">
+              <img src="assets/images/colored.png" alt="" width="400" height="204" loading="lazy" />
+
+              <div class="post-card__meta">
+                <span class="post-card__tag">Пересадка волос</span>
+                <span class="post-card__date">01.07.2026</span>
+              </div>
+
+              <div class="post-card__text">
+                <h3>Себорейный дерматит. Симптомы. Причины. Лечение</h3>
+                <p>Себорейный дерматит - это заболевание, проявляющееся в покраснении, зуде и шелушении кожного покрова волосистой части тела. Себорея поражает сальные железы кожи головы, тела и лица (крылья носа, надбровные дуги, подбородок).</p>
+              </div>
+            </div>
+
+            <span class="post-card__more link-solid">Читать статью</span>
+          </a>
+        </li>
+        <li data-blog-card data-cat="Рекомендации" data-date="2026-06-28">
+          <a class="post-card" href="blog/seborrheic-dermatitis.html">
+            <div class="post-card__top">
+              <img src="assets/images/colored.png" alt="" width="400" height="204" loading="lazy" />
+
+              <div class="post-card__meta">
+                <span class="post-card__tag">Рекомендации</span>
+                <span class="post-card__date">28.06.2026</span>
+              </div>
+
+              <div class="post-card__text">
+                <h3>Себорейный дерматит. Симптомы. Причины. Лечение</h3>
+                <p>Себорейный дерматит - это заболевание, проявляющееся в покраснении, зуде и шелушении кожного покрова волосистой части тела. Себорея поражает сальные железы кожи головы, тела и лица (крылья носа, надбровные дуги, подбородок).</p>
+              </div>
+            </div>
+
+            <span class="post-card__more link-solid">Читать статью</span>
+          </a>
+        </li>
+        <li data-blog-card data-cat="Медицина" data-date="2026-06-25">
+          <a class="post-card" href="blog/seborrheic-dermatitis.html">
+            <div class="post-card__top">
+              <img src="assets/images/colored.png" alt="" width="400" height="204" loading="lazy" />
+
+              <div class="post-card__meta">
+                <span class="post-card__tag">Медицина</span>
+                <span class="post-card__date">25.06.2026</span>
+              </div>
+
+              <div class="post-card__text">
+                <h3>Себорейный дерматит. Симптомы. Причины. Лечение</h3>
+                <p>Себорейный дерматит - это заболевание, проявляющееся в покраснении, зуде и шелушении кожного покрова волосистой части тела. Себорея поражает сальные железы кожи головы, тела и лица (крылья носа, надбровные дуги, подбородок).</p>
+              </div>
+            </div>
+
+            <span class="post-card__more link-solid">Читать статью</span>
+          </a>
+        </li>
+        <li data-blog-card data-cat="Пересадка волос" data-date="2026-06-20">
+          <a class="post-card" href="blog/seborrheic-dermatitis.html">
+            <div class="post-card__top">
+              <img src="assets/images/colored.png" alt="" width="400" height="204" loading="lazy" />
+
+              <div class="post-card__meta">
+                <span class="post-card__tag">Пересадка волос</span>
+                <span class="post-card__date">20.06.2026</span>
+              </div>
+
+              <div class="post-card__text">
+                <h3>Себорейный дерматит. Симптомы. Причины. Лечение</h3>
+                <p>Себорейный дерматит - это заболевание, проявляющееся в покраснении, зуде и шелушении кожного покрова волосистой части тела. Себорея поражает сальные железы кожи головы, тела и лица (крылья носа, надбровные дуги, подбородок).</p>
+              </div>
+            </div>
+
+            <span class="post-card__more link-solid">Читать статью</span>
+          </a>
+        </li>
+        <li data-blog-card data-cat="Рекомендации" data-date="2026-06-18">
+          <a class="post-card" href="blog/seborrheic-dermatitis.html">
+            <div class="post-card__top">
+              <img src="assets/images/colored.png" alt="" width="400" height="204" loading="lazy" />
+
+              <div class="post-card__meta">
+                <span class="post-card__tag">Рекомендации</span>
+                <span class="post-card__date">18.06.2026</span>
+              </div>
+
+              <div class="post-card__text">
+                <h3>Себорейный дерматит. Симптомы. Причины. Лечение</h3>
+                <p>Себорейный дерматит - это заболевание, проявляющееся в покраснении, зуде и шелушении кожного покрова волосистой части тела. Себорея поражает сальные железы кожи головы, тела и лица (крылья носа, надбровные дуги, подбородок).</p>
+              </div>
+            </div>
+
+            <span class="post-card__more link-solid">Читать статью</span>
+          </a>
+        </li>
+        <li data-blog-card data-cat="Медицина" data-date="2026-06-15">
+          <a class="post-card" href="blog/seborrheic-dermatitis.html">
+            <div class="post-card__top">
+              <img src="assets/images/colored.png" alt="" width="400" height="204" loading="lazy" />
+
+              <div class="post-card__meta">
+                <span class="post-card__tag">Медицина</span>
+                <span class="post-card__date">15.06.2026</span>
+              </div>
+
+              <div class="post-card__text">
+                <h3>Себорейный дерматит. Симптомы. Причины. Лечение</h3>
+                <p>Себорейный дерматит - это заболевание, проявляющееся в покраснении, зуде и шелушении кожного покрова волосистой части тела. Себорея поражает сальные железы кожи головы, тела и лица (крылья носа, надбровные дуги, подбородок).</p>
+              </div>
+            </div>
+
+            <span class="post-card__more link-solid">Читать статью</span>
+          </a>
+        </li>
+      </ul>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+
+      <div class="footer__top">
+
+        <div class="footer__cta">
+          <h2>По вопросам сотрудничества<br />напишите нам на почту:</h2>
+          <a class="footer__email" href="mailto:hairlinekz@gmail.com">hairlinekz@gmail.com</a>
+        </div>
+
+        <div class="footer__cols">
+
+          <div class="footer__col footer__col--nav">
+            <h3>Навигация</h3>
+            <nav class="footer__list" aria-label="Навигация в подвале">
+              <a class="link-line" href="about.html">О центре</a>
+              <a class="link-line" href="results.html">Результаты</a>
+              <a class="link-line" href="blog.html">Блог</a>
+              <a class="link-line" href="contacts.html">Контакты</a>
+              <a class="link-line" href="index.html#faq">FAQ</a>
+            </nav>
+          </div>
+
+          <div class="footer__col footer__col--services">
+            <h3>Услуги</h3>
+            <nav class="footer__list" aria-label="Услуги">
+              <a class="link-line" href="services/hair.html">Пересадка волос</a>
+              <a class="link-line" href="services/brows.html">Пересадка бровей</a>
+              <a class="link-line" href="services/beard.html">Пересадка бороды</a>
+              <a class="link-line" href="services/hair-loss.html">Лечение выпадения волос</a>
+              <a class="link-line" href="services/injections.html">Инъекционная терапия кожи головы</a>
+            </nav>
+          </div>
+
+          <div class="footer__col footer__col--contacts">
+            <h3>Контакты</h3>
+            <div class="footer__list">
+              <a class="footer__contact link-line" href="tel:+77028216361">+7‒702‒821‒63‒61</a>
+              <a class="footer__contact link-line" href="tel:+77172572888">+7 (7172) 57‒28‒88</a>
+              <p class="footer__contact footer__contact--address">г. Астана, ул. Кайыма Мухамедханова 11/1</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="footer__line"></div>
+
+      <div class="footer__bottom">
+        <p>ТОО "Hairline.kz" © 2014-2026</p>
+        <p>Сделано в <b>factum.</b></p>
+      </div>
+
+    </div>
+  </footer>
+
+  <script src="assets/vendor/lenis.min.js"></script>
+  <script src="src/lib/main.js?v=10"></script>
+</body>
+</html>

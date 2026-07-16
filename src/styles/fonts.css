@@ -1,0 +1,36 @@
+
+
+/* Playfair Display — variable (wght 400–900), лицензия OFL.
+   Стили Ag из макета: H1, H2, Descriptor, Numbers L */
+@font-face {
+  font-family: "Playfair Display";
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url("../../assets/fonts/playfair-var.woff2") format("woff2-variations"),
+       url("../../assets/fonts/playfair-var.woff")  format("woff-variations");
+}
+
+/* Gilroy — ВРЕМЕННО пиратская сборка (Institute for Applied Piracy).
+   Заменить на лицензионный woff2/woff перед продом — см. README.
+   Стили T из макета: H3, H4, H5, Text S/S-2/M/L, Menu */
+@font-face {
+  font-family: "Gilroy"; font-style: normal; font-weight: 400; font-display: swap;
+  src: url("../../assets/fonts/gilroy-400.woff2") format("woff2"),
+       url("../../assets/fonts/gilroy-400.woff")  format("woff");
+}
+@font-face {
+  font-family: "Gilroy"; font-style: normal; font-weight: 500; font-display: swap;
+  src: url("../../assets/fonts/gilroy-500.woff2") format("woff2"),
+       url("../../assets/fonts/gilroy-500.woff")  format("woff");
+}
+@font-face {
+  font-family: "Gilroy"; font-style: normal; font-weight: 600; font-display: swap;
+  src: url("../../assets/fonts/gilroy-600.woff2") format("woff2"),
+       url("../../assets/fonts/gilroy-600.woff")  format("woff");
+}
+@font-face {
+  font-family: "Gilroy"; font-style: normal; font-weight: 700; font-display: swap;
+  src: url("../../assets/fonts/gilroy-700.woff2") format("woff2"),
+       url("../../assets/fonts/gilroy-700.woff")  format("woff");
+}

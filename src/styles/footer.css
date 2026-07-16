@@ -1,0 +1,211 @@
+
+
+/* ==== Footer ====
+   Исключение из правила 40px: фон тянется до границ, отступ только у контента */
+.footer {
+  width: 100%;
+  padding-block: calc(80 * var(--wm));
+  background: var(--main-blue);
+  border-start-start-radius: calc(60 * var(--wm));
+  border-start-end-radius: calc(60 * var(--wm));
+  color: var(--text-white);
+}
+
+/* --- Верхняя часть: почта слева, колонки справа --- */
+.footer__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.footer__cta {
+  width: calc(452 * var(--wm));
+  display: flex;
+  flex-direction: column;
+  gap: calc(20 * var(--wm));
+}
+/* Заголовок без класса — обращаемся через родителя (под натяжку на WP) */
+.footer__cta h2 {
+  font-family: var(--font-sans);
+  font-size: var(--text-h3);
+  font-weight: var(--weight-h3);
+  line-height: var(--leading-h3);
+  color: var(--text-white);
+}
+.footer__email {
+  align-self: flex-start;
+  font-size: calc(20 * var(--wm));
+  font-weight: var(--weight-medium);
+  line-height: 1;
+  color: var(--text-white);
+  padding-bottom: calc(2 * var(--wm));
+  border-bottom: 1px solid var(--text-white);
+}
+
+/* --- Колонки ссылок --- */
+.footer__cols {
+  width: calc(785 * var(--wm));
+  display: flex;
+}
+.footer__col { display: flex; flex-direction: column; gap: calc(20 * var(--wm)); }
+.footer__col--nav      { width: calc(112 * var(--wm)); }
+.footer__col--services { width: calc(275 * var(--wm)); margin-left: calc(118 * var(--wm)); }
+.footer__col--contacts { width: calc(210 * var(--wm)); margin-left: calc(70 * var(--wm)); }
+
+.footer__col h3 {
+  font-size: var(--text-h4);
+  font-weight: var(--weight-h4);
+  line-height: var(--leading-h4);
+  color: var(--text-white-50);
+}
+
+.footer__list { display: flex; flex-direction: column; gap: calc(14 * var(--wm)); }
+/* Волнистая линия и подъём при наведении — из утилиты .link-line (global.css) */
+.footer__list a,
+.footer__contact {
+  align-self: flex-start;              /* чтобы линия шла по ширине текста, а не колонки */
+  font-size: var(--text-menu);
+  font-weight: var(--weight-menu);
+  line-height: var(--leading-menu);
+  color: var(--text-white);
+}
+/* Адрес переносится на 2 строки — межстрочку задаём отдельно */
+.footer__contact--address { line-height: 1.3; }
+
+/* --- Разделитель --- */
+.footer__line {
+  height: 1px;
+  margin-block: calc(40 * var(--wm));
+  border-radius: calc(24 * var(--wm));
+  background: var(--text-white);
+}
+
+/* --- Нижняя строка --- */
+.footer__bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-md);
+}
+.footer__bottom p {
+  font-size: var(--text-menu);
+  font-weight: var(--weight-menu);
+  line-height: var(--leading-menu);
+  color: var(--text-white);
+}
+.footer__bottom b { font-weight: var(--weight-bold); }
+
+.footer__socials { display: none; }
+
+@media (max-width: 767px) {
+  .page-home .footer {
+    padding-block: calc(24 * var(--wm)) calc(30 * var(--wm));
+    border-start-start-radius: calc(24 * var(--wm));
+    border-start-end-radius: calc(24 * var(--wm));
+  }
+
+  .page-home .footer .container { padding-inline: calc(20 * var(--wm)); }
+
+  .page-home .footer__top {
+    flex-direction: column;
+    align-items: stretch;
+    gap: calc(20 * var(--wm));
+  }
+
+  .page-home .footer__cta {
+    width: 100%;
+    align-items: center;
+    text-align: center;
+    gap: calc(12 * var(--wm));
+  }
+
+  .page-home .footer__cta h2 {
+    font-size: calc(24 * var(--wm));
+    line-height: 1.1;
+  }
+
+  .page-home .footer__email {
+    align-self: center;
+    font-size: calc(16 * var(--wm));
+    line-height: 1;
+  }
+
+  .page-home .footer__cols {
+    width: 100%;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .page-home .footer__col {
+    width: 100%;
+    margin-left: 0;
+    padding-block: calc(20 * var(--wm));
+    border-top: 1px solid var(--field-bg-dark-active);
+    display: grid;
+    grid-template-columns: calc(120 * var(--wm)) 1fr;
+    gap: calc(10 * var(--wm));
+  }
+
+  .page-home .footer__col--services { order: 1; }
+  .page-home .footer__col--nav { order: 2; }
+  .page-home .footer__col--contacts { order: 3; border-bottom: 1px solid var(--field-bg-dark-active); }
+
+  .page-home .footer__col h3 {
+    font-size: calc(16 * var(--wm));
+    font-weight: var(--weight-semibold);
+    line-height: 1.15;
+  }
+
+  .page-home .footer__list {
+    gap: calc(16 * var(--wm));
+  }
+
+  .page-home .footer__list a,
+  .page-home .footer__contact {
+    font-size: calc(16 * var(--wm));
+    line-height: 1;
+  }
+
+  .page-home .footer__contact--address {
+    width: calc(165 * var(--wm));
+    line-height: 1.2;
+  }
+
+  .page-home .footer__socials {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: calc(16 * var(--wm));
+  }
+
+  .page-home .footer__socials a {
+    width: calc(25 * var(--wm));
+    height: calc(25 * var(--wm));
+  }
+
+  .page-home .footer__socials img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .page-home .footer__line {
+    margin-block: calc(30 * var(--wm)) calc(20 * var(--wm));
+    background: var(--field-bg-dark-active);
+  }
+
+  .page-home .footer__bottom {
+    flex-direction: column;
+    justify-content: center;
+    gap: calc(8 * var(--wm));
+    text-align: center;
+  }
+
+  .page-home .footer__bottom p {
+    font-size: calc(16 * var(--wm));
+    line-height: 1;
+    color: var(--text-white-50);
+  }
+
+  .page-home .footer__bottom p:last-child { color: var(--text-white); }
+}

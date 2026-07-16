@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hairline</title>
+  <meta name="description" content="" />
+
+  <link rel="preload" as="font" type="font/woff2" href="assets/fonts/gilroy-500.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="assets/fonts/playfair-var.woff2" crossorigin />
+
+  <link rel="stylesheet" href="src/styles/main.css?v=64" />
+</head>
+<body class="page-home">
+
+  <header class="header" data-header>
+    <div class="container">
+      <div class="header__pill">
+
+        <a class="header__logo" href="index.html" aria-label="Hairline — на главную">
+          <img src="assets/images/logoHeader.svg" alt="Hairline" width="46" height="50" />
+        </a>
+
+        <nav class="nav" aria-label="Основная навигация" data-nav>
+          <a class="nav__link link-line" href="about.html">О центре</a>
+
+          <div class="nav__item" data-nav-drop>
+            <a class="nav__link link-line" href="services.html" aria-haspopup="true" aria-expanded="false">
+              Услуги
+              <svg class="nav__chevron" viewBox="0 0 9 10" fill="none" aria-hidden="true">
+                <path d="M1 3.5L4.5 7L8 3.5" stroke="currentColor" stroke-width="1.2"
+                      stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </a>
+
+            <div class="nav__drop">
+              <div class="nav__drop-inner">
+                <a href="services/hair.html">Пересадка волос</a>
+                <a href="services/brows.html">Пересадка бровей</a>
+                <a href="services/beard.html">Пересадка бороды</a>
+                <a href="services/injections.html">Инъекционная терапия кожи головы</a>
+                <a href="services/hair-loss.html">Лечение выпадения волос</a>
+              </div>
+            </div>
+          </div>
+
+          <a class="nav__link link-line" href="results.html">Результаты</a>
+          <a class="nav__link link-line" href="blog.html">Блог</a>
+          <a class="nav__link link-line" href="contacts.html">Контакты</a>
+
+          <div class="nav__socials" aria-label="Социальные сети">
+            <a href="#" target="_blank" rel="noopener" aria-label="Instagram">
+              <img src="assets/images/insta.png" alt="" width="25" height="25" loading="lazy" />
+            </a>
+            <a href="#" target="_blank" rel="noopener" aria-label="WhatsApp">
+              <img src="assets/images/wpp.png" alt="" width="25" height="25" loading="lazy" />
+            </a>
+          </div>
+        </nav>
+
+        <button class="btn header__cta" type="button" data-modal-open="modal-contact">Связаться с нами</button>
+        <button class="header__burger" type="button" aria-label="Открыть меню" aria-expanded="false" data-menu-toggle>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </button>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- ==== Модалка «Связаться с нами» ====
+       Нативный dialog: фокус, Esc и подложка — из коробки, без своего JS -->
+  <dialog class="modal" id="modal-contact" aria-labelledby="modal-contact-title">
+    <button class="modal__close" type="button" aria-label="Закрыть" data-modal-close>
+      <svg viewBox="0 0 15 15" fill="none" aria-hidden="true">
+        <path d="M1 1L14 14M14 1L1 14" stroke="currentColor" stroke-width="1.5"
+              stroke-linecap="round" />
+      </svg>
+    </button>
+
+    <div class="modal__head">
+      <h2 id="modal-contact-title">Начните путь к здоровым и<br />густым волосам уже сегодня!</h2>
+      <p>Наши менеджеры ответят вам в течение 10 минут</p>
+    </div>
+
+    <!-- Форма без класса — стили через родителя (под натяжку на WP/CF7) -->
+    <form action="#" method="post">
+      <div class="modal__fields">
+        <div class="field">
+                  <input id="modal-name" type="text" name="name" placeholder=" " required />
+                  <label for="modal-name">Имя*</label>
+                  <span class="field__icon" aria-hidden="true"></span>
+                </div>
+        <div class="field">
+                  <input id="modal-phone" type="tel" name="phone" placeholder=" " required />
+                  <label for="modal-phone">Номер телефона*</label>
+                  <span class="field__icon" aria-hidden="true"></span>
+                </div>
+      </div>
+      <button class="btn btn--outline btn--block" type="submit">Отправить заявку</button>
+    </form>
+  </dialog>
+
+  <main>
+
+    <!-- ==== Hero ==== -->
+    <section class="hero container">
+      <div class="hero__inner">
+
+        <div class="hero__media">
+          <!-- ЖДЁМ: видео. Как придёт — меняем img на
+               <video autoplay muted loop playsinline poster="…"> -->
+          <img src="assets/images/video.png" alt="" width="670" height="700" />
+        </div>
+
+        <div class="hero__text">
+          <h1>Инновационный центр здоровья волос<br />Hairline</h1>
+
+          <button class="hero__cta" type="button" data-modal-open="modal-contact">
+            <!-- Круговая надпись. В экспорте она сплющена в квадрат 180×180 —
+                 Figma не отдаёт текст по дуге, поэтому собран textPath -->
+            <svg class="hero__ring" viewBox="0 0 210 210" aria-hidden="true">
+              <defs>
+                <!-- r=88: 4 повтора по 16px дают 551, окружность 2πr = 553 — ровно в обхват -->
+                <path id="hero-ring-path"
+                      d="M 105,105 m -88,0 a 88,88 0 1,1 176,0 a 88,88 0 1,1 -176,0" />
+              </defs>
+              <text>
+                <textPath href="#hero-ring-path" startOffset="0">Оставьте заявку / Оставьте заявку / Оставьте заявку / Оставьте заявку / </textPath>
+              </text>
+            </svg>
+
+            <span class="hero__halo" aria-hidden="true"></span>
+            <span class="hero__disc" aria-hidden="true"></span>
+            <span class="hero__cta-label">Начать<br />лечение</span>
+          </button>
+
+          <p>Мы специализируемся на уникальных технологиях<br />пересадки и лечения волос,
+            и кожи головы</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==== О центре ==== -->
+    <section class="about section container">
+      <div class="about__inner">
+
+        <div class="about__left">
+          <p class="about__label">О центре</p>
+
+          <div class="about__head">
+            <h2>Забота о здоровье волос с 2014 года</h2>
+          </div>
+
+          <div class="about__body">
+            <p>Центр здоровья волос «HAIRLINE» создан в марте 2014 года молодым врачом хирургом
+              Мамытбековой Айжан Бауржановной. Центр задумывался как центральный пункт накопления
+              знаний, опыта, технологий и компетенций в области лечения волос и кожи головы
+              в Казахстане.</p>
+            <a class="btn btn--outline" href="about.html">Подробнее</a>
+          </div>
+        </div>
+
+        <div class="about__media">
+          <img src="assets/images/aboutImg.png" alt="Интерьер центра Hairline" width="555" height="361" loading="lazy" />
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==== Услуги ==== -->
+    <section class="services section container">
+      <div class="services__inner">
+
+        <div class="services__head">
+          <p class="services__label">Услуги</p>
+          <h2>Мы специализируемся<br />на уникальных технологиях</h2>
+        </div>
+
+        <div class="services__grid">
+
+          <a class="service-card" href="services/hair.html">
+            <div class="service-card__head">
+              <div class="service-card__title">
+                <h3>Пересадка волос</h3>
+                <ul class="service-card__subs">
+                  <li>Бесшовный метод</li>
+                  <li>Прямая имплантация</li>
+                  <li>Лоскутный метод</li>
+                </ul>
+              </div>
+              <svg class="service-card__arrow" viewBox="0 0 56 56" fill="none" aria-hidden="true">
+                <rect x="0.5" y="0.5" width="55" height="55" rx="27.5" stroke="#3D627D" />
+                <path d="M28.5 19C28.7761 19 29 19.2239 29 19.5C29 22.8273 31.1366 24.9392 33.96 26.2461C36.7908 27.5564 40.2133 28 42.5 28C42.5344 28 42.5681 28.0031 42.6006 28.0098C42.6656 28.0231 42.7261 28.0491 42.7793 28.085C42.8328 28.121 42.879 28.1672 42.915 28.2207C42.9509 28.2739 42.977 28.3344 42.9902 28.3994C42.9969 28.4319 43 28.4656 43 28.5C43 28.5344 42.9969 28.5681 42.9902 28.6006C42.977 28.6656 42.9509 28.7261 42.915 28.7793C42.879 28.8328 42.8328 28.879 42.7793 28.915C42.7261 28.9509 42.6656 28.977 42.6006 28.9902C42.5681 28.9969 42.5344 29 42.5 29C40.2133 29 36.7908 29.4436 33.96 30.7539C31.1366 32.0608 29 34.1727 29 37.5C29 37.7761 28.7761 38 28.5 38C28.2239 38 28 37.7761 28 37.5C28 33.6274 30.5302 31.2398 33.54 29.8467C34.2626 29.5122 35.0188 29.233 35.7832 29H14.5C14.2239 28.9999 14.0001 28.7761 14 28.5C14.0001 28.2239 14.2239 28.0001 14.5 28H35.7832C35.0188 27.767 34.2626 27.4878 33.54 27.1533C30.5302 25.7602 28 23.3726 28 19.5C28 19.2239 28.2239 19 28.5 19Z" />
+              </svg>
+            </div>
+            <div class="service-card__media">
+              <img src="assets/images/imgServices.png" alt="" width="420" height="400" loading="lazy" />
+            </div>
+          </a>
+
+          <a class="service-card" href="services/beard.html">
+            <div class="service-card__head">
+              <div class="service-card__title">
+                <h3>Пересадка бороды</h3>
+                <ul class="service-card__subs">
+                  <li>Подкатегория 1</li>
+                  <li>Подкатегория 2</li>
+                  <li>Подкатегория 3</li>
+                </ul>
+              </div>
+              <svg class="service-card__arrow" viewBox="0 0 56 56" fill="none" aria-hidden="true">
+                <rect x="0.5" y="0.5" width="55" height="55" rx="27.5" stroke="#3D627D" />
+                <path d="M28.5 19C28.7761 19 29 19.2239 29 19.5C29 22.8273 31.1366 24.9392 33.96 26.2461C36.7908 27.5564 40.2133 28 42.5 28C42.5344 28 42.5681 28.0031 42.6006 28.0098C42.6656 28.0231 42.7261 28.0491 42.7793 28.085C42.8328 28.121 42.879 28.1672 42.915 28.2207C42.9509 28.2739 42.977 28.3344 42.9902 28.3994C42.9969 28.4319 43 28.4656 43 28.5C43 28.5344 42.9969 28.5681 42.9902 28.6006C42.977 28.6656 42.9509 28.7261 42.915 28.7793C42.879 28.8328 42.8328 28.879 42.7793 28.915C42.7261 28.9509 42.6656 28.977 42.6006 28.9902C42.5681 28.9969 42.5344 29 42.5 29C40.2133 29 36.7908 29.4436 33.96 30.7539C31.1366 32.0608 29 34.1727 29 37.5C29 37.7761 28.7761 38 28.5 38C28.2239 38 28 37.7761 28 37.5C28 33.6274 30.5302 31.2398 33.54 29.8467C34.2626 29.5122 35.0188 29.233 35.7832 29H14.5C14.2239 28.9999 14.0001 28.7761 14 28.5C14.0001 28.2239 14.2239 28.0001 14.5 28H35.7832C35.0188 27.767 34.2626 27.4878 33.54 27.1533C30.5302 25.7602 28 23.3726 28 19.5C28 19.2239 28.2239 19 28.5 19Z" />
+              </svg>
+            </div>
+            <div class="service-card__media">
+              <img src="assets/images/imgServices.png" alt="" width="420" height="400" loading="lazy" />
+            </div>
+          </a>
+
+          <a class="service-card" href="services/brows.html">
+            <div class="service-card__head">
+              <div class="service-card__title">
+                <h3>Пересадка бровей</h3>
+                <ul class="service-card__subs">
+                  <li>Подкатегория 1</li>
+                  <li>Подкатегория 2</li>
+                  <li>Подкатегория 3</li>
+                </ul>
+              </div>
+              <svg class="service-card__arrow" viewBox="0 0 56 56" fill="none" aria-hidden="true">
+                <rect x="0.5" y="0.5" width="55" height="55" rx="27.5" stroke="#3D627D" />
+                <path d="M28.5 19C28.7761 19 29 19.2239 29 19.5C29 22.8273 31.1366 24.9392 33.96 26.2461C36.7908 27.5564 40.2133 28 42.5 28C42.5344 28 42.5681 28.0031 42.6006 28.0098C42.6656 28.0231 42.7261 28.0491 42.7793 28.085C42.8328 28.121 42.879 28.1672 42.915 28.2207C42.9509 28.2739 42.977 28.3344 42.9902 28.3994C42.9969 28.4319 43 28.4656 43 28.5C43 28.5344 42.9969 28.5681 42.9902 28.6006C42.977 28.6656 42.9509 28.7261 42.915 28.7793C42.879 28.8328 42.8328 28.879 42.7793 28.915C42.7261 28.9509 42.6656 28.977 42.6006 28.9902C42.5681 28.9969 42.5344 29 42.5 29C40.2133 29 36.7908 29.4436 33.96 30.7539C31.1366 32.0608 29 34.1727 29 37.5C29 37.7761 28.7761 38 28.5 38C28.2239 38 28 37.7761 28 37.5C28 33.6274 30.5302 31.2398 33.54 29.8467C34.2626 29.5122 35.0188 29.233 35.7832 29H14.5C14.2239 28.9999 14.0001 28.7761 14 28.5C14.0001 28.2239 14.2239 28.0001 14.5 28H35.7832C35.0188 27.767 34.2626 27.4878 33.54 27.1533C30.5302 25.7602 28 23.3726 28 19.5C28 19.2239 28.2239 19 28.5 19Z" />
+              </svg>
+            </div>
+            <div class="service-card__media">
+              <img src="assets/images/imgServices.png" alt="" width="420" height="400" loading="lazy" />
+            </div>
+          </a>
+
+          <a class="service-card" href="services/hair-loss.html">
+            <div class="service-card__head">
+              <div class="service-card__title">
+                <h3>Лечение выпадения волос</h3>
+                <ul class="service-card__subs">
+                  <li>Подкатегория 1</li>
+                  <li>Подкатегория 2</li>
+                  <li>Подкатегория 3</li>
+                </ul>
+              </div>
+              <svg class="service-card__arrow" viewBox="0 0 56 56" fill="none" aria-hidden="true">
+                <rect x="0.5" y="0.5" width="55" height="55" rx="27.5" stroke="#3D627D" />
+                <path d="M28.5 19C28.7761 19 29 19.2239 29 19.5C29 22.8273 31.1366 24.9392 33.96 26.2461C36.7908 27.5564 40.2133 28 42.5 28C42.5344 28 42.5681 28.0031 42.6006 28.0098C42.6656 28.0231 42.7261 28.0491 42.7793 28.085C42.8328 28.121 42.879 28.1672 42.915 28.2207C42.9509 28.2739 42.977 28.3344 42.9902 28.3994C42.9969 28.4319 43 28.4656 43 28.5C43 28.5344 42.9969 28.5681 42.9902 28.6006C42.977 28.6656 42.9509 28.7261 42.915 28.7793C42.879 28.8328 42.8328 28.879 42.7793 28.915C42.7261 28.9509 42.6656 28.977 42.6006 28.9902C42.5681 28.9969 42.5344 29 42.5 29C40.2133 29 36.7908 29.4436 33.96 30.7539C31.1366 32.0608 29 34.1727 29 37.5C29 37.7761 28.7761 38 28.5 38C28.2239 38 28 37.7761 28 37.5C28 33.6274 30.5302 31.2398 33.54 29.8467C34.2626 29.5122 35.0188 29.233 35.7832 29H14.5C14.2239 28.9999 14.0001 28.7761 14 28.5C14.0001 28.2239 14.2239 28.0001 14.5 28H35.7832C35.0188 27.767 34.2626 27.4878 33.54 27.1533C30.5302 25.7602 28 23.3726 28 19.5C28 19.2239 28.2239 19 28.5 19Z" />
+              </svg>
+            </div>
+            <div class="service-card__media">
+              <img src="assets/images/imgServices.png" alt="" width="420" height="400" loading="lazy" />
+            </div>
+          </a>
+
+          <a class="service-card" href="services/injections.html">
+            <div class="service-card__head">
+              <div class="service-card__title">
+                <h3>Инъекционная терапия кожи головы</h3>
+                <ul class="service-card__subs">
+                  <li>Подкатегория 1</li>
+                  <li>Подкатегория 2</li>
+                  <li>Подкатегория 3</li>
+                </ul>
+              </div>
+              <svg class="service-card__arrow" viewBox="0 0 56 56" fill="none" aria-hidden="true">
+                <rect x="0.5" y="0.5" width="55" height="55" rx="27.5" stroke="#3D627D" />
+                <path d="M28.5 19C28.7761 19 29 19.2239 29 19.5C29 22.8273 31.1366 24.9392 33.96 26.2461C36.7908 27.5564 40.2133 28 42.5 28C42.5344 28 42.5681 28.0031 42.6006 28.0098C42.6656 28.0231 42.7261 28.0491 42.7793 28.085C42.8328 28.121 42.879 28.1672 42.915 28.2207C42.9509 28.2739 42.977 28.3344 42.9902 28.3994C42.9969 28.4319 43 28.4656 43 28.5C43 28.5344 42.9969 28.5681 42.9902 28.6006C42.977 28.6656 42.9509 28.7261 42.915 28.7793C42.879 28.8328 42.8328 28.879 42.7793 28.915C42.7261 28.9509 42.6656 28.977 42.6006 28.9902C42.5681 28.9969 42.5344 29 42.5 29C40.2133 29 36.7908 29.4436 33.96 30.7539C31.1366 32.0608 29 34.1727 29 37.5C29 37.7761 28.7761 38 28.5 38C28.2239 38 28 37.7761 28 37.5C28 33.6274 30.5302 31.2398 33.54 29.8467C34.2626 29.5122 35.0188 29.233 35.7832 29H14.5C14.2239 28.9999 14.0001 28.7761 14 28.5C14.0001 28.2239 14.2239 28.0001 14.5 28H35.7832C35.0188 27.767 34.2626 27.4878 33.54 27.1533C30.5302 25.7602 28 23.3726 28 19.5C28 19.2239 28.2239 19 28.5 19Z" />
+              </svg>
+            </div>
+            <div class="service-card__media">
+              <img src="assets/images/imgServices.png" alt="" width="420" height="400" loading="lazy" />
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==== Результаты ====
+         Исключение из правила 40px: белая панель тянется до границ экрана,
+         отступ даёт её собственный падинг -->
+    <section class="section">
+      <div class="results">
+
+        <div class="results__head">
+          <p class="results__label">Результаты</p>
+          <a class="btn btn--outline" href="results.html">Все результаты</a>
+        </div>
+
+        <ul class="results__grid">
+
+          <li class="result-card">
+            <div class="result-card__compare" data-compare>
+              <img class="result-card__img" src="assets/images/after.png" alt="После пересадки волос" width="420" height="286" loading="lazy" />
+              <span class="result-card__badge result-card__badge--after">После</span>
+
+              <div class="result-card__before" data-compare-before>
+                <img class="result-card__img" src="assets/images/before.png" alt="До пересадки волос" width="420" height="286" loading="lazy" />
+                <span class="result-card__badge result-card__badge--before">До</span>
+              </div>
+
+              <div class="result-card__handle" data-compare-handle aria-hidden="true">
+                <span class="result-card__knob">
+                  <svg viewBox="0 0 8 15" fill="none"><path d="M7.5 0.5L0.5 7.5L7.5 14.5" stroke="#3D627D" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                  <svg viewBox="0 0 8 15" fill="none"><path d="M7.5 0.5L0.5 7.5L7.5 14.5" stroke="#3D627D" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                </span>
+              </div>
+
+              <input class="result-card__range" type="range" min="0" max="100" value="50" step="1"
+                     aria-label="Сравнить до и после" data-compare-range />
+            </div>
+            <h3>Пересадка волос</h3>
+          </li>
+
+          <li class="result-card">
+            <div class="result-card__compare" data-compare>
+              <img class="result-card__img" src="assets/images/after.png" alt="После пересадки волос" width="420" height="286" loading="lazy" />
+              <span class="result-card__badge result-card__badge--after">После</span>
+
+              <div class="result-card__before" data-compare-before>
+                <img class="result-card__img" src="assets/images/before.png" alt="До пересадки волос" width="420" height="286" loading="lazy" />
+                <span class="result-card__badge result-card__badge--before">До</span>
+              </div>
+
+              <div class="result-card__handle" data-compare-handle aria-hidden="true">
+                <span class="result-card__knob">
+                  <svg viewBox="0 0 8 15" fill="none"><path d="M7.5 0.5L0.5 7.5L7.5 14.5" stroke="#3D627D" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                  <svg viewBox="0 0 8 15" fill="none"><path d="M7.5 0.5L0.5 7.5L7.5 14.5" stroke="#3D627D" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                </span>
+              </div>
+
+              <input class="result-card__range" type="range" min="0" max="100" value="50" step="1"
+                     aria-label="Сравнить до и после" data-compare-range />
+            </div>
+            <h3>Пересадка волос</h3>
+          </li>
+
+          <li class="result-card">
+            <div class="result-card__compare" data-compare>
+              <img class="result-card__img" src="assets/images/after.png" alt="После пересадки волос" width="420" height="286" loading="lazy" />
+              <span class="result-card__badge result-card__badge--after">После</span>
+
+              <div class="result-card__before" data-compare-before>
+                <img class="result-card__img" src="assets/images/before.png" alt="До пересадки волос" width="420" height="286" loading="lazy" />
+                <span class="result-card__badge result-card__badge--before">До</span>
+              </div>
+
+              <div class="result-card__handle" data-compare-handle aria-hidden="true">
+                <span class="result-card__knob">
+                  <svg viewBox="0 0 8 15" fill="none"><path d="M7.5 0.5L0.5 7.5L7.5 14.5" stroke="#3D627D" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                  <svg viewBox="0 0 8 15" fill="none"><path d="M7.5 0.5L0.5 7.5L7.5 14.5" stroke="#3D627D" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                </span>
+              </div>
+
+              <input class="result-card__range" type="range" min="0" max="100" value="50" step="1"
+                     aria-label="Сравнить до и после" data-compare-range />
+            </div>
+            <h3>Пересадка волос</h3>
+          </li>
+
+          <li class="result-card">
+            <div class="result-card__compare" data-compare>
+              <img class="result-card__img" src="assets/images/after.png" alt="После пересадки волос" width="420" height="286" loading="lazy" />
+              <span class="result-card__badge result-card__badge--after">После</span>
+
+              <div class="result-card__before" data-compare-before>
+                <img class="result-card__img" src="assets/images/before.png" alt="До пересадки волос" width="420" height="286" loading="lazy" />
+                <span class="result-card__badge result-card__badge--before">До</span>
+              </div>
+
+              <div class="result-card__handle" data-compare-handle aria-hidden="true">
+                <span class="result-card__knob">
+                  <svg viewBox="0 0 8 15" fill="none"><path d="M7.5 0.5L0.5 7.5L7.5 14.5" stroke="#3D627D" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                  <svg viewBox="0 0 8 15" fill="none"><path d="M7.5 0.5L0.5 7.5L7.5 14.5" stroke="#3D627D" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                </span>
+              </div>
+
+              <input class="result-card__range" type="range" min="0" max="100" value="50" step="1"
+                     aria-label="Сравнить до и после" data-compare-range />
+            </div>
+            <h3>Пересадка волос</h3>
+          </li>
+
+          <li class="result-card">
+            <div class="result-card__compare" data-compare>
+              <img class="result-card__img" src="assets/images/after.png" alt="После пересадки волос" width="420" height="286" loading="lazy" />
+              <span class="result-card__badge result-card__badge--after">После</span>
+
+              <div class="result-card__before" data-compare-before>
+                <img class="result-card__img" src="assets/images/before.png" alt="До пересадки волос" width="420" height="286" loading="lazy" />
+                <span class="result-card__badge result-card__badge--before">До</span>
+              </div>
+
+              <div class="result-card__handle" data-compare-handle aria-hidden="true">
+                <span class="result-card__knob">
+                  <svg viewBox="0 0 8 15" fill="none"><path d="M7.5 0.5L0.5 7.5L7.5 14.5" stroke="#3D627D" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                  <svg viewBox="0 0 8 15" fill="none"><path d="M7.5 0.5L0.5 7.5L7.5 14.5" stroke="#3D627D" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                </span>
+              </div>
+
+              <input class="result-card__range" type="range" min="0" max="100" value="50" step="1"
+                     aria-label="Сравнить до и после" data-compare-range />
+            </div>
+            <h3>Пересадка волос</h3>
+          </li>
+
+          <li class="result-card">
+            <div class="result-card__compare" data-compare>
+              <img class="result-card__img" src="assets/images/after.png" alt="После пересадки волос" width="420" height="286" loading="lazy" />
+              <span class="result-card__badge result-card__badge--after">После</span>
+
+              <div class="result-card__before" data-compare-before>
+                <img class="result-card__img" src="assets/images/before.png" alt="До пересадки волос" width="420" height="286" loading="lazy" />
+                <span class="result-card__badge result-card__badge--before">До</span>
+              </div>
+
+              <div class="result-card__handle" data-compare-handle aria-hidden="true">
+                <span class="result-card__knob">
+                  <svg viewBox="0 0 8 15" fill="none"><path d="M7.5 0.5L0.5 7.5L7.5 14.5" stroke="#3D627D" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                  <svg viewBox="0 0 8 15" fill="none"><path d="M7.5 0.5L0.5 7.5L7.5 14.5" stroke="#3D627D" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                </span>
+              </div>
+
+              <input class="result-card__range" type="range" min="0" max="100" value="50" step="1"
+                     aria-label="Сравнить до и после" data-compare-range />
+            </div>
+            <h3>Пересадка волос</h3>
+          </li>
+
+        </ul>
+      </div>
+    </section>
+
+    <!-- ==== Отзывы ==== -->
+    <section class="reviews section container">
+      <div class="reviews__inner">
+
+        <div class="reviews__head">
+          <p class="reviews__label">Отзывы</p>
+
+          <div class="reviews__arrows">
+            <button class="arrow-btn arrow-btn--prev" type="button" aria-label="Предыдущие отзывы" data-slider-prev>
+              <svg viewBox="0 0 46 46" fill="none" aria-hidden="true">
+                <rect x="0.5" y="0.5" width="45" height="45" rx="22.5" stroke="currentColor" />
+                <path fill="currentColor" d="M22.5 14C22.2239 14 22 14.2239 22 14.5C22 17.8273 19.8634 19.9392 17.04 21.2461C14.2092 22.5564 10.7867 23 8.5 23C8.46557 23 8.43188 23.0031 8.39941 23.0098C8.33438 23.0231 8.27386 23.0491 8.2207 23.085C8.16722 23.121 8.12103 23.1672 8.08496 23.2207C8.04914 23.2739 8.02304 23.3344 8.00977 23.3994C8.00314 23.4319 8 23.4656 8 23.5C8 23.5344 8.00314 23.5681 8.00977 23.6006C8.02304 23.6656 8.04912 23.7261 8.08496 23.7793C8.12103 23.8328 8.16722 23.879 8.2207 23.915C8.27386 23.9509 8.3344 23.977 8.39941 23.9902C8.43188 23.9969 8.46557 24 8.5 24C10.7867 24 14.2092 24.4436 17.04 25.7539C19.8634 27.0608 22 29.1727 22 32.5C22 32.7761 22.2239 33 22.5 33C22.7761 33 23 32.7761 23 32.5C23 28.6274 20.4698 26.2398 17.46 24.8467C16.7374 24.5122 15.9812 24.233 15.2168 24H36.5C36.7761 23.9999 36.9999 23.7761 37 23.5C36.9999 23.2239 36.7761 23.0001 36.5 23H15.2168C15.9812 22.767 16.7374 22.4878 17.46 22.1533C20.4698 20.7602 23 18.3726 23 14.5C23 14.2239 22.7761 14 22.5 14Z" />
+              </svg>
+            </button>
+
+            <button class="arrow-btn arrow-btn--next" type="button" aria-label="Следующие отзывы" data-slider-next>
+              <svg viewBox="0 0 46 46" fill="none" aria-hidden="true">
+                <rect x="0.5" y="0.5" width="45" height="45" rx="22.5" stroke="currentColor" />
+                <path fill="currentColor" d="M22.5 14C22.2239 14 22 14.2239 22 14.5C22 17.8273 19.8634 19.9392 17.04 21.2461C14.2092 22.5564 10.7867 23 8.5 23C8.46557 23 8.43188 23.0031 8.39941 23.0098C8.33438 23.0231 8.27386 23.0491 8.2207 23.085C8.16722 23.121 8.12103 23.1672 8.08496 23.2207C8.04914 23.2739 8.02304 23.3344 8.00977 23.3994C8.00314 23.4319 8 23.4656 8 23.5C8 23.5344 8.00314 23.5681 8.00977 23.6006C8.02304 23.6656 8.04912 23.7261 8.08496 23.7793C8.12103 23.8328 8.16722 23.879 8.2207 23.915C8.27386 23.9509 8.3344 23.977 8.39941 23.9902C8.43188 23.9969 8.46557 24 8.5 24C10.7867 24 14.2092 24.4436 17.04 25.7539C19.8634 27.0608 22 29.1727 22 32.5C22 32.7761 22.2239 33 22.5 33C22.7761 33 23 32.7761 23 32.5C23 28.6274 20.4698 26.2398 17.46 24.8467C16.7374 24.5122 15.9812 24.233 15.2168 24H36.5C36.7761 23.9999 36.9999 23.7761 37 23.5C36.9999 23.2239 36.7761 23.0001 36.5 23H15.2168C15.9812 22.767 16.7374 22.4878 17.46 22.1533C20.4698 20.7602 23 18.3726 23 14.5C23 14.2239 22.7761 14 22.5 14Z" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <ul class="reviews__track" data-slider-track>
+
+          <li class="review-card">
+            <p class="review-card__text">Безусловно, понимание сути ресурсосберегающих технологий, в своём
+              классическом представлении, допускает внедрение новых принципов формирования
+              материально-технической и кадровой базы.<br />Сложно сказать, почему многие известные
+              личности, инициированные исключительно синтетически, обнародованы.</p>
+            <div class="review-card__author">
+              <p class="review-card__name">Кристина Б.</p>
+              <p class="review-card__service">Пересадка бровей</p>
+            </div>
+            <div class="review-card__video">
+              <img src="assets/images/testimonialsVideo.png" alt="" width="325" height="350" loading="lazy" />
+              <button class="review-card__play" type="button" aria-label="Смотреть видеоотзыв">
+                <svg viewBox="0 0 46 46" fill="none" aria-hidden="true">
+                  <path d="M23 0C10.2975 0 0 10.2975 0 23C0 35.7025 10.2975 46 23 46C35.7025 46 46 35.7025 46 23C46 10.2975 35.7025 0 23 0ZM31.0968 24.0173L19.8961 31.6423C19.5191 31.8988 19.0312 31.926 18.6281 31.7128C18.225 31.4996 17.9729 31.081 17.9729 30.625V15.375C17.9729 14.919 18.225 14.5004 18.6281 14.2872C19.0312 14.074 19.5191 14.1011 19.8961 14.3577L31.0968 21.9827C31.4334 22.2119 31.635 22.5927 31.635 23C31.635 23.4073 31.4335 23.7881 31.0968 24.0173Z" fill="#D0EF39" fill-opacity="0.5" />
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M19.8961 31.6423L31.0968 24.0173C31.4335 23.7881 31.635 23.4073 31.635 23C31.635 22.5927 31.4334 22.2119 31.0968 21.9827L19.8961 14.3577C19.5191 14.1011 19.0312 14.074 18.6281 14.2872C18.225 14.5004 17.9729 14.919 17.9729 15.375V30.625C17.9729 31.081 18.225 31.4996 18.6281 31.7128C19.0312 31.926 19.5191 31.8988 19.8961 31.6423Z" fill="white" />
+                </svg>
+              </button>
+            </div>
+          </li>
+
+          <li class="review-card">
+            <p class="review-card__text">Внедрение инновационных подходов к оптимизации энергопотребления
+              требует системного анализа текущих процессов и адаптации под новые вызовы рынка.</p>
+            <div class="review-card__author">
+              <p class="review-card__name">Алексей М.</p>
+              <p class="review-card__service">Пересадка волос</p>
+            </div>
+            <div class="review-card__video">
+              <img src="assets/images/testimonialsVideo.png" alt="" width="325" height="350" loading="lazy" />
+              <button class="review-card__play" type="button" aria-label="Смотреть видеоотзыв">
+                <svg viewBox="0 0 46 46" fill="none" aria-hidden="true">
+                  <path d="M23 0C10.2975 0 0 10.2975 0 23C0 35.7025 10.2975 46 23 46C35.7025 46 46 35.7025 46 23C46 10.2975 35.7025 0 23 0ZM31.0968 24.0173L19.8961 31.6423C19.5191 31.8988 19.0312 31.926 18.6281 31.7128C18.225 31.4996 17.9729 31.081 17.9729 30.625V15.375C17.9729 14.919 18.225 14.5004 18.6281 14.2872C19.0312 14.074 19.5191 14.1011 19.8961 14.3577L31.0968 21.9827C31.4334 22.2119 31.635 22.5927 31.635 23C31.635 23.4073 31.4335 23.7881 31.0968 24.0173Z" fill="#D0EF39" fill-opacity="0.5" />
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M19.8961 31.6423L31.0968 24.0173C31.4335 23.7881 31.635 23.4073 31.635 23C31.635 22.5927 31.4334 22.2119 31.0968 21.9827L19.8961 14.3577C19.5191 14.1011 19.0312 14.074 18.6281 14.2872C18.225 14.5004 17.9729 14.919 17.9729 15.375V30.625C17.9729 31.081 18.225 31.4996 18.6281 31.7128C19.0312 31.926 19.5191 31.8988 19.8961 31.6423Z" fill="white" />
+                </svg>
+              </button>
+            </div>
+          </li>
+
+          <li class="review-card">
+            <p class="review-card__text">Имеется спорная точка зрения, гласящая примерно следующее: базовые
+              сценарии поведения пользователей будут объективно рассмотрены соответствующими
+              инстанциями.<br />А также сделанные на базе интернет-аналитики выводы преданы
+              социально-демократической анафеме.</p>
+            <div class="review-card__author">
+              <p class="review-card__name">Елена С.</p>
+              <p class="review-card__service">Лечение выпадения волос</p>
+            </div>
+            <div class="review-card__video">
+              <img src="assets/images/testimonialsVideo.png" alt="" width="325" height="350" loading="lazy" />
+              <button class="review-card__play" type="button" aria-label="Смотреть видеоотзыв">
+                <svg viewBox="0 0 46 46" fill="none" aria-hidden="true">
+                  <path d="M23 0C10.2975 0 0 10.2975 0 23C0 35.7025 10.2975 46 23 46C35.7025 46 46 35.7025 46 23C46 10.2975 35.7025 0 23 0ZM31.0968 24.0173L19.8961 31.6423C19.5191 31.8988 19.0312 31.926 18.6281 31.7128C18.225 31.4996 17.9729 31.081 17.9729 30.625V15.375C17.9729 14.919 18.225 14.5004 18.6281 14.2872C19.0312 14.074 19.5191 14.1011 19.8961 14.3577L31.0968 21.9827C31.4334 22.2119 31.635 22.5927 31.635 23C31.635 23.4073 31.4335 23.7881 31.0968 24.0173Z" fill="#D0EF39" fill-opacity="0.5" />
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M19.8961 31.6423L31.0968 24.0173C31.4335 23.7881 31.635 23.4073 31.635 23C31.635 22.5927 31.4334 22.2119 31.0968 21.9827L19.8961 14.3577C19.5191 14.1011 19.0312 14.074 18.6281 14.2872C18.225 14.5004 17.9729 14.919 17.9729 15.375V30.625C17.9729 31.081 18.225 31.4996 18.6281 31.7128C19.0312 31.926 19.5191 31.8988 19.8961 31.6423Z" fill="white" />
+                </svg>
+              </button>
+            </div>
+          </li>
+
+          <li class="review-card">
+            <p class="review-card__text">Разработка и применение биотехнологий в сельском хозяйстве
+              открывает новые перспективы для устойчивого развития и повышения урожайности.</p>
+            <div class="review-card__author">
+              <p class="review-card__name">Дмитрий К.</p>
+              <p class="review-card__service">Пересадка бороды</p>
+            </div>
+            <div class="review-card__video">
+              <img src="assets/images/testimonialsVideo.png" alt="" width="325" height="350" loading="lazy" />
+              <button class="review-card__play" type="button" aria-label="Смотреть видеоотзыв">
+                <svg viewBox="0 0 46 46" fill="none" aria-hidden="true">
+                  <path d="M23 0C10.2975 0 0 10.2975 0 23C0 35.7025 10.2975 46 23 46C35.7025 46 46 35.7025 46 23C46 10.2975 35.7025 0 23 0ZM31.0968 24.0173L19.8961 31.6423C19.5191 31.8988 19.0312 31.926 18.6281 31.7128C18.225 31.4996 17.9729 31.081 17.9729 30.625V15.375C17.9729 14.919 18.225 14.5004 18.6281 14.2872C19.0312 14.074 19.5191 14.1011 19.8961 14.3577L31.0968 21.9827C31.4334 22.2119 31.635 22.5927 31.635 23C31.635 23.4073 31.4335 23.7881 31.0968 24.0173Z" fill="#D0EF39" fill-opacity="0.5" />
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M19.8961 31.6423L31.0968 24.0173C31.4335 23.7881 31.635 23.4073 31.635 23C31.635 22.5927 31.4334 22.2119 31.0968 21.9827L19.8961 14.3577C19.5191 14.1011 19.0312 14.074 18.6281 14.2872C18.225 14.5004 17.9729 14.919 17.9729 15.375V30.625C17.9729 31.081 18.225 31.4996 18.6281 31.7128C19.0312 31.926 19.5191 31.8988 19.8961 31.6423Z" fill="white" />
+                </svg>
+              </button>
+            </div>
+          </li>
+
+        </ul>
+      </div>
+    </section>
+
+    <!-- ==== Запись на консультацию ==== -->
+    <section class="lead section container">
+      <div class="lead__inner">
+
+        <div class="lead__media">
+          <img src="assets/images/ctaImg.png" alt="" width="670" height="552" loading="lazy" />
+        </div>
+
+        <div class="lead__form">
+          <div class="lead__head">
+            <h2>Начните путь к здоровым и<br />густым волосам уже сегодня!</h2>
+            <p>Наши менеджеры ответят вам в течение 10 минут</p>
+          </div>
+
+          <!-- Форма без класса — стили через родителя (под натяжку на WP/CF7) -->
+          <form action="#" method="post">
+            <div class="lead__fields">
+              <div class="field">
+                  <input id="lead-name" type="text" name="name" placeholder=" " required />
+                  <label for="lead-name">Имя*</label>
+                  <span class="field__icon" aria-hidden="true"></span>
+                </div>
+              <div class="field">
+                  <input id="lead-phone" type="tel" name="phone" placeholder=" " required />
+                  <label for="lead-phone">Номер телефона*</label>
+                  <span class="field__icon" aria-hidden="true"></span>
+                </div>
+            </div>
+            <button class="btn btn--outline btn--block" type="submit">Отправить заявку</button>
+          </form>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==== FAQ ==== -->
+    <section class="faq section container" id="faq">
+      <div class="faq__head">
+        <p class="faq__label">FAQ</p>
+        <h2>Часто задаваемые вопросы</h2>
+      </div>
+
+      <ul class="faq__list" data-accordion>
+
+        <li class="faq-item is-open">
+          <h3>
+            <button type="button" aria-expanded="true" aria-controls="faq-1">
+              <span>Если волосы после мытья ещё не просохли, то можно ли выходить на улицу
+                с влажными волосами?</span>
+              <svg viewBox="0 0 46 46" fill="none" aria-hidden="true">
+                <circle cx="23" cy="23" r="23" fill="currentColor" />
+                <path d="M16 27L23 20L30 27" stroke="#243e52" stroke-width="1.6"
+                      stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+          </h3>
+          <div class="faq-item__body" id="faq-1">
+            <div>
+              <p>Если волосы здоровые, то они покрыты гидрофобной липидной пленкой с закрытыми
+                чешуйками – это и есть верхний шар кератина. При мытье от воды эти чешуйки
+                открываются, само волосяное волокно увеличивается в объеме, делается пористым
+                и чувствительным к агрессивным наружным факторам. Из этого делаем вывод, что лучше
+                не выходить из дома с влажными волосами, чтобы лишний раз не подвергать волосы
+                травмированию.</p>
+            </div>
+          </div>
+        </li>
+
+        <li class="faq-item">
+          <h3>
+            <button type="button" aria-expanded="false" aria-controls="faq-2">
+              <span>В последнее время волосы стали очень сухими, электризуются, ломаются,
+                секутся на концах?</span>
+              <svg viewBox="0 0 46 46" fill="none" aria-hidden="true">
+                <circle cx="23" cy="23" r="23" fill="currentColor" />
+                <path d="M16 27L23 20L30 27" stroke="#243e52" stroke-width="1.6"
+                      stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+          </h3>
+          <div class="faq-item__body" id="faq-2">
+            <div><p>ЖДЁМ: ответа в макете нет.</p></div>
+          </div>
+        </li>
+
+        <li class="faq-item">
+          <h3>
+            <button type="button" aria-expanded="false" aria-controls="faq-3">
+              <span>Из-за сушки феном мои волосы могут выпасть?</span>
+              <svg viewBox="0 0 46 46" fill="none" aria-hidden="true">
+                <circle cx="23" cy="23" r="23" fill="currentColor" />
+                <path d="M16 27L23 20L30 27" stroke="#243e52" stroke-width="1.6"
+                      stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+          </h3>
+          <div class="faq-item__body" id="faq-3">
+            <div><p>ЖДЁМ: ответа в макете нет.</p></div>
+          </div>
+        </li>
+
+        <li class="faq-item">
+          <h3>
+            <button type="button" aria-expanded="false" aria-controls="faq-4">
+              <span>Начали сильно выпадать волосы, перепробовала кучу средств, эффекта нет.
+                Выпадение волос доставляет дискомфорт. Что делать?</span>
+              <svg viewBox="0 0 46 46" fill="none" aria-hidden="true">
+                <circle cx="23" cy="23" r="23" fill="currentColor" />
+                <path d="M16 27L23 20L30 27" stroke="#243e52" stroke-width="1.6"
+                      stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+          </h3>
+          <div class="faq-item__body" id="faq-4">
+            <div><p>ЖДЁМ: ответа в макете нет.</p></div>
+          </div>
+        </li>
+
+        <li class="faq-item">
+          <h3>
+            <button type="button" aria-expanded="false" aria-controls="faq-5">
+              <span>Волосы стали сухими и ломкими, феном и утюжками пользуюсь крайне редко.
+                В чем может быть проблема?</span>
+              <svg viewBox="0 0 46 46" fill="none" aria-hidden="true">
+                <circle cx="23" cy="23" r="23" fill="currentColor" />
+                <path d="M16 27L23 20L30 27" stroke="#243e52" stroke-width="1.6"
+                      stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+          </h3>
+          <div class="faq-item__body" id="faq-5">
+            <div><p>ЖДЁМ: ответа в макете нет.</p></div>
+          </div>
+        </li>
+
+        <li class="faq-item">
+          <h3>
+            <button type="button" aria-expanded="false" aria-controls="faq-6">
+              <span>От природы очень редкие волосы, хочу сделать пересадку волос. Есть ли
+                вероятность, что они не приживутся?</span>
+              <svg viewBox="0 0 46 46" fill="none" aria-hidden="true">
+                <circle cx="23" cy="23" r="23" fill="currentColor" />
+                <path d="M16 27L23 20L30 27" stroke="#243e52" stroke-width="1.6"
+                      stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+          </h3>
+          <div class="faq-item__body" id="faq-6">
+            <div><p>ЖДЁМ: ответа в макете нет.</p></div>
+          </div>
+        </li>
+
+        <li class="faq-item">
+          <h3>
+            <button type="button" aria-expanded="false" aria-controls="faq-7">
+              <span>С недавних пор у меня начали выпадать волосы. Подскажите, что делать?</span>
+              <svg viewBox="0 0 46 46" fill="none" aria-hidden="true">
+                <circle cx="23" cy="23" r="23" fill="currentColor" />
+                <path d="M16 27L23 20L30 27" stroke="#243e52" stroke-width="1.6"
+                      stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+          </h3>
+          <div class="faq-item__body" id="faq-7">
+            <div><p>ЖДЁМ: ответа в макете нет.</p></div>
+          </div>
+        </li>
+
+      </ul>
+    </section>
+
+    <!-- ==== Блог ==== -->
+    <section class="blog section container">
+      <div class="blog__head">
+        <p class="blog__label">Блог</p>
+        <h2>Полезные статьи</h2>
+        <a class="btn btn--outline" href="blog.html">Все статьи</a>
+      </div>
+
+      <ul class="blog__grid">
+
+        <li>
+          <a class="post-card" href="blog/seborrheic-dermatitis.html">
+            <div class="post-card__top">
+              <img src="assets/images/colored.png" alt="" width="400" height="204" loading="lazy" />
+
+              <div class="post-card__meta">
+                <span class="post-card__tag">Медицина</span>
+                <span class="post-card__date">02.07.2026</span>
+              </div>
+
+              <div class="post-card__text">
+                <h3>Себорейный дерматит. Симптомы. Причины. Лечение</h3>
+                <p>Себорейный дерматит - это заболевание, проявляющееся в покраснении, зуде
+                  и шелушении кожного покрова волосистой части тела. Себорея поражает сальные
+                  железы кожи головы, тела и лица (крылья носа, надбровные дуги, подбородок).</p>
+              </div>
+            </div>
+
+            <span class="post-card__more link-solid">Читать статью</span>
+          </a>
+        </li>
+
+        <li>
+          <a class="post-card" href="blog/seborrheic-dermatitis.html">
+            <div class="post-card__top">
+              <img src="assets/images/colored.png" alt="" width="400" height="204" loading="lazy" />
+
+              <div class="post-card__meta">
+                <span class="post-card__tag">Медицина</span>
+                <span class="post-card__date">02.07.2026</span>
+              </div>
+
+              <div class="post-card__text">
+                <h3>Себорейный дерматит. Симптомы. Причины. Лечение</h3>
+                <p>Себорейный дерматит - это заболевание, проявляющееся в покраснении, зуде
+                  и шелушении кожного покрова волосистой части тела. Себорея поражает сальные
+                  железы кожи головы, тела и лица (крылья носа, надбровные дуги, подбородок).</p>
+              </div>
+            </div>
+
+            <span class="post-card__more link-solid">Читать статью</span>
+          </a>
+        </li>
+
+        <li>
+          <a class="post-card" href="blog/seborrheic-dermatitis.html">
+            <div class="post-card__top">
+              <img src="assets/images/colored.png" alt="" width="400" height="204" loading="lazy" />
+
+              <div class="post-card__meta">
+                <span class="post-card__tag">Медицина</span>
+                <span class="post-card__date">02.07.2026</span>
+              </div>
+
+              <div class="post-card__text">
+                <h3>Себорейный дерматит. Симптомы. Причины. Лечение</h3>
+                <p>Себорейный дерматит - это заболевание, проявляющееся в покраснении, зуде
+                  и шелушении кожного покрова волосистой части тела. Себорея поражает сальные
+                  железы кожи головы, тела и лица (крылья носа, надбровные дуги, подбородок).</p>
+              </div>
+            </div>
+
+            <span class="post-card__more link-solid">Читать статью</span>
+          </a>
+        </li>
+
+      </ul>
+    </section>
+
+    <!-- ==== Контакты и заявка ==== -->
+    <section class="contacts section container" id="contacts">
+      <div class="contacts__grid">
+
+        <div class="contacts__card">
+          <h2>Свяжитесь с нами</h2>
+
+          <div class="contacts__info">
+            <div class="contacts__col">
+              <h3>Номер телефона</h3>
+              <a href="tel:+77028216361">+7‒702‒821‒63‒61</a>
+              <a href="tel:+77172572888">+7 (7172) 57‒28‒88</a>
+            </div>
+
+            <div class="contacts__col">
+              <h3>Режим работы</h3>
+              <p>ПН-ПТ: 09:00 - 19:00</p>
+              <p>СБ: 10:00 - 17:00</p>
+              <p>ВС: Выходной</p>
+            </div>
+
+            <div class="contacts__col">
+              <h3>Соцсети</h3>
+              <div class="contacts__socials">
+                <a class="link-solid" href="#" target="_blank" rel="noopener" aria-label="Instagram">
+                  <img src="assets/images/instConnect.png" alt="" width="25" height="25" loading="lazy" />
+                </a>
+                <a class="link-solid" href="#" target="_blank" rel="noopener" aria-label="WhatsApp">
+                  <img src="assets/images/wppConnect.png" alt="" width="25" height="25" loading="lazy" />
+                </a>
+              </div>
+            </div>
+
+            <div class="contacts__col contacts__col--address">
+              <h3>Адрес клиники</h3>
+              <p>Казахстан, г. Астана, ул. Кайыма Мухамедханова 11/1</p>
+            </div>
+
+            <div class="contacts__col contacts__col--email">
+              <h3>E-mail</h3>
+              <a href="mailto:hairlinekz@gmail.com">hairlinekz@gmail.com</a>
+            </div>
+          </div>
+
+          <a class="btn btn--outline btn--block" href="#" target="_blank" rel="noopener">Открыть в 2GIS</a>
+        </div>
+
+        <div class="cta-card">
+          <h2>Оставьте заявку</h2>
+          <p class="cta-card__note">Наши менеджеры ответят вам в течение 10 минут</p>
+
+          <!-- Форма без класса — стили через родителя (под натяжку на WP/CF7) -->
+          <form action="#" method="post">
+            <div class="cta-card__fields">
+              <div class="field field--dark">
+                  <input id="cta-name" type="text" name="name" placeholder=" " required />
+                  <label for="cta-name">Имя*</label>
+                  <span class="field__icon" aria-hidden="true"></span>
+                </div>
+              <div class="field field--dark">
+                  <input id="cta-phone" type="tel" name="phone" placeholder=" " required />
+                  <label for="cta-phone">Номер телефона*</label>
+                  <span class="field__icon" aria-hidden="true"></span>
+                </div>
+              <!-- Кастомный список: нативный select не даёт стилизовать выпадающую панель -->
+              <div class="select" data-select>
+                <button class="select__toggle" type="button" aria-haspopup="listbox" aria-expanded="false">
+                  <span data-select-label>Какая услуга вас интересует? Выберите из списка</span>
+                  <svg viewBox="0 0 15 20" fill="none" aria-hidden="true">
+                    <path d="M2 8L7.5 13L13 8" stroke="currentColor" stroke-width="1.4"
+                          stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </button>
+
+                <ul class="select__list" role="listbox" aria-label="Услуга">
+                  <li role="option" tabindex="-1" data-value="hair">Пересадка волос</li>
+                  <li role="option" tabindex="-1" data-value="brows">Пересадка бровей</li>
+                  <li role="option" tabindex="-1" data-value="beard">Пересадка бороды</li>
+                  <li role="option" tabindex="-1" data-value="injections">Инъекционная терапия кожи головы</li>
+                  <li role="option" tabindex="-1" data-value="hair-loss">Лечение выпадения волос</li>
+                </ul>
+
+                <input type="hidden" name="service" data-select-input />
+              </div>
+            </div>
+            <button class="btn btn--block" type="submit">Отправить заявку</button>
+          </form>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+
+      <div class="footer__top">
+
+        <div class="footer__cta">
+          <h2>По вопросам сотрудничества<br />напишите нам на почту:</h2>
+          <a class="footer__email" href="mailto:hairlinekz@gmail.com">hairlinekz@gmail.com</a>
+        </div>
+
+        <div class="footer__cols">
+
+          <div class="footer__col footer__col--nav">
+            <h3>Навигация</h3>
+            <nav class="footer__list" aria-label="Навигация в подвале">
+              <a class="link-line" href="about.html">О центре</a>
+              <a class="link-line" href="results.html">Результаты</a>
+              <a class="link-line" href="blog.html">Блог</a>
+              <a class="link-line" href="contacts.html">Контакты</a>
+              <a class="link-line" href="index.html#faq">FAQ</a>
+            </nav>
+          </div>
+
+          <div class="footer__col footer__col--services">
+            <h3>Услуги</h3>
+            <nav class="footer__list" aria-label="Услуги">
+              <a class="link-line" href="services/hair.html">Пересадка волос</a>
+              <a class="link-line" href="services/brows.html">Пересадка бровей</a>
+              <a class="link-line" href="services/beard.html">Пересадка бороды</a>
+              <a class="link-line" href="services/hair-loss.html">Лечение выпадения волос</a>
+              <a class="link-line" href="services/injections.html">Инъекционная терапия кожи головы</a>
+            </nav>
+          </div>
+
+          <div class="footer__col footer__col--contacts">
+            <h3>Контакты</h3>
+            <div class="footer__list">
+              <a class="footer__contact link-line" href="tel:+77028216361">+7‒702‒821‒63‒61</a>
+              <a class="footer__contact link-line" href="tel:+77172572888">+7 (7172) 57‒28‒88</a>
+              <p class="footer__contact footer__contact--address">г. Астана, ул. Кайыма Мухамедханова 11/1</p>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="footer__socials" aria-label="Социальные сети">
+          <a href="#" target="_blank" rel="noopener" aria-label="Instagram">
+            <img src="assets/images/insta.png" alt="" width="25" height="25" loading="lazy" />
+          </a>
+          <a href="#" target="_blank" rel="noopener" aria-label="WhatsApp">
+            <img src="assets/images/wpp.png" alt="" width="25" height="25" loading="lazy" />
+          </a>
+        </div>
+      </div>
+
+      <div class="footer__line"></div>
+
+      <div class="footer__bottom">
+        <p>ТОО "Hairline.kz" © 2014-2026</p>
+        <p>Сделано в <b>factum.</b></p>
+      </div>
+
+    </div>
+  </footer>
+
+  <script src="assets/vendor/lenis.min.js"></script>
+  <script src="src/lib/main.js?v=10"></script>
+</body>
+</html>

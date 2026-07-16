@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Результаты — Hairline</title>
+  <meta name="description" content="" />
+
+  <link rel="preload" as="font" type="font/woff2" href="assets/fonts/gilroy-500.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="assets/fonts/playfair-var.woff2" crossorigin />
+
+  <link rel="stylesheet" href="src/styles/main.css?v=64" />
+</head>
+<body class="page--hero">
+
+  <header class="header" data-header>
+    <div class="container">
+      <div class="header__pill">
+
+        <a class="header__logo" href="index.html" aria-label="Hairline — на главную">
+          <img src="assets/images/logoHeader.svg" alt="Hairline" width="46" height="50" />
+        </a>
+
+        <nav class="nav" aria-label="Основная навигация">
+          <a class="nav__link link-line" href="about.html">О центре</a>
+
+          <div class="nav__item" data-nav-drop>
+            <a class="nav__link link-line" href="services.html" aria-haspopup="true" aria-expanded="false">
+              Услуги
+              <svg class="nav__chevron" viewBox="0 0 9 10" fill="none" aria-hidden="true">
+                <path d="M1 3.5L4.5 7L8 3.5" stroke="currentColor" stroke-width="1.2"
+                      stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </a>
+
+            <div class="nav__drop">
+              <div class="nav__drop-inner">
+                <a href="services/hair.html">Пересадка волос</a>
+                <a href="services/brows.html">Пересадка бровей</a>
+                <a href="services/beard.html">Пересадка бороды</a>
+                <a href="services/injections.html">Инъекционная терапия кожи головы</a>
+                <a href="services/hair-loss.html">Лечение выпадения волос</a>
+              </div>
+            </div>
+          </div>
+
+          <a class="nav__link link-line is-active" href="results.html" aria-current="page">Результаты</a>
+          <a class="nav__link link-line" href="blog.html">Блог</a>
+          <a class="nav__link link-line" href="contacts.html">Контакты</a>
+        </nav>
+
+        <button class="btn header__cta" type="button" data-modal-open="modal-contact">Связаться с нами</button>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- ==== Модалка «Связаться с нами» ====
+       Нативный dialog: фокус, Esc и подложка — из коробки, без своего JS -->
+  <dialog class="modal" id="modal-contact" aria-labelledby="modal-contact-title">
+    <button class="modal__close" type="button" aria-label="Закрыть" data-modal-close>
+      <svg viewBox="0 0 15 15" fill="none" aria-hidden="true">
+        <path d="M1 1L14 14M14 1L1 14" stroke="currentColor" stroke-width="1.5"
+              stroke-linecap="round" />
+      </svg>
+    </button>
+
+    <div class="modal__head">
+      <h2 id="modal-contact-title">Начните путь к здоровым и<br />густым волосам уже сегодня!</h2>
+      <p>Наши менеджеры ответят вам в течение 10 минут</p>
+    </div>
+
+    <!-- Форма без класса — стили через родителя (под натяжку на WP/CF7) -->
+    <form action="#" method="post">
+      <div class="modal__fields">
+        <div class="field">
+                  <input id="modal-name" type="text" name="name" placeholder=" " required />
+                  <label for="modal-name">Имя*</label>
+                  <span class="field__icon" aria-hidden="true"></span>
+                </div>
+        <div class="field">
+                  <input id="modal-phone" type="tel" name="phone" placeholder=" " required />
+                  <label for="modal-phone">Номер телефона*</label>
+                  <span class="field__icon" aria-hidden="true"></span>
+                </div>
+      </div>
+      <button class="btn btn--outline btn--block" type="submit">Отправить заявку</button>
+    </form>
+  </dialog>
+
+  <main>
+
+    <!-- ==== Шапка страницы ==== -->
+    <section class="page-hero">
+      <div class="page-hero__dome" aria-hidden="true"></div>
+      <h1>Результаты</h1>
+    </section>
+
+    <!-- ==== Результаты по категориям ====
+         Каждая категория — своя лента: 3 карточки видны, стрелки листают -->
+    <div class="results-page">
+    <!-- ==== Категория: Пересадка волос ==== -->
+    <section class="results-cat container">
+      <div class="results-cat__head">
+        <h2>Пересадка волос</h2>
+        <div class="results-cat__arrows">
+          <button class="arrow-btn arrow-btn--prev" type="button" aria-label="Предыдущие результаты" data-slider-prev>
+            <svg viewBox="0 0 46 46" fill="none" aria-hidden="true">
+              <rect x="0.5" y="0.5" width="45" height="45" rx="22.5" stroke="currentColor" />
+              <path fill="currentColor" d="M22.5 14C22.2239 14 22 14.2239 22 14.5C22 17.8273 19.8634 19.9392 17.04 21.2461C14.2092 22.5564 10.7867 23 8.5 23C8.46557 23 8.43188 23.0031 8.39941 23.0098C8.33438 23.0231 8.27386 23.0491 8.2207 23.085C8.16722 23.121 8.12103 23.1672 8.08496 23.2207C8.04914 23.2739 8.02304 23.3344 8.00977 23.3994C8.00314 23.4319 8 23.4656 8 23.5C8 23.5344 8.00314 23.5681 8.00977 23.6006C8.02304 23.6656 8.04912 23.7261 8.08496 23.7793C8.12103 23.8328 8.16722 23.879 8.2207 23.915C8.27386 23.9509 8.3344 23.977 8.39941 23.9902C8.43188 23.9969 8.46557 24 8.5 24C10.7867 24 14.2092 24.4436 17.04 25.7539C19.8634 27.0608 22 29.1727 22 32.5C22 32.7761 22.2239 33 22.5 33C22.7761 33 23 32.7761 23 32.5C23 28.6274 20.4698 26.2398 17.46 24.8467C16.7374 24.5122 15.9812 24.233 15.2168 24H36.5C36.7761 23.9999 36.9999 23.7761 37 23.5C36.9999 23.2239 36.7761 23.0001 36.5 23H15.2168C15.9812 22.767 16.7374 22.4878 17.46 22.1533C20.4698 20.7602 23 18.3726 23 14.5C23 14.2239 22.7761 14 22.5 14Z" />
+            </svg>
+          </button>
+          <button class="arrow-btn arrow-btn--next" type="button" aria-label="Следующие результаты" data-slider-next>
+            <svg viewBox="0 0 46 46" fill="none" aria-hidden="true">
+              <rect x="0.5" y="0.5" width="45" height="45" rx="22.5" stroke="currentColor" />
+              <path fill="currentColor" d="M22.5 14C22.2239 14 22 14.2239 22 14.5C22 17.8273 19.8634 19.9392 17.04 21.2461C14.2092 22.5564 10.7867 23 8.5 23C8.46557 23 8.43188 23.0031 8.39941 23.0098C8.33438 23.0231 8.27386 23.0491 8.2207 23.085C8.16722 23.121 8.12103 23.1672 8.08496 23.2207C8.04914 23.2739 8.02304 23.3344 8.00977 23.3994C8.00314 23.4319 8 23.4656 8 23.5C8 23.5344 8.00314 23.5681 8.00977 23.6006C8.02304 23.6656 8.04912 23.7261 8.08496 23.7793C8.12103 23.8328 8.16722 23.879 8.2207 23.915C8.27386 23.9509 8.3344 23.977 8.39941 23.9902C8.43188 23.9969 8.46557 24 8.5 24C10.7867 24 14.2092 24.4436 17.04 25.7539C19.8634 27.0608 22 29.1727 22 32.5C22 32.7761 22.2239 33 22.5 33C22.7761 33 23 32.7761 23 32.5C23 28.6274 20.4698 26.2398 17.46 24.8467C16.7374 24.5122 15.9812 24.233 15.2168 24H36.5C36.7761 23.9999 36.9999 23.7761 37 23.5C36.9999 23.2239 36.7761 23.0001 36.5 23H15.2168C15.9812 22.767 16.7374 22.4878 17.46 22.1533C20.4698 20.7602 23 18.3726 23 14.5C23 14.2239 22.7761 14 22.5 14Z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <ul class="results-cat__track" data-slider-track>
+          <li class="result-card">
+            <div class="result-card__compare" data-compare>
+              <img class="result-card__img" src="assets/images/after.png" alt="После — Пересадка волос" width="420" height="286" loading="lazy" />
+              <span class="result-card__badge result-card__badge--after">После</span>
+
+              <div class="result-card__before" data-compare-before>
+                <img class="result-card__img" src="assets/images/before.png" alt="До — Пересадка волос" width="420" height="286" loading="lazy" />
+                <span class="result-card__badge result-card__badge--before">До</span>
+              </div>
+
+              <div class="result-card__handle" data-compare-handle aria-hidden="true">
+                <span class="result-card__knob">
+                  <svg viewBox="0 0 8 15" fill="none"><path d="M7.5 0.5L0.5 7.5L7.5 14.5" stroke="#3D627D" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                  <svg viewBox="0 0 8 15" fill="none"><path d="M7.5 0.5L0.5 7.5L7.5 14.5" stroke="#3D627D" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                </span>
+              </div>
+
+              <input class="result-card__range" type="range" min="0" max="100" value="50" step="1"
+                     aria-label="Сравнить до и после" data-compare-range />
+            </div>
+            <h3>Пересадка волос</h3>
+          </li>
+          <li class="result-card">
+            <div class="result-card__compare" data-compare>
+              <img class="result-card__img" src="assets/images/after.png" alt="После — Пересадка волос" width="420" height="286" loading="lazy" />
+              <span class="result-card__badge result-card__badge--after">После</span>
+
+              <div class="result-card__before" data-compare-before>
+                <img class="result-card__img" src="assets/images/before.png" alt="До — Пересадка волос" width="420" height="286" loading="lazy" />
+                <span class="result-card__badge result-card__badge--before">До</span>
+              </div>
+
+              <div class="result-card__handle" data-compare-handle aria-hidden="true">
+                <span class="result-card__knob">
+                  <svg viewBox="0 0 8 15" fill="none"><path d="M7.5 0.5L0.5 7.5L7.5 14.5" stroke="#3D627D" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                  <svg viewBox="0 0 8 15" fill="none"><path d="M7.5 0.5L0.5 7.5L7.5 14.5" stroke="#3D627D" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                </span>
+              </div>
+
+              <input class="result-card__range" type="range" min="0" max="100" value="50" step="1"
+                     aria-label="Сравнить до и после" data-compare-range />
+            </div>
+            <h3>Пересадка волос</h3>
+          </li>
+          <li class="result-card">
+            <div class="result-card__compare" data-compare>
+              <img class="result-card__img" src="assets/images/after.png" alt="После — Пересадка волос" width="420" height="286" loading="lazy" />
+              <span class="result-card__badge result-card__badge--after">После</span>
+
+              <div class="result-card__before" data-compare-before>
+                <img class="result-card__img" src="assets/images/before.png" alt="До — Пересадка волос" width="420" height="286" loading="lazy" />
+                <span class="result-card__badge result-card__badge--before">До</span>
+              </div>
+
+              <div class="result-card__handle" data-compare-handle aria-hidden="true">
+                <span class="result-card__knob">
+                  <svg viewBox="0 0 8 15" fill="none"><path d="M7.5 0.5L0.5 7.5L7.5 14.5" stroke="#3D627D" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                  <svg viewBox="0 0 8 15" fill="none"><path d="M7.5 0.5L0.5 7.5L7.5 14.5" stroke="#3D627D" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                </span>
+              </div>
+
+              <input class="result-card__range" type="range" min="0" max="100" value="50" step="1"
+                     aria-label="Сравнить до и после" data-compare-range />
+            </div>
+            <h3>Пересадка волос</h3>
+          </li>
+          <li class="result-card">
+            <div class="result-card__compare" data-compare>
+              <img class="result-card__img" src="assets/images/after.png" alt="После — Пересадка волос" width="420" height="286" loading="lazy" />
+              <span class="result-card__badge result-card__badge--after">После</span>
+
+              <div class="result-card__before" data-compare-before>
+                <img class="result-card__img" src="assets/images/before.png" alt="До — Пересадка волос" width="420" height="286" loading="lazy" />
+                <span class="result-card__badge result-card__badge--before">До</span>
+              </div>
+
+              <div class="result-card__handle" data-compare-handle aria-hidden="true">
+                <span class="result-card__knob">
+                  <svg viewBox="0 0 8 15" fill="none"><path d="M7.5 0.5L0.5 7.5L7.5 14.5" stroke="#3D627D" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                  <svg viewBox="0 0 8 15" fill="none"><path d="M7.5 0.5L0.5 7.5L7.5 14.5" stroke="#3D627D" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                </span>
+              </div>
+
+              <input class="result-card__range" type="range" min="0" max="100" value="50" step="1"
+                     aria-label="Сравнить до и после" data-compare-range />
+            </div>
+            <h3>Пересадка волос</h3>
+          </li>
+      </ul>
+    </section>
+
+    <!-- ==== Категория: Пересадка бороды ==== -->
+    <section class="results-cat container">
+      <div class="results-cat__head">
+        <h2>Пересадка бороды</h2>
+        <div class="results-cat__arrows">
+          <button class="arrow-btn arrow-btn--prev" type="button" aria-label="Предыдущие результаты" data-slider-prev>
+            <svg viewBox="0 0 46 46" fill="none" aria-hidden="true">
+              <rect x="0.5" y="0.5" width="45" height="45" rx="22.5" stroke="currentColor" />
+              <path fill="currentColor" d="M22.5 14C22.2239 14 22 14.2239 22 14.5C22 17.8273 19.8634 19.9392 17.04 21.2461C14.2092 22.5564 10.7867 23 8.5 23C8.46557 23 8.43188 23.0031 8.39941 23.0098C8.33438 23.0231 8.27386 23.0491 8.2207 23.085C8.16722 23.121 8.12103 23.1672 8.08496 23.2207C8.04914 23.2739 8.02304 23.3344 8.00977 23.3994C8.00314 23.4319 8 23.4656 8 23.5C8 23.5344 8.00314 23.5681 8.00977 23.6006C8.02304 23.6656 8.04912 23.7261 8.08496 23.7793C8.12103 23.8328 8.16722 23.879 8.2207 23.915C8.27386 23.9509 8.3344 23.977 8.39941 23.9902C8.43188 23.9969 8.46557 24 8.5 24C10.7867 24 14.2092 24.4436 17.04 25.7539C19.8634 27.0608 22 29.1727 22 32.5C22 32.7761 22.2239 33 22.5 33C22.7761 33 23 32.7761 23 32.5C23 28.6274 20.4698 26.2398 17.46 24.8467C16.7374 24.5122 15.9812 24.233 15.2168 24H36.5C36.7761 23.9999 36.9999 23.7761 37 23.5C36.9999 23.2239 36.7761 23.0001 36.5 23H15.2168C15.9812 22.767 16.7374 22.4878 17.46 22.1533C20.4698 20.7602 23 18.3726 23 14.5C23 14.2239 22.7761 14 22.5 14Z" />
+            </svg>
+          </button>
+          <button class="arrow-btn arrow-btn--next" type="button" aria-label="Следующие результаты" data-slider-next>
+            <svg viewBox="0 0 46 46" fill="none" aria-hidden="true">
+              <rect x="0.5" y="0.5" width="45" height="45" rx="22.5" stroke="currentColor" />
+              <path fill="currentColor" d="M22.5 14C22.2239 14 22 14.2239 22 14.5C22 17.8273 19.8634 19.9392 17.04 21.2461C14.2092 22.5564 10.7867 23 8.5 23C8.46557 23 8.43188 23.0031 8.39941 23.0098C8.33438 23.0231 8.27386 23.0491 8.2207 23.085C8.16722 23.121 8.12103 23.1672 8.08496 23.2207C8.04914 23.2739 8.02304 23.3344 8.00977 23.3994C8.00314 23.4319 8 23.4656 8 23.5C8 23.5344 8.00314 23.5681 8.00977 23.6006C8.02304 23.6656 8.04912 23.7261 8.08496 23.7793C8.12103 23.8328 8.16722 23.879 8.2207 23.915C8.27386 23.9509 8.3344 23.977 8.39941 23.9902C8.43188 23.9969 8.46557 24 8.5 24C10.7867 24 14.2092 24.4436 17.04 25.7539C19.8634 27.0608 22 29.1727 22 32.5C22 32.7761 22.2239 33 22.5 33C22.7761 33 23 32.7761 23 32.5C23 28.6274 20.4698 26.2398 17.46 24.8467C16.7374 24.5122 15.9812 24.233 15.2168 24H36.5C36.7761 23.9999 36.9999 23.7761 37 23.5C36.9999 23.2239 36.7761 23.0001 36.5 23H15.2168C15.9812 22.767 16.7374 22.4878 17.46 22.1533C20.4698 20.7602 23 18.3726 23 14.5C23 14.2239 22.7761 14 22.5 14Z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <ul class="results-cat__track" data-slider-track>
+          <li class="result-card">
+            <div class="result-card__compare" data-compare>
+              <img class="result-card__img" src="assets/images/after.png" alt="После — Пересадка бороды" width="420" height="286" loading="lazy" />
+              <span class="result-card__badge result-card__badge--after">После</span>
+
+              <div class="result-card__before" data-compare-before>
+                <img class="result-card__img" src="assets/images/before.png" alt="До — Пересадка бороды" width="420" height="286" loading="lazy" />
+                <span class="result-card__badge result-card__badge--before">До</span>
+              </div>
+
+              <div class="result-card__handle" data-compare-handle aria-hidden="true">
+                <span class="result-card__knob">
+                  <svg viewBox="0 0 8 15" fill="none"><path d="M7.5 0.5L0.5 7.5L7.5 14.5" stroke="#3D627D" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                  <svg viewBox="0 0 8 15" fill="none"><path d="M7.5 0.5L0.5 7.5L7.5 14.5" stroke="#3D627D" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                </span>
+              </div>
+
+              <input class="result-card__range" type="range" min="0" max="100" value="50" step="1"
+                     aria-label="Сравнить до и после" data-compare-range />
+            </div>
+            <h3>Пересадка бороды</h3>
+          </li>
+          <li class="result-card">
+            <div class="result-card__compare" data-compare>
+              <img class="result-card__img" src="assets/images/after.png" alt="После — Пересадка бороды" width="420" height="286" loading="lazy" />
+              <span class="result-card__badge result-card__badge--after">После</span>
+
+              <div class="result-card__before" data-compare-before>
+                <img class="result-card__img" src="assets/images/before.png" alt="До — Пересадка бороды" width="420" height="286" loading="lazy" />
+                <span class="result-card__badge result-card__badge--before">До</span>
+              </div>
+
+              <div class="result-card__handle" data-compare-handle aria-hidden="true">
+                <span class="result-card__knob">
+                  <svg viewBox="0 0 8 15" fill="none"><path d="M7.5 0.5L0.5 7.5L7.5 14.5" stroke="#3D627D" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                  <svg viewBox="0 0 8 15" fill="none"><path d="M7.5 0.5L0.5 7.5L7.5 14.5" stroke="#3D627D" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                </span>
+              </div>
+
+              <input class="result-card__range" type="range" min="0" max="100" value="50" step="1"
+                     aria-label="Сравнить до и после" data-compare-range />
+            </div>
+            <h3>Пересадка бороды</h3>
+          </li>
+          <li class="result-card">
+            <div class="result-card__compare" data-compare>
+              <img class="result-card__img" src="assets/images/after.png" alt="После — Пересадка бороды" width="420" height="286" loading="lazy" />
+              <span class="result-card__badge result-card__badge--after">После</span>
+
+              <div class="result-card__before" data-compare-before>
+                <img class="result-card__img" src="assets/images/before.png" alt="До — Пересадка бороды" width="420" height="286" loading="lazy" />
+                <span class="result-card__badge result-card__badge--before">До</span>
+              </div>
+
+              <div class="result-card__handle" data-compare-handle aria-hidden="true">
+                <span class="result-card__knob">
+                  <svg viewBox="0 0 8 15" fill="none"><path d="M7.5 0.5L0.5 7.5L7.5 14.5" stroke="#3D627D" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                  <svg viewBox="0 0 8 15" fill="none"><path d="M7.5 0.5L0.5 7.5L7.5 14.5" stroke="#3D627D" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                </span>
+              </div>
+
+              <input class="result-card__range" type="range" min="0" max="100" value="50" step="1"
+                     aria-label="Сравнить до и после" data-compare-range />
+            </div>
+            <h3>Пересадка бороды</h3>
+          </li>
+          <li class="result-card">
+            <div class="result-card__compare" data-compare>
+              <img class="result-card__img" src="assets/images/after.png" alt="После — Пересадка бороды" width="420" height="286" loading="lazy" />
+              <span class="result-card__badge result-card__badge--after">После</span>
+
+              <div class="result-card__before" data-compare-before>
+                <img class="result-card__img" src="assets/images/before.png" alt="До — Пересадка бороды" width="420" height="286" loading="lazy" />
+                <span class="result-card__badge result-card__badge--before">До</span>
+              </div>
+
+              <div class="result-card__handle" data-compare-handle aria-hidden="true">
+                <span class="result-card__knob">
+                  <svg viewBox="0 0 8 15" fill="none"><path d="M7.5 0.5L0.5 7.5L7.5 14.5" stroke="#3D627D" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                  <svg viewBox="0 0 8 15" fill="none"><path d="M7.5 0.5L0.5 7.5L7.5 14.5" stroke="#3D627D" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                </span>
+              </div>
+
+              <input class="result-card__range" type="range" min="0" max="100" value="50" step="1"
+                     aria-label="Сравнить до и после" data-compare-range />
+            </div>
+            <h3>Пересадка бороды</h3>
+          </li>
+      </ul>
+    </section>
+
+    <!-- ==== Категория: Пересадка бровей ==== -->
+    <section class="results-cat container">
+      <div class="results-cat__head">
+        <h2>Пересадка бровей</h2>
+        <div class="results-cat__arrows">
+          <button class="arrow-btn arrow-btn--prev" type="button" aria-label="Предыдущие результаты" data-slider-prev>
+            <svg viewBox="0 0 46 46" fill="none" aria-hidden="true">
+              <rect x="0.5" y="0.5" width="45" height="45" rx="22.5" stroke="currentColor" />
+              <path fill="currentColor" d="M22.5 14C22.2239 14 22 14.2239 22 14.5C22 17.8273 19.8634 19.9392 17.04 21.2461C14.2092 22.5564 10.7867 23 8.5 23C8.46557 23 8.43188 23.0031 8.39941 23.0098C8.33438 23.0231 8.27386 23.0491 8.2207 23.085C8.16722 23.121 8.12103 23.1672 8.08496 23.2207C8.04914 23.2739 8.02304 23.3344 8.00977 23.3994C8.00314 23.4319 8 23.4656 8 23.5C8 23.5344 8.00314 23.5681 8.00977 23.6006C8.02304 23.6656 8.04912 23.7261 8.08496 23.7793C8.12103 23.8328 8.16722 23.879 8.2207 23.915C8.27386 23.9509 8.3344 23.977 8.39941 23.9902C8.43188 23.9969 8.46557 24 8.5 24C10.7867 24 14.2092 24.4436 17.04 25.7539C19.8634 27.0608 22 29.1727 22 32.5C22 32.7761 22.2239 33 22.5 33C22.7761 33 23 32.7761 23 32.5C23 28.6274 20.4698 26.2398 17.46 24.8467C16.7374 24.5122 15.9812 24.233 15.2168 24H36.5C36.7761 23.9999 36.9999 23.7761 37 23.5C36.9999 23.2239 36.7761 23.0001 36.5 23H15.2168C15.9812 22.767 16.7374 22.4878 17.46 22.1533C20.4698 20.7602 23 18.3726 23 14.5C23 14.2239 22.7761 14 22.5 14Z" />
+            </svg>
+          </button>
+          <button class="arrow-btn arrow-btn--next" type="button" aria-label="Следующие результаты" data-slider-next>
+            <svg viewBox="0 0 46 46" fill="none" aria-hidden="true">
+              <rect x="0.5" y="0.5" width="45" height="45" rx="22.5" stroke="currentColor" />
+              <path fill="currentColor" d="M22.5 14C22.2239 14 22 14.2239 22 14.5C22 17.8273 19.8634 19.9392 17.04 21.2461C14.2092 22.5564 10.7867 23 8.5 23C8.46557 23 8.43188 23.0031 8.39941 23.0098C8.33438 23.0231 8.27386 23.0491 8.2207 23.085C8.16722 23.121 8.12103 23.1672 8.08496 23.2207C8.04914 23.2739 8.02304 23.3344 8.00977 23.3994C8.00314 23.4319 8 23.4656 8 23.5C8 23.5344 8.00314 23.5681 8.00977 23.6006C8.02304 23.6656 8.04912 23.7261 8.08496 23.7793C8.12103 23.8328 8.16722 23.879 8.2207 23.915C8.27386 23.9509 8.3344 23.977 8.39941 23.9902C8.43188 23.9969 8.46557 24 8.5 24C10.7867 24 14.2092 24.4436 17.04 25.7539C19.8634 27.0608 22 29.1727 22 32.5C22 32.7761 22.2239 33 22.5 33C22.7761 33 23 32.7761 23 32.5C23 28.6274 20.4698 26.2398 17.46 24.8467C16.7374 24.5122 15.9812 24.233 15.2168 24H36.5C36.7761 23.9999 36.9999 23.7761 37 23.5C36.9999 23.2239 36.7761 23.0001 36.5 23H15.2168C15.9812 22.767 16.7374 22.4878 17.46 22.1533C20.4698 20.7602 23 18.3726 23 14.5C23 14.2239 22.7761 14 22.5 14Z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <ul class="results-cat__track" data-slider-track>
+          <li class="result-card">
+            <div class="result-card__compare" data-compare>
+              <img class="result-card__img" src="assets/images/after.png" alt="После — Пересадка бровей" width="420" height="286" loading="lazy" />
+              <span class="result-card__badge result-card__badge--after">После</span>
+
+              <div class="result-card__before" data-compare-before>
+                <img class="result-card__img" src="assets/images/before.png" alt="До — Пересадка бровей" width="420" height="286" loading="lazy" />
+                <span class="result-card__badge result-card__badge--before">До</span>
+              </div>
+
+              <div class="result-card__handle" data-compare-handle aria-hidden="true">
+                <span class="result-card__knob">
+                  <svg viewBox="0 0 8 15" fill="none"><path d="M7.5 0.5L0.5 7.5L7.5 14.5" stroke="#3D627D" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                  <svg viewBox="0 0 8 15" fill="none"><path d="M7.5 0.5L0.5 7.5L7.5 14.5" stroke="#3D627D" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                </span>
+              </div>
+
+              <input class="result-card__range" type="range" min="0" max="100" value="50" step="1"
+                     aria-label="Сравнить до и после" data-compare-range />
+            </div>
+            <h3>Пересадка бровей</h3>
+          </li>
+          <li class="result-card">
+            <div class="result-card__compare" data-compare>
+              <img class="result-card__img" src="assets/images/after.png" alt="После — Пересадка бровей" width="420" height="286" loading="lazy" />
+              <span class="result-card__badge result-card__badge--after">После</span>
+
+              <div class="result-card__before" data-compare-before>
+                <img class="result-card__img" src="assets/images/before.png" alt="До — Пересадка бровей" width="420" height="286" loading="lazy" />
+                <span class="result-card__badge result-card__badge--before">До</span>
+              </div>
+
+              <div class="result-card__handle" data-compare-handle aria-hidden="true">
+                <span class="result-card__knob">
+                  <svg viewBox="0 0 8 15" fill="none"><path d="M7.5 0.5L0.5 7.5L7.5 14.5" stroke="#3D627D" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                  <svg viewBox="0 0 8 15" fill="none"><path d="M7.5 0.5L0.5 7.5L7.5 14.5" stroke="#3D627D" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                </span>
+              </div>
+
+              <input class="result-card__range" type="range" min="0" max="100" value="50" step="1"
+                     aria-label="Сравнить до и после" data-compare-range />
+            </div>
+            <h3>Пересадка бровей</h3>
+          </li>
+          <li class="result-card">
+            <div class="result-card__compare" data-compare>
+              <img class="result-card__img" src="assets/images/after.png" alt="После — Пересадка бровей" width="420" height="286" loading="lazy" />
+              <span class="result-card__badge result-card__badge--after">После</span>
+
+              <div class="result-card__before" data-compare-before>
+                <img class="result-card__img" src="assets/images/before.png" alt="До — Пересадка бровей" width="420" height="286" loading="lazy" />
+                <span class="result-card__badge result-card__badge--before">До</span>
+              </div>
+
+              <div class="result-card__handle" data-compare-handle aria-hidden="true">
+                <span class="result-card__knob">
+                  <svg viewBox="0 0 8 15" fill="none"><path d="M7.5 0.5L0.5 7.5L7.5 14.5" stroke="#3D627D" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                  <svg viewBox="0 0 8 15" fill="none"><path d="M7.5 0.5L0.5 7.5L7.5 14.5" stroke="#3D627D" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                </span>
+              </div>
+
+              <input class="result-card__range" type="range" min="0" max="100" value="50" step="1"
+                     aria-label="Сравнить до и после" data-compare-range />
+            </div>
+            <h3>Пересадка бровей</h3>
+          </li>
+          <li class="result-card">
+            <div class="result-card__compare" data-compare>
+              <img class="result-card__img" src="assets/images/after.png" alt="После — Пересадка бровей" width="420" height="286" loading="lazy" />
+              <span class="result-card__badge result-card__badge--after">После</span>
+
+              <div class="result-card__before" data-compare-before>
+                <img class="result-card__img" src="assets/images/before.png" alt="До — Пересадка бровей" width="420" height="286" loading="lazy" />
+                <span class="result-card__badge result-card__badge--before">До</span>
+              </div>
+
+              <div class="result-card__handle" data-compare-handle aria-hidden="true">
+                <span class="result-card__knob">
+                  <svg viewBox="0 0 8 15" fill="none"><path d="M7.5 0.5L0.5 7.5L7.5 14.5" stroke="#3D627D" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                  <svg viewBox="0 0 8 15" fill="none"><path d="M7.5 0.5L0.5 7.5L7.5 14.5" stroke="#3D627D" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                </span>
+              </div>
+
+              <input class="result-card__range" type="range" min="0" max="100" value="50" step="1"
+                     aria-label="Сравнить до и после" data-compare-range />
+            </div>
+            <h3>Пересадка бровей</h3>
+          </li>
+      </ul>
+    </section>
+
+    <!-- ==== Категория: Лечение выпадения волос ==== -->
+    <section class="results-cat container">
+      <div class="results-cat__head">
+        <h2>Лечение выпадения волос</h2>
+        <div class="results-cat__arrows">
+          <button class="arrow-btn arrow-btn--prev" type="button" aria-label="Предыдущие результаты" data-slider-prev>
+            <svg viewBox="0 0 46 46" fill="none" aria-hidden="true">
+              <rect x="0.5" y="0.5" width="45" height="45" rx="22.5" stroke="currentColor" />
+              <path fill="currentColor" d="M22.5 14C22.2239 14 22 14.2239 22 14.5C22 17.8273 19.8634 19.9392 17.04 21.2461C14.2092 22.5564 10.7867 23 8.5 23C8.46557 23 8.43188 23.0031 8.39941 23.0098C8.33438 23.0231 8.27386 23.0491 8.2207 23.085C8.16722 23.121 8.12103 23.1672 8.08496 23.2207C8.04914 23.2739 8.02304 23.3344 8.00977 23.3994C8.00314 23.4319 8 23.4656 8 23.5C8 23.5344 8.00314 23.5681 8.00977 23.6006C8.02304 23.6656 8.04912 23.7261 8.08496 23.7793C8.12103 23.8328 8.16722 23.879 8.2207 23.915C8.27386 23.9509 8.3344 23.977 8.39941 23.9902C8.43188 23.9969 8.46557 24 8.5 24C10.7867 24 14.2092 24.4436 17.04 25.7539C19.8634 27.0608 22 29.1727 22 32.5C22 32.7761 22.2239 33 22.5 33C22.7761 33 23 32.7761 23 32.5C23 28.6274 20.4698 26.2398 17.46 24.8467C16.7374 24.5122 15.9812 24.233 15.2168 24H36.5C36.7761 23.9999 36.9999 23.7761 37 23.5C36.9999 23.2239 36.7761 23.0001 36.5 23H15.2168C15.9812 22.767 16.7374 22.4878 17.46 22.1533C20.4698 20.7602 23 18.3726 23 14.5C23 14.2239 22.7761 14 22.5 14Z" />
+            </svg>
+          </button>
+          <button class="arrow-btn arrow-btn--next" type="button" aria-label="Следующие результаты" data-slider-next>
+            <svg viewBox="0 0 46 46" fill="none" aria-hidden="true">
+              <rect x="0.5" y="0.5" width="45" height="45" rx="22.5" stroke="currentColor" />
+              <path fill="currentColor" d="M22.5 14C22.2239 14 22 14.2239 22 14.5C22 17.8273 19.8634 19.9392 17.04 21.2461C14.2092 22.5564 10.7867 23 8.5 23C8.46557 23 8.43188 23.0031 8.39941 23.0098C8.33438 23.0231 8.27386 23.0491 8.2207 23.085C8.16722 23.121 8.12103 23.1672 8.08496 23.2207C8.04914 23.2739 8.02304 23.3344 8.00977 23.3994C8.00314 23.4319 8 23.4656 8 23.5C8 23.5344 8.00314 23.5681 8.00977 23.6006C8.02304 23.6656 8.04912 23.7261 8.08496 23.7793C8.12103 23.8328 8.16722 23.879 8.2207 23.915C8.27386 23.9509 8.3344 23.977 8.39941 23.9902C8.43188 23.9969 8.46557 24 8.5 24C10.7867 24 14.2092 24.4436 17.04 25.7539C19.8634 27.0608 22 29.1727 22 32.5C22 32.7761 22.2239 33 22.5 33C22.7761 33 23 32.7761 23 32.5C23 28.6274 20.4698 26.2398 17.46 24.8467C16.7374 24.5122 15.9812 24.233 15.2168 24H36.5C36.7761 23.9999 36.9999 23.7761 37 23.5C36.9999 23.2239 36.7761 23.0001 36.5 23H15.2168C15.9812 22.767 16.7374 22.4878 17.46 22.1533C20.4698 20.7602 23 18.3726 23 14.5C23 14.2239 22.7761 14 22.5 14Z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <ul class="results-cat__track" data-slider-track>
+          <li class="result-card">
+            <div class="result-card__compare" data-compare>
+              <img class="result-card__img" src="assets/images/after.png" alt="После — Лечение выпадения волос" width="420" height="286" loading="lazy" />
+              <span class="result-card__badge result-card__badge--after">После</span>
+
+              <div class="result-card__before" data-compare-before>
+                <img class="result-card__img" src="assets/images/before.png" alt="До — Лечение выпадения волос" width="420" height="286" loading="lazy" />
+                <span class="result-card__badge result-card__badge--before">До</span>
+              </div>
+
+              <div class="result-card__handle" data-compare-handle aria-hidden="true">
+                <span class="result-card__knob">
+                  <svg viewBox="0 0 8 15" fill="none"><path d="M7.5 0.5L0.5 7.5L7.5 14.5" stroke="#3D627D" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                  <svg viewBox="0 0 8 15" fill="none"><path d="M7.5 0.5L0.5 7.5L7.5 14.5" stroke="#3D627D" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                </span>
+              </div>
+
+              <input class="result-card__range" type="range" min="0" max="100" value="50" step="1"
+                     aria-label="Сравнить до и после" data-compare-range />
+            </div>
+            <h3>Лечение выпадения волос</h3>
+          </li>
+          <li class="result-card">
+            <div class="result-card__compare" data-compare>
+              <img class="result-card__img" src="assets/images/after.png" alt="После — Лечение выпадения волос" width="420" height="286" loading="lazy" />
+              <span class="result-card__badge result-card__badge--after">После</span>
+
+              <div class="result-card__before" data-compare-before>
+                <img class="result-card__img" src="assets/images/before.png" alt="До — Лечение выпадения волос" width="420" height="286" loading="lazy" />
+                <span class="result-card__badge result-card__badge--before">До</span>
+              </div>
+
+              <div class="result-card__handle" data-compare-handle aria-hidden="true">
+                <span class="result-card__knob">
+                  <svg viewBox="0 0 8 15" fill="none"><path d="M7.5 0.5L0.5 7.5L7.5 14.5" stroke="#3D627D" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                  <svg viewBox="0 0 8 15" fill="none"><path d="M7.5 0.5L0.5 7.5L7.5 14.5" stroke="#3D627D" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                </span>
+              </div>
+
+              <input class="result-card__range" type="range" min="0" max="100" value="50" step="1"
+                     aria-label="Сравнить до и после" data-compare-range />
+            </div>
+            <h3>Лечение выпадения волос</h3>
+          </li>
+          <li class="result-card">
+            <div class="result-card__compare" data-compare>
+              <img class="result-card__img" src="assets/images/after.png" alt="После — Лечение выпадения волос" width="420" height="286" loading="lazy" />
+              <span class="result-card__badge result-card__badge--after">После</span>
+
+              <div class="result-card__before" data-compare-before>
+                <img class="result-card__img" src="assets/images/before.png" alt="До — Лечение выпадения волос" width="420" height="286" loading="lazy" />
+                <span class="result-card__badge result-card__badge--before">До</span>
+              </div>
+
+              <div class="result-card__handle" data-compare-handle aria-hidden="true">
+                <span class="result-card__knob">
+                  <svg viewBox="0 0 8 15" fill="none"><path d="M7.5 0.5L0.5 7.5L7.5 14.5" stroke="#3D627D" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                  <svg viewBox="0 0 8 15" fill="none"><path d="M7.5 0.5L0.5 7.5L7.5 14.5" stroke="#3D627D" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                </span>
+              </div>
+
+              <input class="result-card__range" type="range" min="0" max="100" value="50" step="1"
+                     aria-label="Сравнить до и после" data-compare-range />
+            </div>
+            <h3>Лечение выпадения волос</h3>
+          </li>
+          <li class="result-card">
+            <div class="result-card__compare" data-compare>
+              <img class="result-card__img" src="assets/images/after.png" alt="После — Лечение выпадения волос" width="420" height="286" loading="lazy" />
+              <span class="result-card__badge result-card__badge--after">После</span>
+
+              <div class="result-card__before" data-compare-before>
+                <img class="result-card__img" src="assets/images/before.png" alt="До — Лечение выпадения волос" width="420" height="286" loading="lazy" />
+                <span class="result-card__badge result-card__badge--before">До</span>
+              </div>
+
+              <div class="result-card__handle" data-compare-handle aria-hidden="true">
+                <span class="result-card__knob">
+                  <svg viewBox="0 0 8 15" fill="none"><path d="M7.5 0.5L0.5 7.5L7.5 14.5" stroke="#3D627D" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                  <svg viewBox="0 0 8 15" fill="none"><path d="M7.5 0.5L0.5 7.5L7.5 14.5" stroke="#3D627D" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                </span>
+              </div>
+
+              <input class="result-card__range" type="range" min="0" max="100" value="50" step="1"
+                     aria-label="Сравнить до и после" data-compare-range />
+            </div>
+            <h3>Лечение выпадения волос</h3>
+          </li>
+      </ul>
+    </section>
+
+    <!-- ==== Категория: Инъекционная терапия кожи головы ==== -->
+    <section class="results-cat container">
+      <div class="results-cat__head">
+        <h2>Инъекционная терапия кожи головы</h2>
+        <div class="results-cat__arrows">
+          <button class="arrow-btn arrow-btn--prev" type="button" aria-label="Предыдущие результаты" data-slider-prev>
+            <svg viewBox="0 0 46 46" fill="none" aria-hidden="true">
+              <rect x="0.5" y="0.5" width="45" height="45" rx="22.5" stroke="currentColor" />
+              <path fill="currentColor" d="M22.5 14C22.2239 14 22 14.2239 22 14.5C22 17.8273 19.8634 19.9392 17.04 21.2461C14.2092 22.5564 10.7867 23 8.5 23C8.46557 23 8.43188 23.0031 8.39941 23.0098C8.33438 23.0231 8.27386 23.0491 8.2207 23.085C8.16722 23.121 8.12103 23.1672 8.08496 23.2207C8.04914 23.2739 8.02304 23.3344 8.00977 23.3994C8.00314 23.4319 8 23.4656 8 23.5C8 23.5344 8.00314 23.5681 8.00977 23.6006C8.02304 23.6656 8.04912 23.7261 8.08496 23.7793C8.12103 23.8328 8.16722 23.879 8.2207 23.915C8.27386 23.9509 8.3344 23.977 8.39941 23.9902C8.43188 23.9969 8.46557 24 8.5 24C10.7867 24 14.2092 24.4436 17.04 25.7539C19.8634 27.0608 22 29.1727 22 32.5C22 32.7761 22.2239 33 22.5 33C22.7761 33 23 32.7761 23 32.5C23 28.6274 20.4698 26.2398 17.46 24.8467C16.7374 24.5122 15.9812 24.233 15.2168 24H36.5C36.7761 23.9999 36.9999 23.7761 37 23.5C36.9999 23.2239 36.7761 23.0001 36.5 23H15.2168C15.9812 22.767 16.7374 22.4878 17.46 22.1533C20.4698 20.7602 23 18.3726 23 14.5C23 14.2239 22.7761 14 22.5 14Z" />
+            </svg>
+          </button>
+          <button class="arrow-btn arrow-btn--next" type="button" aria-label="Следующие результаты" data-slider-next>
+            <svg viewBox="0 0 46 46" fill="none" aria-hidden="true">
+              <rect x="0.5" y="0.5" width="45" height="45" rx="22.5" stroke="currentColor" />
+              <path fill="currentColor" d="M22.5 14C22.2239 14 22 14.2239 22 14.5C22 17.8273 19.8634 19.9392 17.04 21.2461C14.2092 22.5564 10.7867 23 8.5 23C8.46557 23 8.43188 23.0031 8.39941 23.0098C8.33438 23.0231 8.27386 23.0491 8.2207 23.085C8.16722 23.121 8.12103 23.1672 8.08496 23.2207C8.04914 23.2739 8.02304 23.3344 8.00977 23.3994C8.00314 23.4319 8 23.4656 8 23.5C8 23.5344 8.00314 23.5681 8.00977 23.6006C8.02304 23.6656 8.04912 23.7261 8.08496 23.7793C8.12103 23.8328 8.16722 23.879 8.2207 23.915C8.27386 23.9509 8.3344 23.977 8.39941 23.9902C8.43188 23.9969 8.46557 24 8.5 24C10.7867 24 14.2092 24.4436 17.04 25.7539C19.8634 27.0608 22 29.1727 22 32.5C22 32.7761 22.2239 33 22.5 33C22.7761 33 23 32.7761 23 32.5C23 28.6274 20.4698 26.2398 17.46 24.8467C16.7374 24.5122 15.9812 24.233 15.2168 24H36.5C36.7761 23.9999 36.9999 23.7761 37 23.5C36.9999 23.2239 36.7761 23.0001 36.5 23H15.2168C15.9812 22.767 16.7374 22.4878 17.46 22.1533C20.4698 20.7602 23 18.3726 23 14.5C23 14.2239 22.7761 14 22.5 14Z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <ul class="results-cat__track" data-slider-track>
+          <li class="result-card">
+            <div class="result-card__compare" data-compare>
+              <img class="result-card__img" src="assets/images/after.png" alt="После — Инъекционная терапия кожи головы" width="420" height="286" loading="lazy" />
+              <span class="result-card__badge result-card__badge--after">После</span>
+
+              <div class="result-card__before" data-compare-before>
+                <img class="result-card__img" src="assets/images/before.png" alt="До — Инъекционная терапия кожи головы" width="420" height="286" loading="lazy" />
+                <span class="result-card__badge result-card__badge--before">До</span>
+              </div>
+
+              <div class="result-card__handle" data-compare-handle aria-hidden="true">
+                <span class="result-card__knob">
+                  <svg viewBox="0 0 8 15" fill="none"><path d="M7.5 0.5L0.5 7.5L7.5 14.5" stroke="#3D627D" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                  <svg viewBox="0 0 8 15" fill="none"><path d="M7.5 0.5L0.5 7.5L7.5 14.5" stroke="#3D627D" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                </span>
+              </div>
+
+              <input class="result-card__range" type="range" min="0" max="100" value="50" step="1"
+                     aria-label="Сравнить до и после" data-compare-range />
+            </div>
+            <h3>Инъекционная терапия кожи головы</h3>
+          </li>
+          <li class="result-card">
+            <div class="result-card__compare" data-compare>
+              <img class="result-card__img" src="assets/images/after.png" alt="После — Инъекционная терапия кожи головы" width="420" height="286" loading="lazy" />
+              <span class="result-card__badge result-card__badge--after">После</span>
+
+              <div class="result-card__before" data-compare-before>
+                <img class="result-card__img" src="assets/images/before.png" alt="До — Инъекционная терапия кожи головы" width="420" height="286" loading="lazy" />
+                <span class="result-card__badge result-card__badge--before">До</span>
+              </div>
+
+              <div class="result-card__handle" data-compare-handle aria-hidden="true">
+                <span class="result-card__knob">
+                  <svg viewBox="0 0 8 15" fill="none"><path d="M7.5 0.5L0.5 7.5L7.5 14.5" stroke="#3D627D" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                  <svg viewBox="0 0 8 15" fill="none"><path d="M7.5 0.5L0.5 7.5L7.5 14.5" stroke="#3D627D" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                </span>
+              </div>
+
+              <input class="result-card__range" type="range" min="0" max="100" value="50" step="1"
+                     aria-label="Сравнить до и после" data-compare-range />
+            </div>
+            <h3>Инъекционная терапия кожи головы</h3>
+          </li>
+          <li class="result-card">
+            <div class="result-card__compare" data-compare>
+              <img class="result-card__img" src="assets/images/after.png" alt="После — Инъекционная терапия кожи головы" width="420" height="286" loading="lazy" />
+              <span class="result-card__badge result-card__badge--after">После</span>
+
+              <div class="result-card__before" data-compare-before>
+                <img class="result-card__img" src="assets/images/before.png" alt="До — Инъекционная терапия кожи головы" width="420" height="286" loading="lazy" />
+                <span class="result-card__badge result-card__badge--before">До</span>
+              </div>
+
+              <div class="result-card__handle" data-compare-handle aria-hidden="true">
+                <span class="result-card__knob">
+                  <svg viewBox="0 0 8 15" fill="none"><path d="M7.5 0.5L0.5 7.5L7.5 14.5" stroke="#3D627D" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                  <svg viewBox="0 0 8 15" fill="none"><path d="M7.5 0.5L0.5 7.5L7.5 14.5" stroke="#3D627D" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                </span>
+              </div>
+
+              <input class="result-card__range" type="range" min="0" max="100" value="50" step="1"
+                     aria-label="Сравнить до и после" data-compare-range />
+            </div>
+            <h3>Инъекционная терапия кожи головы</h3>
+          </li>
+          <li class="result-card">
+            <div class="result-card__compare" data-compare>
+              <img class="result-card__img" src="assets/images/after.png" alt="После — Инъекционная терапия кожи головы" width="420" height="286" loading="lazy" />
+              <span class="result-card__badge result-card__badge--after">После</span>
+
+              <div class="result-card__before" data-compare-before>
+                <img class="result-card__img" src="assets/images/before.png" alt="До — Инъекционная терапия кожи головы" width="420" height="286" loading="lazy" />
+                <span class="result-card__badge result-card__badge--before">До</span>
+              </div>
+
+              <div class="result-card__handle" data-compare-handle aria-hidden="true">
+                <span class="result-card__knob">
+                  <svg viewBox="0 0 8 15" fill="none"><path d="M7.5 0.5L0.5 7.5L7.5 14.5" stroke="#3D627D" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                  <svg viewBox="0 0 8 15" fill="none"><path d="M7.5 0.5L0.5 7.5L7.5 14.5" stroke="#3D627D" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                </span>
+              </div>
+
+              <input class="result-card__range" type="range" min="0" max="100" value="50" step="1"
+                     aria-label="Сравнить до и после" data-compare-range />
+            </div>
+            <h3>Инъекционная терапия кожи головы</h3>
+          </li>
+      </ul>
+    </section>
+
+    </div>
+    <!-- ==== Контакты и заявка ==== -->
+    <section class="contacts section container" id="contacts">
+      <div class="contacts__grid">
+
+        <div class="contacts__card">
+          <h2>Свяжитесь с нами</h2>
+
+          <div class="contacts__info">
+            <div class="contacts__col">
+              <h3>Номер телефона</h3>
+              <a href="tel:+77028216361">+7‒702‒821‒63‒61</a>
+              <a href="tel:+77172572888">+7 (7172) 57‒28‒88</a>
+            </div>
+
+            <div class="contacts__col">
+              <h3>Режим работы</h3>
+              <p>ПН-ПТ: 09:00 - 19:00</p>
+              <p>СБ: 10:00 - 17:00</p>
+              <p>ВС: Выходной</p>
+            </div>
+
+            <div class="contacts__col">
+              <h3>Соцсети</h3>
+              <div class="contacts__socials">
+                <a class="link-solid" href="#" target="_blank" rel="noopener">Instagram</a>
+                <a class="link-solid" href="#" target="_blank" rel="noopener">WhatsApp</a>
+              </div>
+            </div>
+
+            <div class="contacts__col contacts__col--address">
+              <h3>Адрес клиники</h3>
+              <p>Казахстан, г. Астана, ул. Кайыма Мухамедханова 11/1</p>
+            </div>
+
+            <div class="contacts__col contacts__col--email">
+              <h3>E-mail</h3>
+              <a href="mailto:hairlinekz@gmail.com">hairlinekz@gmail.com</a>
+            </div>
+          </div>
+
+          <a class="btn btn--outline btn--block" href="#" target="_blank" rel="noopener">Открыть в 2GIS</a>
+        </div>
+
+        <div class="cta-card">
+          <h2>Оставьте заявку на консультацию</h2>
+          <p class="cta-card__note">Наши менеджеры ответят вам в течение 10 минут</p>
+
+          <!-- Форма без класса — стили через родителя (под натяжку на WP/CF7) -->
+          <form action="#" method="post">
+            <div class="cta-card__fields">
+              <div class="field field--dark">
+                  <input id="cta-name" type="text" name="name" placeholder=" " required />
+                  <label for="cta-name">Имя*</label>
+                  <span class="field__icon" aria-hidden="true"></span>
+                </div>
+              <div class="field field--dark">
+                  <input id="cta-phone" type="tel" name="phone" placeholder=" " required />
+                  <label for="cta-phone">Номер телефона*</label>
+                  <span class="field__icon" aria-hidden="true"></span>
+                </div>
+              <!-- Кастомный список: нативный select не даёт стилизовать выпадающую панель -->
+              <div class="select" data-select>
+                <button class="select__toggle" type="button" aria-haspopup="listbox" aria-expanded="false">
+                  <span data-select-label>Какая услуга вас интересует? Выберите из списка</span>
+                  <svg viewBox="0 0 15 20" fill="none" aria-hidden="true">
+                    <path d="M2 8L7.5 13L13 8" stroke="currentColor" stroke-width="1.4"
+                          stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </button>
+
+                <ul class="select__list" role="listbox" aria-label="Услуга">
+                  <li role="option" tabindex="-1" data-value="hair">Пересадка волос</li>
+                  <li role="option" tabindex="-1" data-value="brows">Пересадка бровей</li>
+                  <li role="option" tabindex="-1" data-value="beard">Пересадка бороды</li>
+                  <li role="option" tabindex="-1" data-value="injections">Инъекционная терапия кожи головы</li>
+                  <li role="option" tabindex="-1" data-value="hair-loss">Лечение выпадения волос</li>
+                </ul>
+
+                <input type="hidden" name="service" data-select-input />
+              </div>
+            </div>
+            <button class="btn btn--block" type="submit">Отправить заявку</button>
+          </form>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+
+      <div class="footer__top">
+
+        <div class="footer__cta">
+          <h2>По вопросам сотрудничества<br />напишите нам на почту:</h2>
+          <a class="footer__email" href="mailto:hairlinekz@gmail.com">hairlinekz@gmail.com</a>
+        </div>
+
+        <div class="footer__cols">
+
+          <div class="footer__col footer__col--nav">
+            <h3>Навигация</h3>
+            <nav class="footer__list" aria-label="Навигация в подвале">
+              <a class="link-line" href="about.html">О центре</a>
+              <a class="link-line" href="results.html">Результаты</a>
+              <a class="link-line" href="blog.html">Блог</a>
+              <a class="link-line" href="contacts.html">Контакты</a>
+              <a class="link-line" href="index.html#faq">FAQ</a>
+            </nav>
+          </div>
+
+          <div class="footer__col footer__col--services">
+            <h3>Услуги</h3>
+            <nav class="footer__list" aria-label="Услуги">
+              <a class="link-line" href="services/hair.html">Пересадка волос</a>
+              <a class="link-line" href="services/brows.html">Пересадка бровей</a>
+              <a class="link-line" href="services/beard.html">Пересадка бороды</a>
+              <a class="link-line" href="services/hair-loss.html">Лечение выпадения волос</a>
+              <a class="link-line" href="services/injections.html">Инъекционная терапия кожи головы</a>
+            </nav>
+          </div>
+
+          <div class="footer__col footer__col--contacts">
+            <h3>Контакты</h3>
+            <div class="footer__list">
+              <a class="footer__contact link-line" href="tel:+77028216361">+7‒702‒821‒63‒61</a>
+              <a class="footer__contact link-line" href="tel:+77172572888">+7 (7172) 57‒28‒88</a>
+              <p class="footer__contact footer__contact--address">г. Астана, ул. Кайыма Мухамедханова 11/1</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="footer__line"></div>
+
+      <div class="footer__bottom">
+        <p>ТОО "Hairline.kz" © 2014-2026</p>
+        <p>Сделано в <b>factum.</b></p>
+      </div>
+
+    </div>
+  </footer>
+
+  <script src="assets/vendor/lenis.min.js"></script>
+  <script src="src/lib/main.js?v=10"></script>
+</body>
+</html>

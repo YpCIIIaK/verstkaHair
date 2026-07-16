@@ -238,12 +238,41 @@
   /* ==== Модалки ====
      Нативный dialog сам держит фокус, Esc и подложку — здесь только открытие,
      закрытие по кнопке и клик мимо окна */
+  let scrollLock = null;
+  const lockScroll = () => {
+    if (scrollLock) return;
+    scrollLock = { x: window.scrollX, y: window.scrollY };
+    if (lenis?.stop) lenis.stop();
+    document.body.style.position = "fixed";
+    document.body.style.insetInline = "0";
+    document.body.style.top = `-${scrollLock.y}px`;
+    document.body.style.width = "100%";
+  };
+
+  const unlockScroll = () => {
+    if (!scrollLock) return;
+    const { x, y } = scrollLock;
+    scrollLock = null;
+    document.body.style.position = "";
+    document.body.style.insetInline = "";
+    document.body.style.top = "";
+    document.body.style.width = "";
+    window.scrollTo(x, y);
+    if (lenis?.start) lenis.start();
+  };
+
   document.querySelectorAll("[data-modal-open]").forEach((btn) => {
     const dlg = document.getElementById(btn.dataset.modalOpen);
     if (!dlg) return;
     btn.addEventListener("click", (e) => {
       e.preventDefault();
-      dlg.showModal();
+      lockScroll();
+      try {
+        dlg.showModal();
+      } catch (err) {
+        unlockScroll();
+        throw err;
+      }
     });
   });
 
@@ -259,6 +288,7 @@
                      e.clientY >= r.top && e.clientY <= r.bottom;
       if (!inside) dlg.close();
     });
+    dlg.addEventListener("close", unlockScroll);
   });
 
   /* ==== История: таймлайн ====

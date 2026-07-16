@@ -241,7 +241,10 @@
   document.querySelectorAll("[data-modal-open]").forEach((btn) => {
     const dlg = document.getElementById(btn.dataset.modalOpen);
     if (!dlg) return;
-    btn.addEventListener("click", () => dlg.showModal());
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      dlg.showModal();
+    });
   });
 
   document.querySelectorAll("dialog").forEach((dlg) => {

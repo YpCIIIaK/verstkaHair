@@ -103,6 +103,30 @@
     </form>
   </dialog>
 
+  <dialog class="team-modal" id="modal-team" aria-labelledby="modal-team-title">
+    <button class="modal__close" type="button" aria-label="Закрыть" data-modal-close>
+      <svg viewBox="0 0 15 15" fill="none" aria-hidden="true">
+        <path d="M1 1L14 14M14 1L1 14" stroke="currentColor" stroke-width="1.5"
+              stroke-linecap="round" />
+      </svg>
+    </button>
+
+    <div class="team-modal__head">
+      <h3 id="modal-team-title">Айжан Мамытбекова</h3>
+      <p>Главный врач</p>
+    </div>
+
+    <div class="team-modal__text">
+      <p>2007 г. — окончила Карагандинскую государственную медицинскую академию, лечебный факультет.</p>
+      <p>2007–2008 гг. — интернатура по специальности «Хирургия», Медицинский университет Астана.</p>
+      <p>2008–2011 гг. — клиническая ординатура по специальности «Сердечно-сосудистая хирургия».</p>
+      <p>2014 г. — специализация по трихологии и трансплантации волос в клинике Ohkims Clinic, Сеул, Южная Корея.</p>
+      <p>2015 г. — повышение квалификации по трансплантации волос в клинике Talizi Clinic, Тбилиси, Грузия.</p>
+      <p>2017 г. — повышение квалификации по курсу «Эндокринология и нутрициология в трихологии».</p>
+      <p>Ежегодный участник международных конференций по трихологии и трансплантации волос (Турция, Бангкок, Прага, Россия, Украина, Грузия).</p>
+    </div>
+  </dialog>
+
   <main>
 
     <!-- ==== Шапка страницы ====
@@ -322,7 +346,7 @@
               <p class="team-card__role">Главный врач</p>
             </div>
           </div>
-          <a class="link-solid" href="#">Подробнее</a>
+          <button class="link-solid" type="button" data-modal-open="modal-team">Подробнее</button>
         </article>
         <article class="team-card">
           <div class="team-card__top">
@@ -334,7 +358,7 @@
               <p class="team-card__role">Пластический хирург. Врач-трихолог, трансплантолог</p>
             </div>
           </div>
-          <a class="link-solid" href="#">Подробнее</a>
+          <button class="link-solid" type="button" data-modal-open="modal-team">Подробнее</button>
         </article>
         <article class="team-card">
           <div class="team-card__top">
@@ -346,7 +370,7 @@
               <p class="team-card__role">Ассистент хирурга, старшая медицинская сестра</p>
             </div>
           </div>
-          <a class="link-solid" href="#">Подробнее</a>
+          <button class="link-solid" type="button" data-modal-open="modal-team">Подробнее</button>
         </article>
         <article class="team-card">
           <div class="team-card__top">
@@ -358,7 +382,7 @@
               <p class="team-card__role">Ассистент хирурга</p>
             </div>
           </div>
-          <a class="link-solid" href="#">Подробнее</a>
+          <button class="link-solid" type="button" data-modal-open="modal-team">Подробнее</button>
         </article>
       </div>
     </section>

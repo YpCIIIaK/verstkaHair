@@ -151,6 +151,7 @@ p  { line-height: var(--leading-normal); }
   line-height: var(--leading-menu);
   color: var(--main-blue);
   box-shadow: 0 calc(2 * var(--wm)) 0 currentColor;
+  cursor: pointer;
   transition: color var(--duration-base) var(--ease-out);
 }
 /* Линия на currentColor — красится вместе с текстом, своего правила не нужно */

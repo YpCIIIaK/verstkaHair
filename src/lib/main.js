@@ -18,18 +18,21 @@
     if (!inputs.length) return;
 
     const mask = function (event) {
+      const raw = this.value.trim();
       let value = this.value.replace(/\D/g, "");
       if (!value) {
         this.value = "";
         return;
       }
 
-      if (value.length > 10 && (value.startsWith("7") || value.startsWith("8"))) {
+      if (raw.startsWith("+7") && value.startsWith("7")) {
+        value = value.slice(1);
+      } else if (value.length > 10 && (value.startsWith("7") || value.startsWith("8"))) {
         value = value.slice(1);
       }
       value = value.slice(0, 10);
 
-      if (event.type === "blur" && !value) {
+      if (!value) {
         this.value = "";
         return;
       }

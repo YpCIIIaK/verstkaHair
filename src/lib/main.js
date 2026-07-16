@@ -17,34 +17,35 @@
     const inputs = document.querySelectorAll('input[type="tel"]');
     if (!inputs.length) return;
 
-    const matrix = "+7 (___) ___ ____";
-
     const mask = function (event) {
-      if (event.type === "keydown") return;
-
       let value = this.value.replace(/\D/g, "");
       if (!value) {
         this.value = "";
         return;
       }
 
-      if (value.startsWith("7") || value.startsWith("8")) value = value.slice(1);
-      value = ("7" + value).slice(0, 11);
+      if (value.length > 10 && (value.startsWith("7") || value.startsWith("8"))) {
+        value = value.slice(1);
+      }
+      value = value.slice(0, 10);
 
-      if (event.type === "blur" && value.length <= 1) {
+      if (event.type === "blur" && !value) {
         this.value = "";
         return;
       }
 
-      let i = 0;
-      this.value = matrix.replace(/[_\d]/g, (a) => (i < value.length ? value.charAt(i++) : a));
+      let formatted = "+7";
+      if (value.length > 0) formatted += ` (${value.slice(0, 3)}`;
+      if (value.length >= 3) formatted += ")";
+      if (value.length > 3) formatted += ` ${value.slice(3, 6)}`;
+      if (value.length > 6) formatted += ` ${value.slice(6, 10)}`;
+
+      this.value = formatted;
     };
 
     inputs.forEach((input) => {
       input.addEventListener("input", mask, false);
-      input.addEventListener("focus", mask, false);
       input.addEventListener("blur", mask, false);
-      input.addEventListener("keydown", mask, false);
     });
   };
 
@@ -296,19 +297,20 @@
 
     const featuredHTML = (card) => {
       const q = (s) => card.querySelector(s);
+      const href = q("a").getAttribute("href");
       return `<article class="blog-featured">
-          <div class="blog-featured__media">
+          <a class="blog-featured__media" href="${href}">
             <img src="assets/images/blogImgBig.png" alt="" width="650" height="307" loading="lazy" />
-          </div>
+          </a>
           <div class="blog-featured__body">
             <span class="blog-featured__date">${esc(q(".post-card__date").textContent)}</span>
             <div class="blog-featured__text">
-              <h3>${esc(q("h3").textContent)}</h3>
+              <h3><a href="${href}">${esc(q("h3").textContent)}</a></h3>
               <p>${esc(q("p").textContent)}</p>
             </div>
             <div class="blog-featured__foot">
               <span class="post-card__tag">${esc(q(".post-card__tag").textContent)}</span>
-              <a class="link-solid" href="${q("a").getAttribute("href")}">Читать статью</a>
+              <a class="link-solid" href="${href}">Читать статью</a>
             </div>
           </div>
         </article>`;

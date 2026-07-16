@@ -1364,6 +1364,7 @@
 }
 .blog-featured__media {
   flex: none;
+  display: block;
   width: calc(650 * var(--wm));
   height: calc(307 * var(--wm));
   border-radius: calc(16 * var(--wm));
@@ -1406,6 +1407,7 @@
   line-height: var(--leading-h4);
   color: var(--text-dark);
 }
+.blog-featured__text h3 a { color: inherit; }
 .blog-featured__text p {
   font-size: var(--text-s);
   font-weight: var(--weight-s);

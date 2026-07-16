@@ -241,22 +241,23 @@
   let scrollLock = null;
   const lockScroll = () => {
     if (scrollLock) return;
-    scrollLock = { x: window.scrollX, y: window.scrollY };
+    scrollLock = {
+      x: window.scrollX,
+      y: window.scrollY,
+      htmlOverflow: document.documentElement.style.overflow,
+      bodyOverflow: document.body.style.overflow,
+    };
     if (lenis?.stop) lenis.stop();
-    document.body.style.position = "fixed";
-    document.body.style.insetInline = "0";
-    document.body.style.top = `-${scrollLock.y}px`;
-    document.body.style.width = "100%";
+    document.documentElement.style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
   };
 
   const unlockScroll = () => {
     if (!scrollLock) return;
-    const { x, y } = scrollLock;
+    const { x, y, htmlOverflow, bodyOverflow } = scrollLock;
     scrollLock = null;
-    document.body.style.position = "";
-    document.body.style.insetInline = "";
-    document.body.style.top = "";
-    document.body.style.width = "";
+    document.documentElement.style.overflow = htmlOverflow;
+    document.body.style.overflow = bodyOverflow;
     window.scrollTo(x, y);
     if (lenis?.start) lenis.start();
   };
@@ -269,6 +270,8 @@
       lockScroll();
       try {
         dlg.showModal();
+        window.scrollTo(scrollLock.x, scrollLock.y);
+        requestAnimationFrame(() => window.scrollTo(scrollLock.x, scrollLock.y));
       } catch (err) {
         unlockScroll();
         throw err;

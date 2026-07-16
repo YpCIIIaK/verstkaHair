@@ -2327,10 +2327,6 @@
     line-height: calc(24 / 20);
   }
 
-  .reviews {
-    overflow: hidden;
-  }
-
   .reviews__inner {
     gap: calc(16 * var(--wm));
   }
@@ -2340,7 +2336,9 @@
   }
 
   .reviews__track {
-    width: calc(100vw - 20 * var(--wm));
+    width: calc(100vw + 40 * var(--wm));
+    margin-inline: calc(-20 * var(--wm));
+    padding-inline: calc(20 * var(--wm));
     gap: calc(16 * var(--wm));
   }
 

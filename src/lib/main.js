@@ -318,6 +318,11 @@
 
       const endDrag = (e) => {
         if (!drag) return;
+        if (!drag.moved) {
+          const target = document.elementFromPoint(e.clientX, e.clientY)?.closest("[data-history-item]");
+          const index = years.indexOf(target);
+          if (index !== -1) show(index);
+        }
         histStrip.classList.remove("is-dragging");
         histTrack.style.setProperty("--drag-offset", "0px");
         if (histStrip.hasPointerCapture(e.pointerId)) histStrip.releasePointerCapture(e.pointerId);

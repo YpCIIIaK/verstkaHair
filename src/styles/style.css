@@ -1027,6 +1027,8 @@
 /* Слайдер на нативном скролле: стрелки просто листают, а палец и трекпад
    работают сами. Полоса скрыта — как у страницы */
 .reviews__track {
+  width: calc(100vw - var(--container-pad));
+  margin-inline-end: calc(-1 * var(--container-pad));
   display: flex;
   gap: calc(20 * var(--wm));
   overflow-x: auto;

@@ -20,23 +20,16 @@
     const matrix = "+7 (___) ___ ____";
 
     const mask = function (event) {
-      const pos = this.selectionStart ?? this.value.length;
-
-      if (
-        event.type === "keydown" &&
-        pos <= 4 &&
-        (event.key === "Backspace" || event.key === "Delete")
-      ) {
-        event.preventDefault();
-        return;
-      }
-
       if (event.type === "keydown") return;
 
       let value = this.value.replace(/\D/g, "");
-      if (value.startsWith("8")) value = "7" + value.slice(1);
-      if (!value.startsWith("7")) value = "7" + value;
-      value = value.slice(0, 11);
+      if (!value) {
+        this.value = "";
+        return;
+      }
+
+      if (value.startsWith("7") || value.startsWith("8")) value = value.slice(1);
+      value = ("7" + value).slice(0, 11);
 
       if (event.type === "blur" && value.length <= 1) {
         this.value = "";

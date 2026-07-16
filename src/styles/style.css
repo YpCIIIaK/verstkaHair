@@ -244,7 +244,11 @@
   height: calc(115 * var(--wm));
   margin-top: calc(40 * var(--wm));
   overflow: hidden;
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
 }
+.history__strip.is-dragging { cursor: grabbing; }
 .history__axis {
   position: absolute;
   left: 0;
@@ -259,9 +263,10 @@
   position: relative;
   display: flex;
   justify-content: center;
-  transform: translateX(calc((2 - var(--active, 0)) * 337 * var(--wm)));
+  transform: translateX(calc((2 - var(--active, 0)) * 337 * var(--wm) + var(--drag-offset, 0px)));
   transition: transform var(--duration-slow) var(--ease-out);
 }
+.history__strip.is-dragging .history__track { transition: none; }
 .history__item {
   flex: none;
   width: calc(337 * var(--wm));
@@ -269,6 +274,7 @@
   flex-direction: column;
   align-items: center;
   gap: calc(12 * var(--wm));
+  cursor: pointer;
 }
 /* Огонёк из макета. Заливка уведена на currentColor — активный и обычный
    состояния красятся одним свойством, второй файл не нужен */

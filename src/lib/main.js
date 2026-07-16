@@ -263,13 +263,19 @@
   const histTrack = document.querySelector("[data-history-track]");
   const histBox = document.querySelector("[data-history-slides]");
   if (histTrack && histBox) {
+    const histStrip = histTrack.closest(".history__strip");
     const years = [...histTrack.querySelectorAll("[data-history-item]")];
     const slides = [...histBox.querySelectorAll("[data-history-slide]")];
-    let cur = 0;
+    let cur = Math.floor(slides.length / 2);
+    let drag = null;
 
-    const show = (n) => {
-      cur = Math.min(Math.max(n, 0), slides.length - 1);
+    const clampHistory = (n) => Math.min(Math.max(n, 0), slides.length - 1);
+    const step = () => years[0]?.getBoundingClientRect().width || 1;
+
+    const show = (n, resetOffset = true) => {
+      cur = clampHistory(n);
       histTrack.style.setProperty("--active", cur);
+      if (resetOffset) histTrack.style.setProperty("--drag-offset", "0px");
       years.forEach((el, k) => el.classList.toggle("is-active", k === cur));
       slides.forEach((el, k) => el.classList.toggle("is-active", k === cur));
       /* Стрелки есть в каждом слайде — гасим во всех, видима всё равно одна пара */
@@ -284,7 +290,45 @@
       else if (e.target.closest("[data-history-next]")) show(cur + 1);
     });
 
-    show(0);
+    years.forEach((year, index) => {
+      year.addEventListener("click", () => {
+        if (drag?.moved) return;
+        show(index);
+      });
+    });
+
+    if (histStrip) {
+      histStrip.addEventListener("pointerdown", (e) => {
+        if (e.button !== 0) return;
+        drag = { startX: e.clientX, startCur: cur, moved: false };
+        histStrip.classList.add("is-dragging");
+        histStrip.setPointerCapture(e.pointerId);
+      });
+
+      histStrip.addEventListener("pointermove", (e) => {
+        if (!drag) return;
+        const dx = e.clientX - drag.startX;
+        if (Math.abs(dx) > 4) drag.moved = true;
+
+        const next = clampHistory(Math.round(drag.startCur - dx / step()));
+        const offset = dx + (next - drag.startCur) * step();
+        if (next !== cur) show(next, false);
+        histTrack.style.setProperty("--drag-offset", `${offset}px`);
+      });
+
+      const endDrag = (e) => {
+        if (!drag) return;
+        histStrip.classList.remove("is-dragging");
+        histTrack.style.setProperty("--drag-offset", "0px");
+        if (histStrip.hasPointerCapture(e.pointerId)) histStrip.releasePointerCapture(e.pointerId);
+        setTimeout(() => { drag = null; }, 0);
+      };
+
+      histStrip.addEventListener("pointerup", endDrag);
+      histStrip.addEventListener("pointercancel", endDrag);
+    }
+
+    show(cur);
   }
 
   /* ==== Блог: фильтр по категориям ====

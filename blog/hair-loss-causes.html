@@ -21,7 +21,7 @@
           <img src="../assets/images/logoHeader.svg" alt="Hairline" width="46" height="50" />
         </a>
 
-        <nav class="nav" aria-label="Основная навигация">
+        <nav class="nav" aria-label="Основная навигация" data-nav>
           <a class="nav__link link-line" href="../about.html">О центре</a>
 
           <div class="nav__item" data-nav-drop>
@@ -47,9 +47,23 @@
           <a class="nav__link link-line" href="../results.html">Результаты</a>
           <a class="nav__link link-line is-active" href="../blog.html" aria-current="page">Блог</a>
           <a class="nav__link link-line" href="../contacts.html">Контакты</a>
+
+          <div class="nav__socials" aria-label="Социальные сети">
+            <a href="#" target="_blank" rel="noopener" aria-label="Instagram">
+              <img src="../assets/images/insta.svg" alt="" width="25" height="25" loading="lazy" />
+            </a>
+            <a href="#" target="_blank" rel="noopener" aria-label="WhatsApp">
+              <img src="../assets/images/wpp.svg" alt="" width="25" height="25" loading="lazy" />
+            </a>
+          </div>
         </nav>
 
         <button class="btn header__cta" type="button" data-modal-open="modal-contact">Связаться с нами</button>
+        <button class="header__burger" type="button" aria-label="Открыть меню" aria-expanded="false" data-menu-toggle>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </button>
 
       </div>
     </div>
@@ -242,13 +256,22 @@
           </div>
 
         </div>
+
+        <div class="footer__socials" aria-label="Социальные сети">
+          <a href="#" target="_blank" rel="noopener" aria-label="Instagram">
+            <img src="../assets/images/insta.svg" alt="" width="25" height="25" loading="lazy" />
+          </a>
+          <a href="#" target="_blank" rel="noopener" aria-label="WhatsApp">
+            <img src="../assets/images/wpp.svg" alt="" width="25" height="25" loading="lazy" />
+          </a>
+        </div>
       </div>
 
       <div class="footer__line"></div>
 
       <div class="footer__bottom">
         <p>ТОО "Hairline.kz" © 2014-2026</p>
-        <p>Сделано в <b>factum.</b></p>
+        <p>Сделано в <a href="https://factum.agency/" target="_blank" rel="noopener"><b>factum.</b></a></p>
       </div>
 
     </div>

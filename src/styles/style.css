@@ -1265,9 +1265,9 @@
   height: calc(46 * var(--wm));
   color: var(--accent-pale-lime);
   transition: transform var(--duration-base) var(--ease-out);
-  transform: rotate(180deg);
+  transform: translateY(calc(2 * var(--wm))) rotate(180deg);
 }
-.faq-item.is-open h3 svg { transform: none; }
+.faq-item.is-open h3 svg { transform: translateY(calc(2 * var(--wm))); }
 
 /* Раскрытие через grid 0fr → 1fr: высота анимируется сама, без замеров в JS */
 .faq-item__body {
@@ -1749,6 +1749,7 @@
   align-items: flex-start;
   gap: calc(12 * var(--wm));
 }
+.contacts__socials img { display: none; }
 
 .contacts__card .btn { margin-top: auto; }
 
@@ -2005,6 +2006,14 @@
 }
 
 @media (max-width: 767px) {
+  .page--hero .header {
+    position: sticky;
+    inset-inline: auto;
+    top: 0;
+  }
+
+  .page--hero .header__pill { background: var(--main-blue); }
+
   .btn {
     min-height: calc(46 * var(--wm));
     padding-inline: calc(24 * var(--wm));
@@ -2455,24 +2464,24 @@
     display: none;
   }
 
-  .page-home .contacts__grid {
+  .contacts__grid {
     flex-direction: column;
     gap: calc(16 * var(--wm));
   }
 
-  .page-home .contacts__card,
-  .page-home .cta-card {
+  .contacts__card,
+  .cta-card {
     width: 100%;
     min-height: 0;
     border-radius: calc(24 * var(--wm));
   }
 
-  .page-home .contacts__card {
+  .contacts__card {
     padding: calc(24 * var(--wm)) calc(20 * var(--wm));
     border-color: var(--text-pale-blue);
   }
 
-  .page-home .contacts__card h2 {
+  .contacts__card h2 {
     margin-bottom: calc(22 * var(--wm));
     font-size: calc(24 * var(--wm));
     font-weight: var(--weight-semibold);
@@ -2480,7 +2489,7 @@
     text-align: center;
   }
 
-  .page-home .contacts__info {
+  .contacts__info {
     width: 100%;
     display: grid;
     grid-template-columns: minmax(0, calc(137 * var(--wm))) minmax(0, calc(168 * var(--wm)));
@@ -2489,82 +2498,89 @@
     align-items: start;
   }
 
-  .page-home .contacts__col {
+  .contacts__col {
     gap: calc(6 * var(--wm));
   }
 
-  .page-home .contacts__col:nth-child(1) {
+  .contacts__col:nth-child(1) {
     grid-column: 1;
     grid-row: 1;
     max-width: calc(137 * var(--wm));
   }
 
-  .page-home .contacts__col:nth-child(2) {
+  .contacts__col:nth-child(2) {
     grid-column: 2;
     grid-row: 1 / span 2;
     max-width: calc(168 * var(--wm));
   }
 
-  .page-home .contacts__col:nth-child(3) {
+  .contacts__col:nth-child(3) {
     grid-column: 1;
     grid-row: 3;
     max-width: calc(137 * var(--wm));
   }
 
-  .page-home .contacts__col--address {
+  .contacts__col--address {
     grid-column: 2;
     grid-row: 3;
     max-width: calc(168 * var(--wm));
   }
 
-  .page-home .contacts__col--email {
+  .contacts__col--email {
     grid-column: 1;
     grid-row: 2;
     max-width: calc(137 * var(--wm));
   }
 
-  .page-home .contacts__col h3 {
+  .contacts__col h3 {
     font-size: calc(16 * var(--wm));
     font-weight: var(--weight-semibold);
     line-height: calc(18 / 16);
   }
 
-  .page-home .contacts__col p,
-  .page-home .contacts__col > a {
+  .contacts__col p,
+  .contacts__col > a {
     font-size: calc(14 * var(--wm));
     line-height: calc(18 / 14);
   }
 
-  .page-home .contacts__socials {
+  .contacts__socials {
     flex-direction: row;
     gap: calc(16 * var(--wm));
   }
 
-  .page-home .contacts__socials a {
+  .contacts__socials a {
     width: calc(25 * var(--wm));
     height: calc(25 * var(--wm));
     box-shadow: none;
+    font-size: 0;
+    line-height: 0;
   }
 
-  .page-home .contacts__socials img {
+  .contacts__social-text {
+    display: none;
+  }
+
+  .contacts__socials img {
+    display: block;
     width: 100%;
     height: 100%;
     object-fit: contain;
   }
 
-  .page-home .contacts__card .btn {
+  .contacts__card .btn {
     width: 100%;
     margin-top: calc(24 * var(--wm));
   }
 
-  .page-home .cta-card {
+  .cta-card {
     height: calc(371 * var(--wm));
     max-height: calc(371 * var(--wm));
     padding: calc(24 * var(--wm)) calc(20 * var(--wm));
     background: var(--text-dark);
   }
 
-  .page-home .cta-card h2 {
+  .cta-card h2 {
     margin-bottom: calc(10 * var(--wm));
     font-size: calc(24 * var(--wm));
     font-weight: var(--weight-semibold);
@@ -2572,7 +2588,7 @@
     text-align: center;
   }
 
-  .page-home .cta-card__note {
+  .cta-card__note {
     width: 100%;
     max-width: calc(353 * var(--wm));
     margin-bottom: calc(20 * var(--wm));
@@ -2585,23 +2601,23 @@
     transform-origin: center;
   }
 
-  .page-home .cta-card form {
+  .cta-card form {
     margin-top: 0;
   }
 
-  .page-home .cta-card__fields {
+  .cta-card__fields {
     grid-template-columns: 1fr;
     gap: calc(12 * var(--wm));
     margin-bottom: calc(24 * var(--wm));
   }
 
-  .page-home .cta-card__fields .field,
-  .page-home .cta-card__fields .select__toggle {
+  .cta-card__fields .field,
+  .cta-card__fields .select__toggle {
     height: calc(52 * var(--wm));
     max-height: calc(52 * var(--wm));
   }
 
-  .page-home .cta-card__fields .select__toggle {
+  .cta-card__fields .select__toggle {
     padding-inline: calc(24 * var(--wm));
     background: var(--field-bg-dark);
     font-size: calc(16 * var(--wm));
@@ -2609,7 +2625,7 @@
     color: var(--text-white);
   }
 
-  .page-home .cta-card .btn {
+  .cta-card .btn {
     min-height: 0;
     height: calc(46 * var(--wm));
     max-height: calc(46 * var(--wm));

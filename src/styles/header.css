@@ -31,7 +31,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: url("../../assets/images/logoMobile.png") no-repeat center / contain;
+  background: url("../../assets/images/logoMobile.svg") no-repeat center / contain;
   opacity: 0;
   transition: opacity var(--duration-base) var(--ease-out);
 }
@@ -257,7 +257,7 @@
     padding: 0;
     border-radius: 50%;
     font-size: 0;
-    background: url("../../assets/images/btnMobilePhone.png") no-repeat center / contain;
+    background: url("../../assets/images/btnMobilePhone.svg") no-repeat center / contain;
   }
 
   .header__pill:has(.nav.is-open) .header__cta {
@@ -273,7 +273,7 @@
     width: calc(42 * var(--wm));
     height: calc(42 * var(--wm));
     border-radius: 50%;
-    background: url("../../assets/images/btnMobileMenu.png") no-repeat center / contain;
+    background: url("../../assets/images/btnMobileMenu.svg") no-repeat center / contain;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -291,7 +291,7 @@
   }
 
   .header__burger.is-open {
-    background-image: url("../../assets/images/btnMobileMenuCross.png");
+    background-image: url("../../assets/images/btnMobileMenuCross.svg");
   }
 
   .header__pill:has(.header__burger) .nav__socials {

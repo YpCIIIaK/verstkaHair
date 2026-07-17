@@ -146,7 +146,7 @@
     if (!prev || !next) return;
 
     const step = () => {
-      const card = track.firstElementChild;
+      const card = [...track.children].find((el) => !el.hasAttribute("aria-hidden"));
       if (!card) return 0;
       const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
       return card.getBoundingClientRect().width + gap;
@@ -166,6 +166,51 @@
     track.addEventListener("scroll", sync, { passive: true });
     window.addEventListener("resize", sync);
     sync();
+  });
+
+  /* ==== Drag-scroll лент (отзывы, команда) — мышь и тач, без конфликта с кликами ==== */
+  document.querySelectorAll("[data-drag-scroll]").forEach((el) => {
+    let drag = null;
+
+    el.addEventListener("pointerdown", (e) => {
+      if (e.pointerType === "touch") return; /* нативный pan-x */
+      if (e.button !== 0) return;
+      if (e.target.closest("a, button, input, textarea, select, label")) return;
+
+      drag = {
+        id: e.pointerId,
+        x: e.clientX,
+        scroll: el.scrollLeft,
+        moved: false,
+      };
+      el.setPointerCapture(e.pointerId);
+      el.classList.add("is-dragging");
+    });
+
+    el.addEventListener("pointermove", (e) => {
+      if (!drag || e.pointerId !== drag.id) return;
+      const dx = e.clientX - drag.x;
+      if (Math.abs(dx) > 4) drag.moved = true;
+      el.scrollLeft = drag.scroll - dx;
+    });
+
+    const end = (e) => {
+      if (!drag || e.pointerId !== drag.id) return;
+      el.classList.remove("is-dragging");
+      if (el.hasPointerCapture(e.pointerId)) el.releasePointerCapture(e.pointerId);
+
+      if (drag.moved) {
+        const block = (ev) => {
+          ev.preventDefault();
+          ev.stopPropagation();
+        };
+        el.addEventListener("click", block, { capture: true, once: true });
+      }
+      drag = null;
+    };
+
+    el.addEventListener("pointerup", end);
+    el.addEventListener("pointercancel", end);
   });
 
   /* ==== Аккордеон FAQ ====
@@ -261,6 +306,68 @@
     window.scrollTo(x, y);
     if (lenis?.start) lenis.start();
   };
+
+  /* ==== Fancybox: сертификаты (зум), без конфликта с горизонтальным драгом ==== */
+  if (typeof Fancybox !== "undefined") {
+    const isMobile = mq("(max-width: 767px)").matches;
+    /* На мобилке стек скрыт, на десктопе — лента landscape: убираем fancybox у скрытых, без дублей в галерее */
+    const hideSel = isMobile
+      ? ".certs__item--stack [data-fancybox]"
+      : ".certs__track--landscape [data-fancybox]";
+    document.querySelectorAll(hideSel).forEach((el) => {
+      el.removeAttribute("data-fancybox");
+      el.removeAttribute("data-caption");
+    });
+
+    const certLinks = [...document.querySelectorAll('[data-fancybox="certs"]')];
+    const DRAG_PX = 8;
+
+    certLinks.forEach((link) => {
+      let x0 = 0;
+      let y0 = 0;
+      let dragged = false;
+
+      link.addEventListener("pointerdown", (e) => {
+        x0 = e.clientX;
+        y0 = e.clientY;
+        dragged = false;
+      });
+
+      link.addEventListener("pointermove", (e) => {
+        if (dragged) return;
+        if (Math.hypot(e.clientX - x0, e.clientY - y0) > DRAG_PX) dragged = true;
+      });
+
+      /* capture: гасим клик после драга до того, как Fancybox его поймает */
+      link.addEventListener("click", (e) => {
+        if (!dragged) return;
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+      }, true);
+    });
+
+    Fancybox.bind('[data-fancybox="certs"]', {
+      Images: {
+        zoom: true,
+        Panzoom: {
+          maxScale: 4,
+        },
+      },
+      Toolbar: {
+        display: {
+          left: [],
+          middle: [],
+          right: ["zoomIn", "zoomOut", "close"],
+        },
+      },
+      on: {
+        reveal: () => lockScroll(),
+        close: () => unlockScroll(),
+        destroy: () => unlockScroll(),
+      },
+    });
+  }
 
   document.querySelectorAll("[data-modal-open]").forEach((btn) => {
     const dlg = document.getElementById(btn.dataset.modalOpen);
@@ -374,10 +481,16 @@
 
   /* ==== Блог: фильтр по категориям ====
      Заголовочным делаем самый новый пост выбранной категории (для «Все» — просто
-     самый новый). Он уезжает из сетки в широкую карточку, остальные — в сетку */
+     самый новый). Он уезжает из сетки в широкую карточку, остальные — в сетку.
+     На мобилке featured нет: все карточки в списке, по 5 + «Загрузить еще» */
   const blogFeat = document.querySelector("[data-blog-featured]");
   const blogChips = [...document.querySelectorAll("[data-blog-filter]")];
   const blogCards = [...document.querySelectorAll("[data-blog-card]")];
+  const blogMore = document.querySelector("[data-blog-more]");
+  const blogMobileMq = window.matchMedia("(max-width: 767px)");
+  const BLOG_PAGE_SIZE = 5;
+  let blogShown = BLOG_PAGE_SIZE;
+  let blogCat = "all";
 
   if (blogFeat && blogCards.length) {
     const esc = (s) =>
@@ -404,22 +517,39 @@
         </article>`;
     };
 
-    const apply = (cat) => {
+    const apply = (cat, { reset = false } = {}) => {
+      blogCat = cat;
+      if (reset) blogShown = BLOG_PAGE_SIZE;
+
       blogChips.forEach((c) => c.classList.toggle("is-active", c.dataset.blogFilter === cat));
 
       const visible = blogCards
         .filter((c) => cat === "all" || c.dataset.cat === cat)
         .sort((a, b) => b.dataset.date.localeCompare(a.dataset.date));
 
+      if (blogMobileMq.matches) {
+        blogFeat.innerHTML = "";
+        blogCards.forEach((c) => (c.hidden = true));
+        visible.forEach((c, i) => { c.hidden = i >= blogShown; });
+        if (blogMore) blogMore.hidden = visible.length <= blogShown;
+        return;
+      }
+
       const lead = visible[0] || null;
       blogCards.forEach((c) => (c.hidden = !visible.includes(c) || c === lead));
       blogFeat.innerHTML = lead ? featuredHTML(lead) : "";
+      if (blogMore) blogMore.hidden = true;
     };
 
     blogChips.forEach((chip) =>
-      chip.addEventListener("click", () => apply(chip.dataset.blogFilter))
+      chip.addEventListener("click", () => apply(chip.dataset.blogFilter, { reset: true }))
     );
-    apply("all");
+    blogMore?.addEventListener("click", () => {
+      blogShown += BLOG_PAGE_SIZE;
+      apply(blogCat);
+    });
+    blogMobileMq.addEventListener("change", () => apply(blogCat, { reset: true }));
+    apply("all", { reset: true });
   }
 
   /* ==== Якорная навигация с учётом липкой шапки ==== */

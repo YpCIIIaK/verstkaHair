@@ -10,9 +10,9 @@
   <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/gilroy-500.woff2" crossorigin />
   <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/playfair-var.woff2" crossorigin />
 
-  <link rel="stylesheet" href="../src/styles/main.css?v=64" />
+  <link rel="stylesheet" href="../src/styles/main.css?v=82" />
 </head>
-<body>
+<body class="page-method">
 
   <header class="header" data-header>
     <div class="container">
@@ -36,7 +36,7 @@
 
             <div class="nav__drop">
               <div class="nav__drop-inner">
-                <a href="hair.html">Пересадка волос</a>
+                <a class="is-active" href="hair.html" aria-current="page">Пересадка волос</a>
                 <a href="brows.html">Пересадка бровей</a>
                 <a href="beard.html">Пересадка бороды</a>
                 <a href="injections.html">Инъекционная терапия кожи головы</a>
@@ -302,8 +302,14 @@
             <div class="contacts__col">
               <h3>Соцсети</h3>
               <div class="contacts__socials">
-                <a class="link-solid" href="#" target="_blank" rel="noopener">Instagram<img src="../assets/images/instConnect.svg" alt="" width="25" height="25" loading="lazy" /></a>
-                <a class="link-solid" href="#" target="_blank" rel="noopener">WhatsApp<img src="../assets/images/wppConnect.svg" alt="" width="25" height="25" loading="lazy" /></a>
+                <a class="link-solid" href="#" target="_blank" rel="noopener" aria-label="Instagram">
+                  <span class="contacts__social-text">Instagram</span>
+                  <img src="../assets/images/instConnect.svg" alt="" width="25" height="25" loading="lazy" />
+                </a>
+                <a class="link-solid" href="#" target="_blank" rel="noopener" aria-label="WhatsApp">
+                  <span class="contacts__social-text">WhatsApp</span>
+                  <img src="../assets/images/wppConnect.svg" alt="" width="25" height="25" loading="lazy" />
+                </a>
               </div>
             </div>
 

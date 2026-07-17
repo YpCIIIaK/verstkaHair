@@ -134,7 +134,7 @@
     --width-current: 100vmin;
   }
 
-  body.page-home {
+  body {
     /* Мобильный макет Factum отрисован под 390px. */
     --text-h1: calc(30 * var(--wm));
     --text-h2: calc(24 * var(--wm));

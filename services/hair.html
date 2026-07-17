@@ -10,9 +10,9 @@
   <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/gilroy-500.woff2" crossorigin />
   <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/playfair-var.woff2" crossorigin />
 
-  <link rel="stylesheet" href="../src/styles/main.css?v=64" />
+  <link rel="stylesheet" href="../src/styles/main.css?v=82" />
 </head>
-<body>
+<body class="page-service">
 
   <header class="header" data-header>
     <div class="container">
@@ -36,7 +36,7 @@
 
             <div class="nav__drop">
               <div class="nav__drop-inner">
-                <a href="hair.html">Пересадка волос</a>
+                <a class="is-active" href="hair.html" aria-current="page">Пересадка волос</a>
                 <a href="brows.html">Пересадка бровей</a>
                 <a href="beard.html">Пересадка бороды</a>
                 <a href="injections.html">Инъекционная терапия кожи головы</a>
@@ -120,18 +120,27 @@
 
       <!-- 3×440 + 2×20 = 1360 -->
       <div class="service__methods">
-        <a class="method-card" href="hair-fue.html">
-          <h3>Бесшовный метод</h3>
-          <p>По методу FUE врач поштучно извлекает графты из донорской зоны с помощью микроинструментов, а затем пересаживает их в область облысения</p>
-        </a>
-        <a class="method-card" href="hair-dhi.html">
-          <h3>Прямая имплантация</h3>
-          <p>По методу FUE врач поштучно извлекает графты из донорской зоны с помощью микроинструментов, а затем пересаживает их в область облысения</p>
-        </a>
-        <a class="method-card" href="hair-fut.html">
-          <h3>Лоскутный метод</h3>
-          <p>По методу FUE врач поштучно извлекает графты из донорской зоны с помощью микроинструментов, а затем пересаживает их в область облысения</p>
-        </a>
+        <div class="service__method">
+          <a class="method-card" href="hair-fue.html">
+            <h3>Бесшовный метод</h3>
+            <p>По методу FUE врач поштучно извлекает графты из донорской зоны с помощью микроинструментов, а затем пересаживает их в область облысения</p>
+          </a>
+          <a class="btn method-card__more" href="hair-fue.html">Подробнее</a>
+        </div>
+        <div class="service__method">
+          <a class="method-card" href="hair-dhi.html">
+            <h3>Прямая имплантация</h3>
+            <p>По методу FUE врач поштучно извлекает графты из донорской зоны с помощью микроинструментов, а затем пересаживает их в область облысения</p>
+          </a>
+          <a class="btn method-card__more" href="hair-dhi.html">Подробнее</a>
+        </div>
+        <div class="service__method">
+          <a class="method-card" href="hair-fut.html">
+            <h3>Лоскутный метод</h3>
+            <p>По методу FUE врач поштучно извлекает графты из донорской зоны с помощью микроинструментов, а затем пересаживает их в область облысения</p>
+          </a>
+          <a class="btn method-card__more" href="hair-fut.html">Подробнее</a>
+        </div>
       </div>
     </section>
 
@@ -159,8 +168,14 @@
             <div class="contacts__col">
               <h3>Соцсети</h3>
               <div class="contacts__socials">
-                <a class="link-solid" href="#" target="_blank" rel="noopener">Instagram<img src="../assets/images/instConnect.svg" alt="" width="25" height="25" loading="lazy" /></a>
-                <a class="link-solid" href="#" target="_blank" rel="noopener">WhatsApp<img src="../assets/images/wppConnect.svg" alt="" width="25" height="25" loading="lazy" /></a>
+                <a class="link-solid" href="#" target="_blank" rel="noopener" aria-label="Instagram">
+                  <span class="contacts__social-text">Instagram</span>
+                  <img src="../assets/images/instConnect.svg" alt="" width="25" height="25" loading="lazy" />
+                </a>
+                <a class="link-solid" href="#" target="_blank" rel="noopener" aria-label="WhatsApp">
+                  <span class="contacts__social-text">WhatsApp</span>
+                  <img src="../assets/images/wppConnect.svg" alt="" width="25" height="25" loading="lazy" />
+                </a>
               </div>
             </div>
 

@@ -109,6 +109,7 @@
   transition: color var(--duration-fast) var(--ease-out);
 }
 .nav__drop-inner a:hover { color: var(--main-blue); }
+.nav__drop-inner a.is-active { color: var(--accent-lime); }
 
 @media (prefers-reduced-motion: reduce) {
   .nav__drop, .nav__chevron { transition: none; }
@@ -205,8 +206,10 @@
     content: none;
   }
 
+  /* Скрываем родителя «Услуги» и «Результаты»; услуги — плоским списком.
+     href$= — и на вложенных страницах (../results.html), иначе лишний пункт сдвигает соцсети */
   .header__pill:has(.header__burger) .nav__link[aria-haspopup],
-  .header__pill:has(.header__burger) .nav__link[href="results.html"] {
+  .header__pill:has(.header__burger) .nav__link[href$="results.html"] {
     display: none;
   }
 
@@ -247,6 +250,10 @@
     font-weight: var(--weight-medium);
     line-height: 1;
     color: var(--text-white);
+  }
+
+  .header__pill:has(.header__burger) .nav__drop-inner a.is-active {
+    color: var(--accent-lime);
   }
 
   .header__pill:has(.header__burger) .header__cta {

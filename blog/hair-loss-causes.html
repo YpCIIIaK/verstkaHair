@@ -10,9 +10,9 @@
   <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/gilroy-500.woff2" crossorigin />
   <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/playfair-var.woff2" crossorigin />
 
-  <link rel="stylesheet" href="../src/styles/main.css?v=64" />
+  <link rel="stylesheet" href="../src/styles/main.css?v=82" />
 </head>
-<body>
+<body class="page-article">
 
   <header class="header" data-header>
     <div class="container">
@@ -211,6 +211,98 @@
       </ul>
     </section>
 
+    <!-- ==== Контакты и заявка ==== -->
+    <section class="contacts section container" id="contacts">
+      <div class="contacts__grid">
+
+        <div class="contacts__card">
+          <h2>Свяжитесь с нами</h2>
+
+          <div class="contacts__info">
+            <div class="contacts__col">
+              <h3>Номер телефона</h3>
+              <a href="tel:+77028216361">+7‒702‒821‒63‒61</a>
+              <a href="tel:+77172572888">+7 (7172) 57‒28‒88</a>
+            </div>
+
+            <div class="contacts__col">
+              <h3>Режим работы</h3>
+              <p>ПН-ПТ: 09:00 - 19:00</p>
+              <p>СБ: 10:00 - 17:00</p>
+              <p>ВС: Выходной</p>
+            </div>
+
+            <div class="contacts__col">
+              <h3>Соцсети</h3>
+              <div class="contacts__socials">
+                <a class="link-solid" href="#" target="_blank" rel="noopener">
+                  <span class="contacts__social-text">Instagram</span>
+                  <img src="../assets/images/instConnect.svg" alt="" width="25" height="25" loading="lazy" />
+                </a>
+                <a class="link-solid" href="#" target="_blank" rel="noopener">
+                  <span class="contacts__social-text">WhatsApp</span>
+                  <img src="../assets/images/wppConnect.svg" alt="" width="25" height="25" loading="lazy" />
+                </a>
+              </div>
+            </div>
+
+            <div class="contacts__col contacts__col--address">
+              <h3>Адрес клиники</h3>
+              <p>Казахстан, г. Астана, ул. Кайыма Мухамедханова 11/1</p>
+            </div>
+
+            <div class="contacts__col contacts__col--email">
+              <h3>E-mail</h3>
+              <a href="mailto:hairlinekz@gmail.com">hairlinekz@gmail.com</a>
+            </div>
+          </div>
+
+          <a class="btn btn--outline btn--block" href="#" target="_blank" rel="noopener">Открыть в 2GIS</a>
+        </div>
+
+        <div class="cta-card">
+          <h2>Оставьте заявку</h2>
+          <p class="cta-card__note">Наши менеджеры ответят вам в течение 10 минут</p>
+
+          <form action="#" method="post">
+            <div class="cta-card__fields">
+              <div class="field field--dark">
+                  <input id="cta-name" type="text" name="name" placeholder=" " required />
+                  <label for="cta-name">Имя*</label>
+                  <span class="field__icon" aria-hidden="true"></span>
+                </div>
+              <div class="field field--dark">
+                  <input id="cta-phone" type="tel" name="phone" placeholder=" " required />
+                  <label for="cta-phone">Номер телефона*</label>
+                  <span class="field__icon" aria-hidden="true"></span>
+                </div>
+              <div class="select" data-select>
+                <button class="select__toggle" type="button" aria-haspopup="listbox" aria-expanded="false">
+                  <span data-select-label>Какая услуга вас интересует? Выберите из списка</span>
+                  <svg viewBox="0 0 15 20" fill="none" aria-hidden="true">
+                    <path d="M2 8L7.5 13L13 8" stroke="currentColor" stroke-width="1.4"
+                          stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </button>
+
+                <ul class="select__list" role="listbox" aria-label="Услуга">
+                  <li role="option" tabindex="-1" data-value="hair">Пересадка волос</li>
+                  <li role="option" tabindex="-1" data-value="brows">Пересадка бровей</li>
+                  <li role="option" tabindex="-1" data-value="beard">Пересадка бороды</li>
+                  <li role="option" tabindex="-1" data-value="injections">Инъекционная терапия кожи головы</li>
+                  <li role="option" tabindex="-1" data-value="hair-loss">Лечение выпадения волос</li>
+                </ul>
+
+                <input type="hidden" name="service" data-select-input />
+              </div>
+            </div>
+            <button class="btn btn--block" type="submit">Отправить заявку</button>
+          </form>
+        </div>
+
+      </div>
+    </section>
+
   </main>
 
   <footer class="footer">
@@ -279,6 +371,6 @@
   </footer>
 
   <script src="../assets/vendor/lenis.min.js"></script>
-  <script src="../src/lib/main.js?v=10"></script>
+  <script src="../src/lib/main.js?v=11"></script>
 </body>
 </html>

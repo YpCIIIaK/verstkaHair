@@ -10,9 +10,10 @@
   <link rel="preload" as="font" type="font/woff2" href="assets/fonts/gilroy-500.woff2" crossorigin />
   <link rel="preload" as="font" type="font/woff2" href="assets/fonts/playfair-var.woff2" crossorigin />
 
-  <link rel="stylesheet" href="src/styles/main.css?v=64" />
+  <link rel="stylesheet" href="src/styles/main.css?v=82" />
+  <link rel="stylesheet" href="assets/vendor/fancybox/fancybox.css" />
 </head>
-<body class="page--hero">
+<body class="page--hero page-about">
 
   <header class="header" data-header>
     <div class="container">
@@ -335,55 +336,70 @@
         <h2>О вашем здоровье заботится команда лучших специалистов</h2>
       </div>
 
-      <div class="team__grid">
-        <article class="team-card">
-          <div class="team-card__top">
-            <div class="team-card__photo">
-              <img src="assets/images/team1.png" alt="" width="325" height="401" loading="lazy" />
+      <div class="team__scroller" data-drag-scroll>
+        <div class="team__grid">
+          <article class="team-card">
+            <div class="team-card__top">
+              <div class="team-card__photo">
+                <img src="assets/images/team1.png" alt="" width="325" height="401" loading="lazy" />
+              </div>
+              <div class="team-card__person">
+                <p class="team-card__name">Айжан Мамытбекова</p>
+                <p class="team-card__role">Главный врач</p>
+              </div>
             </div>
-            <div class="team-card__person">
-              <p class="team-card__name">Айжан Мамытбекова</p>
-              <p class="team-card__role">Главный врач</p>
+            <button class="link-solid" type="button" data-modal-open="modal-team">Подробнее</button>
+          </article>
+          <article class="team-card">
+            <div class="team-card__top">
+              <div class="team-card__photo">
+                <img src="assets/images/team2.png" alt="" width="325" height="401" loading="lazy" />
+              </div>
+              <div class="team-card__person">
+                <p class="team-card__name">Виктория Пак</p>
+                <p class="team-card__role">Пластический хирург. Врач-трихолог, трансплантолог</p>
+              </div>
             </div>
-          </div>
-          <button class="link-solid" type="button" data-modal-open="modal-team">Подробнее</button>
-        </article>
-        <article class="team-card">
-          <div class="team-card__top">
-            <div class="team-card__photo">
-              <img src="assets/images/team2.png" alt="" width="325" height="401" loading="lazy" />
+            <button class="link-solid" type="button" data-modal-open="modal-team">Подробнее</button>
+          </article>
+          <article class="team-card">
+            <div class="team-card__top">
+              <div class="team-card__photo">
+                <img src="assets/images/team3.png" alt="" width="325" height="401" loading="lazy" />
+              </div>
+              <div class="team-card__person">
+                <p class="team-card__name">Диана Шайбакова</p>
+                <p class="team-card__role">Ассистент хирурга, старшая медицинская сестра</p>
+              </div>
             </div>
-            <div class="team-card__person">
-              <p class="team-card__name">Виктория Пак</p>
-              <p class="team-card__role">Пластический хирург. Врач-трихолог, трансплантолог</p>
+            <button class="link-solid" type="button" data-modal-open="modal-team">Подробнее</button>
+          </article>
+          <article class="team-card">
+            <div class="team-card__top">
+              <div class="team-card__photo">
+                <img src="assets/images/team4.png" alt="" width="325" height="401" loading="lazy" />
+              </div>
+              <div class="team-card__person">
+                <p class="team-card__name">Айнагуль Аляуова</p>
+                <p class="team-card__role">Ассистент хирурга</p>
+              </div>
             </div>
-          </div>
-          <button class="link-solid" type="button" data-modal-open="modal-team">Подробнее</button>
-        </article>
-        <article class="team-card">
-          <div class="team-card__top">
-            <div class="team-card__photo">
-              <img src="assets/images/team3.png" alt="" width="325" height="401" loading="lazy" />
+            <button class="link-solid" type="button" data-modal-open="modal-team">Подробнее</button>
+          </article>
+          <article class="team-card">
+            <div class="team-card__top">
+              <div class="team-card__photo">
+                <img src="assets/images/team1.png" alt="" width="325" height="401" loading="lazy" />
+              </div>
+              <div class="team-card__person">
+                <p class="team-card__name">Асель Нурланова</p>
+                <p class="team-card__role">Врач-трихолог</p>
+              </div>
             </div>
-            <div class="team-card__person">
-              <p class="team-card__name">Диана Шайбакова</p>
-              <p class="team-card__role">Ассистент хирурга, старшая медицинская сестра</p>
-            </div>
-          </div>
-          <button class="link-solid" type="button" data-modal-open="modal-team">Подробнее</button>
-        </article>
-        <article class="team-card">
-          <div class="team-card__top">
-            <div class="team-card__photo">
-              <img src="assets/images/team4.png" alt="" width="325" height="401" loading="lazy" />
-            </div>
-            <div class="team-card__person">
-              <p class="team-card__name">Айнагуль Аляуова</p>
-              <p class="team-card__role">Ассистент хирурга</p>
-            </div>
-          </div>
-          <button class="link-solid" type="button" data-modal-open="modal-team">Подробнее</button>
-        </article>
+            <button class="link-solid" type="button" data-modal-open="modal-team">Подробнее</button>
+          </article>
+          <div class="team-card team-card--spacer" aria-hidden="true"></div>
+        </div>
       </div>
     </section>
 
@@ -394,20 +410,44 @@
 
         <div class="certs__track" data-slider-track>
           <div class="certs__item">
-            <img src="assets/images/cert1.png" alt="Сертификат" width="325" height="401" loading="lazy" />
+            <a href="assets/images/cert1.png" data-fancybox="certs" data-caption="Сертификат">
+              <img src="assets/images/cert1.png" alt="Сертификат" width="325" height="401" loading="lazy" />
+            </a>
+          </div>
+          <div class="certs__item certs__item--stack">
+            <a href="assets/images/cert1.png" data-fancybox="certs" data-caption="Сертификат">
+              <img class="certs__image certs__image--landscape" src="assets/images/cert1.png" alt="Сертификат" width="325" height="190" loading="lazy" />
+            </a>
+            <a href="assets/images/cert1.png" data-fancybox="certs" data-caption="Сертификат">
+              <img class="certs__image certs__image--landscape" src="assets/images/cert1.png" alt="Сертификат" width="325" height="190" loading="lazy" />
+            </a>
           </div>
           <div class="certs__item">
-            <img src="assets/images/cert1.png" alt="Сертификат" width="325" height="401" loading="lazy" />
+            <a href="assets/images/cert1.png" data-fancybox="certs" data-caption="Сертификат">
+              <img src="assets/images/cert1.png" alt="Сертификат" width="325" height="401" loading="lazy" />
+            </a>
           </div>
           <div class="certs__item">
-            <img src="assets/images/cert1.png" alt="Сертификат" width="325" height="401" loading="lazy" />
+            <a href="assets/images/cert1.png" data-fancybox="certs" data-caption="Сертификат">
+              <img src="assets/images/cert1.png" alt="Сертификат" width="325" height="401" loading="lazy" />
+            </a>
           </div>
           <div class="certs__item">
-            <img src="assets/images/cert1.png" alt="Сертификат" width="325" height="401" loading="lazy" />
+            <a href="assets/images/cert1.png" data-fancybox="certs" data-caption="Сертификат">
+              <img src="assets/images/cert1.png" alt="Сертификат" width="325" height="401" loading="lazy" />
+            </a>
           </div>
-          <div class="certs__item">
-            <img src="assets/images/cert1.png" alt="Сертификат" width="325" height="401" loading="lazy" />
-          </div>
+        </div>
+
+        <!-- Мобилка: отдельная лента горизонтальных (на десктопе скрыта) -->
+        <div class="certs__track certs__track--landscape" aria-label="Горизонтальные сертификаты">
+          <a href="assets/images/cert1.png" data-fancybox="certs" data-caption="Сертификат">
+            <img class="certs__image certs__image--landscape" src="assets/images/cert1.png" alt="Сертификат" width="325" height="190" loading="lazy" />
+          </a>
+          <a href="assets/images/cert1.png" data-fancybox="certs" data-caption="Сертификат">
+            <img class="certs__image certs__image--landscape" src="assets/images/cert1.png" alt="Сертификат" width="325" height="190" loading="lazy" />
+          </a>
+          <div class="certs__spacer" aria-hidden="true"></div>
         </div>
 
         <div class="certs__arrows">
@@ -451,8 +491,14 @@
             <div class="contacts__col">
               <h3>Соцсети</h3>
               <div class="contacts__socials">
-                <a class="link-solid" href="#" target="_blank" rel="noopener">Instagram<img src="assets/images/instConnect.svg" alt="" width="25" height="25" loading="lazy" /></a>
-                <a class="link-solid" href="#" target="_blank" rel="noopener">WhatsApp<img src="assets/images/wppConnect.svg" alt="" width="25" height="25" loading="lazy" /></a>
+                <a class="link-solid" href="#" target="_blank" rel="noopener" aria-label="Instagram">
+                  <span class="contacts__social-text">Instagram</span>
+                  <img src="assets/images/instConnect.svg" alt="" width="25" height="25" loading="lazy" />
+                </a>
+                <a class="link-solid" href="#" target="_blank" rel="noopener" aria-label="WhatsApp">
+                  <span class="contacts__social-text">WhatsApp</span>
+                  <img src="assets/images/wppConnect.svg" alt="" width="25" height="25" loading="lazy" />
+                </a>
               </div>
             </div>
 
@@ -583,6 +629,7 @@
   </footer>
 
   <script src="assets/vendor/lenis.min.js"></script>
-  <script src="src/lib/main.js?v=10"></script>
+  <script src="assets/vendor/fancybox/fancybox.umd.js"></script>
+  <script src="src/lib/main.js?v=14"></script>
 </body>
 </html>

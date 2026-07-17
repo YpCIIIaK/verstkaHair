@@ -10,7 +10,7 @@
   <link rel="preload" as="font" type="font/woff2" href="assets/fonts/gilroy-500.woff2" crossorigin />
   <link rel="preload" as="font" type="font/woff2" href="assets/fonts/playfair-var.woff2" crossorigin />
 
-  <link rel="stylesheet" href="src/styles/main.css?v=64" />
+  <link rel="stylesheet" href="src/styles/main.css?v=82" />
 </head>
 <body class="page-home">
 
@@ -110,9 +110,18 @@
       <div class="hero__inner">
 
         <div class="hero__media">
-          <!-- ЖДЁМ: видео. Как придёт — меняем img на
-               <video autoplay muted loop playsinline poster="…"> -->
-          <img src="assets/images/video.png" alt="" width="670" height="700" />
+          <video
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="metadata"
+            poster="assets/images/video.png"
+            width="670"
+            height="700"
+          >
+            <source src="assets/videos/magnific_a-single-delicate-green-s_2975236999.mp4" type="video/mp4" />
+          </video>
         </div>
 
         <div class="hero__text">
@@ -465,7 +474,7 @@
           </div>
         </div>
 
-        <ul class="reviews__track" data-slider-track>
+        <ul class="reviews__track" data-slider-track data-drag-scroll>
 
           <li class="review-card">
             <p class="review-card__text">Безусловно, понимание сути ресурсосберегающих технологий, в своём
@@ -580,6 +589,8 @@
               </button>
             </div>
           </li>
+
+          <li class="review-card review-card--spacer" aria-hidden="true"></li>
 
         </ul>
       </div>
@@ -997,6 +1008,6 @@
   </footer>
 
   <script src="assets/vendor/lenis.min.js"></script>
-  <script src="src/lib/main.js?v=10"></script>
+  <script src="src/lib/main.js?v=14"></script>
 </body>
 </html>

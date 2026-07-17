@@ -99,6 +99,8 @@
 
 @media (max-width: 767px) {
   .footer {
+    /* Секции снизу отдают 32; +32 сверху = 64, как между блоками */
+    margin-top: calc(32 * var(--wm));
     padding-block: calc(24 * var(--wm)) calc(30 * var(--wm));
     border-start-start-radius: calc(24 * var(--wm));
     border-start-end-radius: calc(24 * var(--wm));

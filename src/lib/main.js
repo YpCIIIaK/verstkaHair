@@ -369,6 +369,17 @@
     if (lenis?.start) lenis.start();
   };
 
+  /* Колесо внутри модалки врача — не отдаём Lenis */
+  document.querySelectorAll(".team-modal, .team-modal__text").forEach((el) => {
+    el.addEventListener(
+      "wheel",
+      (e) => {
+        e.stopPropagation();
+      },
+      { passive: true }
+    );
+  });
+
   /* ==== Fancybox: сертификаты (зум), без конфликта с горизонтальным драгом ==== */
   if (typeof Fancybox !== "undefined") {
     const isMobile = mq("(max-width: 767px)").matches;

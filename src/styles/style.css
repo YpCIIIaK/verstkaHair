@@ -1367,21 +1367,20 @@
   z-index: var(--z-modal);
   width: calc(670 * var(--wm));
   height: auto;
-  max-height: 90vh;
+  max-height: calc(520 * var(--wm));
   padding: calc(24 * var(--wm));
   border: none;
   border-radius: calc(24 * var(--wm));
   background: var(--main-white);
   color: var(--text-dark);
-  overflow-x: hidden;
-  overflow-y: auto;
-  overscroll-behavior: contain;
+  overflow: hidden;
   margin: auto;
   box-sizing: border-box;
 }
 /* Только когда открыта — иначе display перебивает скрытие <dialog> */
 .team-modal[open] {
-  display: block;
+  display: flex;
+  flex-direction: column;
 }
 
 .team-modal::backdrop { background: rgba(36, 62, 82, 0.4); }
@@ -1401,6 +1400,7 @@
   align-items: flex-start;
   gap: calc(5 * var(--wm));
   margin-bottom: calc(21 * var(--wm));
+  flex: 0 0 auto;
 }
 
 .team-modal__head h3 {
@@ -1419,10 +1419,18 @@
   color: var(--text-pale-blue);
 }
 
+/* Список скроллится внутри, если не влезает в 520 */
 .team-modal__text {
   display: flex;
   flex-direction: column;
   gap: calc(22 * var(--wm));
+  flex: 1 1 auto;
+  min-height: 0;
+  max-height: calc(400 * var(--wm)); /* 520 − падинги − шапка */
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
 }
 
 .team-modal__text p {
@@ -3773,13 +3781,14 @@
   .team-modal {
     width: calc(353 * var(--wm));
     height: auto;
-    max-height: 90dvh;
+    max-height: 35dvh;
     padding: calc(24 * var(--wm));
-    overflow-y: auto;
+    overflow: hidden;
   }
 
   .team-modal[open] {
-    display: block;
+    display: flex;
+    flex-direction: column;
   }
 
   .team-modal__head {
@@ -3799,8 +3808,11 @@
   }
 
   .team-modal__text {
-    display: flex;
-    flex-direction: column;
-    gap: calc(22 * var(--wm));
+    max-height: none;
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
   }
 }

@@ -12,7 +12,7 @@
   /* Появление: выезд сверху, не fade снизу */
   transform: translateY(-110%);
   transition: transform 900ms var(--ease-out-expo),
-              padding-top var(--duration-base) var(--ease-out);
+              padding-top 520ms var(--ease-out-expo);
   transition-delay: var(--reveal-delay, 0ms);
 }
 .header.is-visible {
@@ -35,7 +35,7 @@ body:not(.page--hero) {
   background: var(--main-blue);
   display: flex;
   align-items: center;
-  transition: height var(--duration-base) var(--ease-out);
+  transition: height 520ms var(--ease-out-expo);
 }
 .header.is-scrolled .header__pill {
   height: calc(72 * var(--wm));
@@ -46,8 +46,8 @@ body:not(.page--hero) {
   flex: none;
   width: calc(46 * var(--wm));
   height: calc(50 * var(--wm));
-  transition: width var(--duration-base) var(--ease-out),
-              height var(--duration-base) var(--ease-out);
+  transition: width 520ms var(--ease-out-expo),
+              height 520ms var(--ease-out-expo);
 }
 .header.is-scrolled .header__logo {
   width: calc(38 * var(--wm));

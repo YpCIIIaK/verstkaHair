@@ -1,4 +1,4 @@
-/* Плавающий WhatsApp-виджет (как в UAK Trade, без кнопки телефона). */
+/* Плавающие кнопки связи: телефон (сверху) + WhatsApp (снизу), как в UAK Trade. */
 
 .fab-stack {
   position: fixed;

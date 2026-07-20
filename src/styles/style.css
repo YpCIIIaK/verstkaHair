@@ -177,6 +177,10 @@
   display: flex;
   flex-direction: column;
   gap: calc(12 * var(--wm));
+  transition: background-color 0.2s ease;
+}
+.method-card:hover {
+  background: var(--accent-pale-lime);
 }
 /* Без классов внутри — через родителя (под натяжку на WP) */
 .method-card h3 {
@@ -556,19 +560,35 @@
 }
 
 .hero__media {
+  position: relative;
   flex: none;
   width: calc(670 * var(--wm));
   height: calc(700 * var(--wm));
   border-radius: calc(50 * var(--wm));
   overflow: hidden;
+  /* clip-path стабильнее overflow+radius при GPU-скролле (Lenis) —
+     иначе на нижней кромке мигает 1px чёрной полоски от <video> */
+  clip-path: inset(0 round calc(50 * var(--wm)));
+  isolation: isolate;
+  background: var(--color-bg);
+  contain: paint;
 }
 .hero__media img,
 .hero__media video {
-  width: 100%;
-  height: 100%;
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 110%;
+  height: 110%;
+  max-width: none;
+  border: none;
+  border-radius: inherit;
   object-fit: cover;
-  /* Смещаем кадр вниз, чтобы лучше было видно контент */
   object-position: center 20%;
+  transform: translate(-50%, -50%);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .hero__text {
@@ -2050,25 +2070,35 @@
 /* Набрано или в фокусе: подпись уезжает наверх, текст сдвигается под неё.
    Внутри рамки: 10 + 10(подпись) + 20(текст) + 10 = 50, плюс рамка = 52.
    :has обёрнут в :where — иначе он весит больше, чем .is-error, и состояние
-   ошибки не смогло бы перекрасить рамку заполненного поля */
+   ошибки не смогло бы перекрасить рамку заполненного поля.
+   Автозаполнение и .is-filled — для мобилок, где :placeholder-shown/autofill
+   ведут себя непредсказуемо после blur */
 .field:focus-within,
-.field:where(:has(input:not(:placeholder-shown))) {
+.field:where(:has(input:not(:placeholder-shown))),
+.field:where(:has(input:-webkit-autofill)),
+.field.is-filled {
   --_fill: var(--_bg-on);
   --_edge: var(--_line);
 }
 .field:focus-within label,
-.field:where(:has(input:not(:placeholder-shown))) label {
+.field:where(:has(input:not(:placeholder-shown))) label,
+.field:where(:has(input:-webkit-autofill)) label,
+.field.is-filled label {
   top: calc(10 * var(--wm));
   translate: 0 0;
   font-size: calc(10 * var(--wm));
   line-height: 1;
 }
 .field:focus-within input,
-.field:where(:has(input:not(:placeholder-shown))) input {
+.field:where(:has(input:not(:placeholder-shown))) input,
+.field:where(:has(input:-webkit-autofill)) input,
+.field.is-filled input {
   padding-block: calc(20 * var(--wm)) calc(10 * var(--wm));
 }
 /* На тёмной панели набранное поле гасит подпись до 50%, а в фокусе — нет */
-.field--dark:where(:has(input:not(:placeholder-shown))):not(:focus-within) {
+.field--dark:where(:has(input:not(:placeholder-shown))):not(:focus-within),
+.field--dark:where(:has(input:-webkit-autofill)):not(:focus-within),
+.field--dark.is-filled:not(:focus-within) {
   --_label: var(--text-white-50);
 }
 
@@ -3296,10 +3326,24 @@
     padding-inline: calc(23 * var(--wm));
   }
 
-  .field input,
+  /* Только input: общий .field label с 16px перебивал «маленькую» подпись
+     после blur (у :where() нулевая добавка к специфичности) */
+  .field input {
+    font-size: calc(16 * var(--wm));
+    line-height: calc(20 / 16);
+  }
+
   .field label {
     font-size: calc(16 * var(--wm));
     line-height: calc(20 / 16);
+  }
+
+  .field:focus-within label,
+  .field.is-filled label,
+  .field:has(input:not(:placeholder-shown)) label,
+  .field:has(input:-webkit-autofill) label {
+    font-size: calc(10 * var(--wm));
+    line-height: 1;
   }
 
   .faq {
@@ -3584,8 +3628,10 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    width: min(100%, calc(393 * var(--wm)));
+    width: 100%;
+    max-width: 100%;
     height: calc(411 * var(--wm));
+    margin-inline: 0;
     padding: calc(24 * var(--wm)) calc(20 * var(--wm)) calc(60 * var(--wm));
     border-radius: calc(24 * var(--wm));
     overflow: hidden;

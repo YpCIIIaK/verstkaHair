@@ -17,42 +17,83 @@
     const inputs = document.querySelectorAll('input[type="tel"]');
     if (!inputs.length) return;
 
-    const mask = function (event) {
-      const raw = this.value.trim();
-      let value = this.value.replace(/\D/g, "");
-      if (!value) {
-        this.value = "";
-        return;
-      }
+    const extractDigits = (raw) => {
+      let value = String(raw).replace(/\D/g, "");
+      const trimmed = String(raw).trim();
 
-      if (raw.startsWith("+7") && value.startsWith("7")) {
+      /* +7 / 8 в начале — код страны, не часть номера */
+      if (trimmed.startsWith("+7") && value.startsWith("7")) {
         value = value.slice(1);
       } else if (value.length > 10 && (value.startsWith("7") || value.startsWith("8"))) {
         value = value.slice(1);
+      } else if (trimmed.startsWith("8") && value.startsWith("8") && value.length >= 11) {
+        value = value.slice(1);
       }
-      value = value.slice(0, 10);
 
-      if (!value) {
-        this.value = "";
-        return;
-      }
+      return value.slice(0, 10);
+    };
+
+    const formatPhone = (value) => {
+      if (!value) return "";
 
       let formatted = "+7";
       if (value.length > 0) formatted += ` (${value.slice(0, 3)}`;
       if (value.length >= 3) formatted += ")";
       if (value.length > 3) formatted += ` ${value.slice(3, 6)}`;
       if (value.length > 6) formatted += ` ${value.slice(6, 10)}`;
+      return formatted;
+    };
 
+    const mask = function (event) {
+      const prevDigits = this.dataset.phoneDigits || "";
+      let value = extractDigits(this.value);
+
+      /* Backspace/Delete снял только скобку/пробел — цифры те же,
+         маска иначе сразу вернёт ")" и удаление «залипнет» на +7 (XXX) */
+      const isDelete =
+        event.inputType === "deleteContentBackward" ||
+        event.inputType === "deleteContentForward" ||
+        (event.type === "input" && this.value.length < (this.dataset.phoneLen | 0));
+
+      if (isDelete && value.length === prevDigits.length && value.length > 0) {
+        value = value.slice(0, -1);
+      }
+
+      const formatted = formatPhone(value);
       this.value = formatted;
+      this.dataset.phoneDigits = value;
+      this.dataset.phoneLen = String(formatted.length);
     };
 
     inputs.forEach((input) => {
+      input.dataset.phoneDigits = extractDigits(input.value);
+      input.dataset.phoneLen = String(input.value.length);
       input.addEventListener("input", mask, false);
       input.addEventListener("blur", mask, false);
     });
   };
 
   initPhoneMask();
+
+  /* ==== Плавающая подпись поля: класс по реальному value (мобилки / autofill) ==== */
+  const syncFieldFilled = (input) => {
+    const field = input.closest(".field");
+    if (!field) return;
+    field.classList.toggle("is-filled", input.value.trim().length > 0);
+  };
+
+  document.querySelectorAll(".field input").forEach((input) => {
+    const sync = () => syncFieldFilled(input);
+    ["input", "change", "blur", "keyup"].forEach((evt) =>
+      input.addEventListener(evt, sync)
+    );
+    sync();
+  });
+
+  /* Повторная проверка после возможного автозаполнения браузером */
+  window.setTimeout(() => {
+    document.querySelectorAll(".field input").forEach(syncFieldFilled);
+  }, 300);
 
   /* ==== Липкая шапка: прячем при скролле вниз ==== */
   const header = document.querySelector("[data-header]");

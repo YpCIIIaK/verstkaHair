@@ -972,13 +972,14 @@
 }
 
 .result-card {
+  --_card-bg: var(--main-white);
   width: calc(440 * var(--wm));
   /* 9, а не 10: рамка в CSS прибавляется к размеру, а в Figma рисуется внутрь.
      Так контент отступает от края те же 10, а карточка остаётся 354 */
   padding: calc(9 * var(--wm));
   border: 1px solid var(--accent-pale-lime);
   border-radius: calc(24 * var(--wm));
-  background: var(--main-white);
+  background: var(--_card-bg);
   background-clip: padding-box;
   display: flex;
   flex-direction: column;
@@ -986,15 +987,9 @@
   transition: background-color var(--duration-base) var(--ease-out),
               border-color var(--duration-base) var(--ease-out);
 }
-/* Только заливка карточки — обводка-разделитель не красим в лайм */
 .result-card:hover {
-  background: var(--accent-pale-lime);
+  --_card-bg: var(--accent-pale-lime);
   border-color: var(--main-white);
-}
-/* Шторка до/после всегда белая, не наследует hover карточки */
-.result-card:hover .result-card__handle::before,
-.result-card:hover .result-card__knob {
-  background: var(--main-white);
 }
 /* Заголовок без класса — через родителя (под натяжку на WP).
    Слева 16 при падинге карточки 10 → добираем 6 */
@@ -1058,14 +1053,15 @@
   align-items: center;
   justify-content: center;
 }
-/* Вертикальная линия шторки */
+/* Вертикальная линия шторки — тот же фон, что у карточки */
 .result-card__handle::before {
   content: "";
   position: absolute;
   top: 0;
   bottom: 0;
   width: calc(2 * var(--wm));
-  background: var(--main-white);
+  background: var(--_card-bg);
+  transition: background-color var(--duration-base) var(--ease-out);
 }
 /* Кружок со стрелочками: 9 падинга + 8 стрелка с каждой стороны = 46 */
 .result-card__knob {
@@ -1074,10 +1070,11 @@
   height: calc(46 * var(--wm));
   padding-inline: calc(9 * var(--wm));
   border-radius: 50%;
-  background: var(--main-white);
+  background: var(--_card-bg);
   display: flex;
   align-items: center;
   justify-content: space-between;
+  transition: background-color var(--duration-base) var(--ease-out);
 }
 .result-card__knob svg { width: calc(8 * var(--wm)); height: calc(15 * var(--wm)); }
 /* Иконка смотрит влево — правую получаем отражением */

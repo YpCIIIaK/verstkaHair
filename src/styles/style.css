@@ -47,15 +47,22 @@
    Стили блока — здесь. Медиа-запросы блока класть СРАЗУ за самим блоком. */
 
 /* ==== Шапка внутренней страницы ==== */
-/* Купол начинается от самого верха, шапка сайта ложится поверх него.
-   ЖДЁМ: экспорта шапки для этой страницы — таблетку убрал по скрину */
+/* Купол начинается от самого верха, фиксированная шапка ложится поверх него */
 .page--hero .header {
-  position: absolute;
+  position: fixed;
   inset-inline: 0;
   top: 0;
   z-index: var(--z-header);
 }
-.page--hero .header__pill { background: transparent; }
+/* Синяя таблетка: хедер fixed, прозрачный на светлом контенте не читается */
+.page--hero .header__pill { background: var(--main-blue); }
+
+/* Купол не анимируем — иначе при загрузке сверху «дырка» под хедером */
+.page--hero .page-hero {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
 
 .page-hero {
   /* Десктоп: хедер 130 + 20 до текста + заголовок 35 (32/1.1) + 50 до низа пика = 235 */
@@ -2208,8 +2215,8 @@
 
 @media (max-width: 767px) {
   .page--hero .header {
-    position: sticky;
-    inset-inline: auto;
+    position: fixed;
+    inset-inline: 0;
     top: 0;
   }
 

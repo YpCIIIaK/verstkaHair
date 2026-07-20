@@ -177,13 +177,28 @@ p  { line-height: var(--leading-normal); }
   .u-br-m { display: inline; }
 }
 
-/* ==== Reveal-on-scroll ==== */
-.reveal {
-  opacity: 0; transform: translateY(24px);
-  transition: opacity var(--duration-slow) var(--ease-out),
-              transform var(--duration-slow) var(--ease-out);
+/* ==== Reveal: плавное появление блоков при загрузке / скролле ==== */
+.reveal,
+main > section:not(.page-hero),
+main > article.article,
+main > .blog-page,
+main > .about-page,
+.footer {
+  opacity: 0;
+  transform: translateY(calc(20 * var(--wm)));
+  transition: opacity 900ms var(--ease-out-expo),
+              transform 900ms var(--ease-out-expo);
+  transition-delay: var(--reveal-delay, 0ms);
 }
-.reveal.is-visible { opacity: 1; transform: none; }
+.reveal.is-visible,
+main > section:not(.page-hero).is-visible,
+main > article.article.is-visible,
+main > .blog-page.is-visible,
+main > .about-page.is-visible,
+.footer.is-visible {
+  opacity: 1;
+  transform: none;
+}
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -192,5 +207,27 @@ p  { line-height: var(--leading-normal); }
     animation-iteration-count: 1 !important;
     transition-duration: .001ms !important;
   }
-  .reveal { opacity: 1; transform: none; }
+  .header,
+  .reveal,
+  main > section,
+  main > article.article,
+  main > .blog-page,
+  main > .about-page,
+  .footer {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media print {
+  .header,
+  .reveal,
+  main > section,
+  main > article.article,
+  main > .blog-page,
+  main > .about-page,
+  .footer {
+    opacity: 1;
+    transform: none;
+  }
 }

@@ -1,9 +1,31 @@
 
 
 /* ==== Header ==== */
-/* Отступы до границ экрана даёт .container внутри — здесь только отступ сверху.
-   Высота считается сама: 30 (--header-top) + 100 (таблетка) = 130 */
-.header { padding-top: var(--header-top); }
+/* Фиксированная шапка: всегда видна при скролле. Отступ контенту — body:not(.page--hero) */
+.header {
+  position: fixed;
+  inset-inline: 0;
+  top: 0;
+  z-index: var(--z-header);
+  padding-top: var(--header-top);
+  width: 100%;
+  /* Появление: выезд сверху, не fade снизу */
+  transform: translateY(-110%);
+  transition: transform 900ms var(--ease-out-expo),
+              padding-top var(--duration-base) var(--ease-out);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.header.is-visible {
+  transform: none;
+}
+/* Компактный режим при скролле вниз (как в UAK Trade) */
+.header.is-scrolled {
+  padding-top: calc(12 * var(--wm));
+}
+
+body:not(.page--hero) {
+  padding-top: var(--header-height);
+}
 
 /* Синяя «таблетка» — 1360×100, radius 100 */
 .header__pill {
@@ -13,6 +35,10 @@
   background: var(--main-blue);
   display: flex;
   align-items: center;
+  transition: height var(--duration-base) var(--ease-out);
+}
+.header.is-scrolled .header__pill {
+  height: calc(72 * var(--wm));
 }
 
 .header__logo {
@@ -20,6 +46,12 @@
   flex: none;
   width: calc(46 * var(--wm));
   height: calc(50 * var(--wm));
+  transition: width var(--duration-base) var(--ease-out),
+              height var(--duration-base) var(--ease-out);
+}
+.header.is-scrolled .header__logo {
+  width: calc(38 * var(--wm));
+  height: calc(42 * var(--wm));
 }
 .header__logo img {
   width: 100%;
@@ -122,11 +154,19 @@
 
 @media (max-width: 767px) {
   .header {
-    position: sticky;
+    position: fixed;
+    inset-inline: 0;
     top: 0;
     z-index: var(--z-header);
     padding-top: calc(10 * var(--wm));
     padding-bottom: 0;
+  }
+  .header.is-scrolled {
+    padding-top: calc(6 * var(--wm));
+  }
+
+  body:not(.page--hero) {
+    padding-top: calc(90 * var(--wm)); /* 10 + 80 таблетка */
   }
 
   .header .container { padding-inline: calc(20 * var(--wm)); }
@@ -138,10 +178,17 @@
     border-radius: var(--radius-pill);
     overflow: visible;
   }
+  .header.is-scrolled .header__pill {
+    height: calc(64 * var(--wm));
+  }
 
   .header__logo {
     width: calc(46 * var(--wm));
     height: calc(50 * var(--wm));
+  }
+  .header.is-scrolled .header__logo {
+    width: calc(38 * var(--wm));
+    height: calc(42 * var(--wm));
   }
 
   .header__pill:has(.header__burger) .header__logo img {

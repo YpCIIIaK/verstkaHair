@@ -95,15 +95,31 @@
     document.querySelectorAll(".field input").forEach(syncFieldFilled);
   }, 300);
 
-  /* ==== Липкая шапка: прячем при скролле вниз ==== */
+  /* ==== Фиксированная шапка: выезд сверху + компакт при скролле (как UAK Trade) ==== */
   const header = document.querySelector("[data-header]");
   if (header) {
+    const showHeader = () => header.classList.add("is-visible");
+    if (prefersReduced) showHeader();
+    else requestAnimationFrame(() => requestAnimationFrame(showHeader));
+
+    const expand = () => header.classList.remove("is-scrolled");
+    const collapse = () => header.classList.add("is-scrolled");
+    /* Разворот по направлению: вверх в зоне <100px — сразу полная высота,
+       не дожидаясь нуля (иначе с Lenis кажется запоздалым). */
     let lastY = window.scrollY;
-    window.addEventListener("scroll", () => {
-      const y = window.scrollY;
-      header.classList.toggle("is-hidden", y > lastY && y > header.offsetHeight);
+    const onScroll = (y) => {
+      const goingUp = y < lastY;
       lastY = y;
-    }, { passive: true });
+      if (y <= 8) expand();
+      else if (goingUp && y < 100) expand();
+      else if (!goingUp) collapse();
+    };
+    header.classList.toggle("is-scrolled", window.scrollY > 8);
+    if (lenis) {
+      lenis.on("scroll", ({ scroll }) => onScroll(scroll));
+    } else {
+      window.addEventListener("scroll", () => onScroll(window.scrollY), { passive: true });
+    }
   }
 
   /* ==== Мобильное меню ==== */
@@ -608,17 +624,50 @@
     });
   });
 
-  /* ==== Reveal-on-scroll ==== */
-  const revealEls = document.querySelectorAll(".reveal");
-  if ("IntersectionObserver" in window && revealEls.length) {
-    const io = new IntersectionObserver((entries, obs) => {
-      entries.forEach((en) => {
-        if (en.isIntersecting) { en.target.classList.add("is-visible"); obs.unobserve(en.target); }
-      });
-    }, { rootMargin: "0px 0px -10% 0px", threshold: 0.1 });
-    revealEls.forEach((el) => io.observe(el));
-  } else {
-    revealEls.forEach((el) => el.classList.add("is-visible"));
+  /* ==== Reveal: секции + footer плавно появляются при загрузке / скролле ==== */
+  const revealEls = [
+    ...document.querySelectorAll(
+      ".reveal, main > section:not(.page-hero), main > article.article, main > .blog-page, main > .about-page, .footer"
+    ),
+  ];
+  /* убрать дубли, если у секции уже стоит .reveal */
+  const revealUnique = [...new Set(revealEls)];
+
+  const showReveal = (el, delay = 0) => {
+    if (el.classList.contains("is-visible")) return;
+    el.style.setProperty("--reveal-delay", `${delay}ms`);
+    el.classList.add("is-visible");
+  };
+
+  if (prefersReduced || !("IntersectionObserver" in window)) {
+    revealUnique.forEach((el) => showReveal(el));
+  } else if (revealUnique.length) {
+    let batch = 0;
+    let batchTimer = 0;
+
+    const io = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach((en) => {
+          if (!en.isIntersecting) return;
+          const delay = batch * 90;
+          batch += 1;
+          showReveal(en.target, delay);
+          obs.unobserve(en.target);
+          window.clearTimeout(batchTimer);
+          batchTimer = window.setTimeout(() => {
+            batch = 0;
+          }, 120);
+        });
+      },
+      { rootMargin: "0px 0px -6% 0px", threshold: 0.08 }
+    );
+
+    revealUnique.forEach((el) => io.observe(el));
+
+    /* страховка: ничего не должно остаться невидимым */
+    window.setTimeout(() => {
+      revealUnique.forEach((el) => showReveal(el));
+    }, 2500);
   }
 
 })();

@@ -229,10 +229,15 @@
   document.querySelectorAll("[data-drag-scroll]").forEach((el) => {
     let drag = null;
 
+    el.addEventListener("dragstart", (e) => e.preventDefault());
+
     el.addEventListener("pointerdown", (e) => {
       if (e.pointerType === "touch") return; /* нативный pan-x */
       if (e.button !== 0) return;
       if (e.target.closest("a, button, input, textarea, select, label")) return;
+
+      /* Блокируем нативный drag картинок / выделение текста */
+      e.preventDefault();
 
       drag = {
         id: e.pointerId,
@@ -405,10 +410,14 @@
     });
 
     Fancybox.bind('[data-fancybox="certs"]', {
+      /* Клик по открытому фото тоже зумит (не только колесо/кнопки).
+         toggleZoom часто «молчит», если fit ≈ full — поэтому iterateZoom + maxScale */
+      contentClick: "iterateZoom",
       Images: {
         zoom: true,
         Panzoom: {
           maxScale: 4,
+          click: "iterateZoom",
         },
       },
       Toolbar: {

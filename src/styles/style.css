@@ -398,6 +398,8 @@
   width: calc(100% + 2 * var(--container-pad));
   margin-inline: calc(-1 * var(--container-pad));
   padding-inline: var(--container-pad);
+  /* место под box-shadow линии у «Подробнее» — иначе overflow ленты её срезает */
+  padding-bottom: calc(4 * var(--wm));
   scroll-padding-inline: var(--container-pad);
   overflow-x: auto;
   scroll-snap-type: x mandatory;
@@ -411,6 +413,12 @@
   cursor: grabbing;
   scroll-snap-type: none;
   user-select: none;
+}
+/* Иначе браузер начинает «тащить» фото вместо горизонтального скролла */
+[data-drag-scroll] img {
+  -webkit-user-drag: none;
+  user-select: none;
+  pointer-events: none;
 }
 
 /* Карточки в ряд; ширина контента по детям — скролл на обёртке */
@@ -483,6 +491,9 @@
   font-weight: var(--weight-s);
   line-height: var(--leading-s);
   color: var(--text-pale-blue);
+}
+.team-card .link-solid {
+  box-shadow: 0 calc(2 * var(--wm)) 0 currentColor;
 }
 
 /* ==== Сертификаты ==== */
@@ -968,12 +979,23 @@
   border: 1px solid var(--accent-pale-lime);
   border-radius: calc(24 * var(--wm));
   background: var(--main-white);
+  background-clip: padding-box;
   display: flex;
   flex-direction: column;
   gap: calc(16 * var(--wm));
-  transition: background-color var(--duration-base) var(--ease-out);
+  transition: background-color var(--duration-base) var(--ease-out),
+              border-color var(--duration-base) var(--ease-out);
 }
-.result-card:hover { background: var(--accent-pale-lime); }
+/* Только заливка карточки — обводка-разделитель не красим в лайм */
+.result-card:hover {
+  background: var(--accent-pale-lime);
+  border-color: var(--main-white);
+}
+/* Шторка до/после всегда белая, не наследует hover карточки */
+.result-card:hover .result-card__handle::before,
+.result-card:hover .result-card__knob {
+  background: var(--main-white);
+}
 /* Заголовок без класса — через родителя (под натяжку на WP).
    Слева 16 при падинге карточки 10 → добираем 6 */
 .result-card h3 {
@@ -1344,17 +1366,33 @@
   inset: 0;
   z-index: var(--z-modal);
   width: calc(670 * var(--wm));
-  height: calc(520 * var(--wm));
+  height: auto;
+  max-height: 90vh;
   padding: calc(24 * var(--wm));
   border: none;
   border-radius: calc(24 * var(--wm));
   background: var(--main-white);
   color: var(--text-dark);
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
   margin: auto;
+  box-sizing: border-box;
+}
+/* Только когда открыта — иначе display перебивает скрытие <dialog> */
+.team-modal[open] {
+  display: block;
 }
 
 .team-modal::backdrop { background: rgba(36, 62, 82, 0.4); }
+
+.team-modal .modal__close {
+  position: absolute;
+  top: calc(24 * var(--wm));
+  right: calc(24 * var(--wm));
+  z-index: 1;
+  margin: 0;
+}
 
 .team-modal__head {
   width: calc(280 * var(--wm));
@@ -1956,13 +1994,15 @@
   background: var(--text-dark);
   color: var(--text-white);
 }
-/* Цвет обязателен: у h1–h6 свой color, он перебивает белый, заданный панели */
+/* Цвет обязателен: у h1–h6 свой color, он перебивает белый, заданный панели.
+   Шрифты на 1px меньше базовых токенов блока */
 .cta-card h2 {
   margin-bottom: calc(12 * var(--wm));
   color: var(--text-white);
+  font-size: calc(31 * var(--wm));
 }
 .cta-card__note {
-  font-size: var(--text-m);
+  font-size: calc(15 * var(--wm));
   font-weight: var(--weight-m);
   line-height: var(--leading-m);
   color: var(--text-white);
@@ -1983,13 +2023,26 @@
   border: none;
   border-radius: var(--radius-pill);
   background: var(--field-bg-dark);
-  font-size: var(--text-m);
+  font-size: calc(15 * var(--wm));
   font-weight: var(--weight-m);
   line-height: var(--leading-m);
   color: var(--text-white);
   transition: background-color var(--duration-base) var(--ease-out);
 }
 .cta-card__fields .select__toggle:hover { background: var(--field-bg-dark-active); }
+.cta-card .field input,
+.cta-card .field label {
+  font-size: calc(15 * var(--wm));
+}
+.cta-card .field:focus-within label,
+.cta-card .field.is-filled label,
+.cta-card .field:has(input:not(:placeholder-shown)) label,
+.cta-card .field:has(input:-webkit-autofill) label {
+  font-size: calc(9 * var(--wm));
+}
+.cta-card .btn {
+  font-size: calc(15 * var(--wm));
+}
 .select { grid-column: 1 / -1; }
 
 /* ==== Поле ввода ====
@@ -2285,10 +2338,12 @@
     height: calc(210 * var(--wm));
   }
 
-  /* Мобилка: хедер 90 (10+80) + 16 до текста + заголовок 26 + 24 до низа пика = 156 */
+  /* Мобилка: хедер fixed поверх купола.
+     Высота: 90 (хедер) + 16 до текста + 26 заголовок + 24 до низа пика = 156.
+     Без отрицательного margin — хедер уже вне потока. */
   .page--hero .page-hero {
     height: calc(156 * var(--wm));
-    margin-top: calc(-90 * var(--wm));
+    margin-top: 0;
   }
 
   .page--hero .page-hero__dome {
@@ -2915,13 +2970,15 @@
 
   .team__grid {
     gap: calc(16 * var(--wm));
+    align-items: flex-start; /* не тянуть короткие карточки до высоты соседних */
   }
 
   .team-card {
     width: calc(261 * var(--wm));
     height: auto;
+    min-height: calc(415 * var(--wm));
     gap: calc(20 * var(--wm));
-    justify-content: flex-start;
+    justify-content: space-between; /* «Подробнее» у низа при коротком тексте */
   }
 
   .team-card--spacer {
@@ -2953,7 +3010,6 @@
 
   .team-card .link-solid {
     font-size: calc(16 * var(--wm));
-    line-height: 1;
   }
 
   .certs {
@@ -3581,9 +3637,9 @@
 
   .cta-card h2 {
     margin-bottom: calc(10 * var(--wm));
-    font-size: calc(24 * var(--wm));
+    font-size: calc(23 * var(--wm));
     font-weight: var(--weight-semibold);
-    line-height: calc(26 / 24);
+    line-height: calc(26 / 23);
     text-align: center;
   }
 
@@ -3591,7 +3647,7 @@
     width: 100%;
     max-width: calc(353 * var(--wm));
     margin-bottom: calc(20 * var(--wm));
-    font-size: calc(14 * var(--wm));
+    font-size: calc(13 * var(--wm));
     font-weight: var(--weight-regular);
     line-height: 1.2;
     text-align: center;
@@ -3619,15 +3675,30 @@
   .cta-card__fields .select__toggle {
     padding-inline: calc(24 * var(--wm));
     background: var(--field-bg-dark);
-    font-size: calc(16 * var(--wm));
-    line-height: calc(20 / 16);
+    font-size: calc(15 * var(--wm));
+    line-height: calc(20 / 15);
     color: var(--text-white);
+  }
+
+  .cta-card .field input,
+  .cta-card .field label {
+    font-size: calc(15 * var(--wm));
+    line-height: calc(20 / 15);
+  }
+
+  .cta-card .field:focus-within label,
+  .cta-card .field.is-filled label,
+  .cta-card .field:has(input:not(:placeholder-shown)) label,
+  .cta-card .field:has(input:-webkit-autofill) label {
+    font-size: calc(9 * var(--wm));
+    line-height: 1;
   }
 
   .cta-card .btn {
     min-height: 0;
     height: calc(46 * var(--wm));
     max-height: calc(46 * var(--wm));
+    font-size: calc(15 * var(--wm));
   }
 
   .modal[open] {
@@ -3651,6 +3722,15 @@
     width: calc(15 * var(--wm));
     height: calc(15 * var(--wm));
     margin-bottom: calc(21 * var(--wm));
+  }
+
+  /* Крестик у модалки врача — не наследовать раскладку формы */
+  .team-modal .modal__close {
+    position: absolute;
+    top: calc(24 * var(--wm));
+    right: calc(24 * var(--wm));
+    margin-bottom: 0;
+    align-self: auto;
   }
 
   .modal__head {
@@ -3693,9 +3773,13 @@
   .team-modal {
     width: calc(353 * var(--wm));
     height: auto;
-    max-height: calc(80dvh);
-    padding: calc(24 * var(--wm)) calc(20 * var(--wm));
+    max-height: 90dvh;
+    padding: calc(24 * var(--wm));
     overflow-y: auto;
+  }
+
+  .team-modal[open] {
+    display: block;
   }
 
   .team-modal__head {
@@ -3715,6 +3799,8 @@
   }
 
   .team-modal__text {
+    display: flex;
+    flex-direction: column;
     gap: calc(22 * var(--wm));
   }
 }

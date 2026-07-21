@@ -1,7 +1,5 @@
 
 
-/* ==== Header ==== */
-/* Фиксированная шапка: всегда видна при скролле. Отступ контенту — body:not(.page--hero) */
 .header {
   position: fixed;
   inset-inline: 0;
@@ -9,7 +7,7 @@
   z-index: var(--z-header);
   padding-top: var(--header-top);
   width: 100%;
-  /* Появление: выезд сверху, не fade снизу */
+
   transform: translateY(-110%);
   transition: transform 900ms var(--ease-out-expo),
               padding-top 520ms var(--ease-out-expo);
@@ -18,7 +16,7 @@
 .header.is-visible {
   transform: none;
 }
-/* Компактный режим при скролле вниз (как в UAK Trade) */
+
 .header.is-scrolled {
   padding-top: calc(12 * var(--wm));
 }
@@ -27,7 +25,6 @@ body:not(.page--hero) {
   padding-top: var(--header-height);
 }
 
-/* Синяя «таблетка» — 1360×100, radius 100 */
 .header__pill {
   height: calc(100 * var(--wm));
   padding-inline: calc(34 * var(--wm)) calc(27 * var(--wm));
@@ -78,7 +75,7 @@ body:not(.page--hero) {
   gap: calc(32 * var(--wm));
   margin-left: calc(34 * var(--wm));
 }
-/* Волнистая линия и подъём — из общей утилиты .link-line (global.css) */
+
 .nav__link {
   display: inline-flex;
   align-items: center;
@@ -98,7 +95,6 @@ body:not(.page--hero) {
   transition: transform var(--duration-base) var(--ease-out);
 }
 
-/* --- Выпадающий список «Услуги» --- */
 .nav__item { position: relative; display: inline-flex; }
 
 .nav__drop {
@@ -106,8 +102,7 @@ body:not(.page--hero) {
   top: 100%;
   left: 0;
   z-index: var(--z-menu);
-  /* Отступ-мостик: 24 от текста ссылки по макету. Заодно держит hover,
-     пока мышь идёт от кнопки к списку — без него список схлопывался бы в зазоре */
+
   padding-top: calc(24 * var(--wm));
   opacity: 0;
   visibility: hidden;
@@ -166,7 +161,7 @@ body:not(.page--hero) {
   }
 
   body:not(.page--hero) {
-    padding-top: calc(90 * var(--wm)); /* 10 + 80 таблетка */
+    padding-top: calc(90 * var(--wm));
   }
 
   .header .container { padding-inline: calc(20 * var(--wm)); }
@@ -253,8 +248,6 @@ body:not(.page--hero) {
     content: none;
   }
 
-  /* Скрываем родителя «Услуги» и «Результаты»; услуги — плоским списком.
-     href$= — и на вложенных страницах (../results.html), иначе лишний пункт сдвигает соцсети */
   .header__pill:has(.header__burger) .nav__link[aria-haspopup],
   .header__pill:has(.header__burger) .nav__link[href$="results.html"] {
     display: none;

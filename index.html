@@ -70,8 +70,6 @@
     </div>
   </header>
 
-  <!-- ==== Модалка «Связаться с нами» ====
-       Нативный dialog: фокус, Esc и подложка — из коробки, без своего JS -->
   <dialog class="modal" id="modal-contact" aria-labelledby="modal-contact-title">
     <button class="modal__close" type="button" aria-label="Закрыть" data-modal-close>
       <svg viewBox="0 0 15 15" fill="none" aria-hidden="true">
@@ -85,7 +83,6 @@
       <p>Наши менеджеры ответят вам в течение 10 минут</p>
     </div>
 
-    <!-- Форма без класса — стили через родителя (под натяжку на WP/CF7) -->
     <form action="#" method="post">
       <div class="modal__fields">
         <div class="field">
@@ -105,7 +102,6 @@
 
   <main>
 
-    <!-- ==== Hero ==== -->
     <section class="hero container">
       <div class="hero__inner">
 
@@ -128,11 +124,10 @@
           <h1>Инновационный центр здоровья волос<br />Hairline</h1>
 
           <button class="hero__cta" type="button" data-modal-open="modal-contact">
-            <!-- Круговая надпись. В экспорте она сплющена в квадрат 180×180 —
-                 Figma не отдаёт текст по дуге, поэтому собран textPath -->
+
             <svg class="hero__ring" viewBox="0 0 210 210" aria-hidden="true">
               <defs>
-                <!-- r=88: 4 повтора по 16px дают 551, окружность 2πr = 553 — ровно в обхват -->
+
                 <path id="hero-ring-path"
                       d="M 105,105 m -88,0 a 88,88 0 1,1 176,0 a 88,88 0 1,1 -176,0" />
               </defs>
@@ -153,7 +148,6 @@
       </div>
     </section>
 
-    <!-- ==== О центре ==== -->
     <section class="about section container">
       <div class="about__inner">
 
@@ -180,7 +174,6 @@
       </div>
     </section>
 
-    <!-- ==== Услуги ==== -->
     <section class="services section container">
       <div class="services__inner">
 
@@ -295,9 +288,6 @@
       </div>
     </section>
 
-    <!-- ==== Результаты ====
-         Исключение из правила 40px: белая панель тянется до границ экрана,
-         отступ даёт её собственный падинг -->
     <section class="section">
       <div class="results">
 
@@ -450,7 +440,6 @@
       </div>
     </section>
 
-    <!-- ==== Отзывы ==== -->
     <section class="reviews section container">
       <div class="reviews__inner">
 
@@ -596,7 +585,6 @@
       </div>
     </section>
 
-    <!-- ==== Запись на консультацию ==== -->
     <section class="lead section container">
       <div class="lead__inner">
 
@@ -610,7 +598,6 @@
             <p>Наши менеджеры ответят вам в течение 10 минут</p>
           </div>
 
-          <!-- Форма без класса — стили через родителя (под натяжку на WP/CF7) -->
           <form action="#" method="post">
             <div class="lead__fields">
               <div class="field">
@@ -631,7 +618,6 @@
       </div>
     </section>
 
-    <!-- ==== FAQ ==== -->
     <section class="faq section container" id="faq">
       <div class="faq__head">
         <p class="faq__label">FAQ</p>
@@ -767,7 +753,6 @@
       </ul>
     </section>
 
-    <!-- ==== Блог ==== -->
     <section class="blog section container">
       <div class="blog__head">
         <p class="blog__label">Блог</p>
@@ -846,7 +831,6 @@
       </ul>
     </section>
 
-    <!-- ==== Контакты и заявка ==== -->
     <section class="contacts section container" id="contacts">
       <div class="contacts__grid">
 
@@ -899,7 +883,6 @@
           <h2>Оставьте заявку</h2>
           <p class="cta-card__note">Наши менеджеры ответят вам в течение 10 минут</p>
 
-          <!-- Форма без класса — стили через родителя (под натяжку на WP/CF7) -->
           <form action="#" method="post">
             <div class="cta-card__fields">
               <div class="field field--dark">
@@ -912,7 +895,7 @@
                   <label for="cta-phone">Номер телефона*</label>
                   <span class="field__icon" aria-hidden="true"></span>
                 </div>
-              <!-- Кастомный список: нативный select не даёт стилизовать выпадающую панель -->
+
               <div class="select" data-select>
                 <button class="select__toggle" type="button" aria-haspopup="listbox" aria-expanded="false">
                   <span data-select-label>Какая услуга вас интересует? Выберите из списка</span>
@@ -1009,7 +992,7 @@
 
   <script src="assets/vendor/lenis.min.js"></script>
   <script src="src/lib/main.js?v=22"></script>
-  <!-- Виджеты связи: телефон + WhatsApp -->
+
   <div class="fab-stack">
         <a class="fab fab--phone" href="tel:+77028216361" aria-label="Позвонить">
       <span class="fab__icon"><svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M17.9288 12.176L14.4006 10.5051C13.5138 10.0844 12.4371 10.3609 11.8986 11.1542L11.2906 12.0377C10.3277 11.7012 7.91442 10.5893 6.32451 7.45787L7.52806 6.45419C8.20581 5.8832 8.38312 4.92155 7.93974 4.17025L6.0458 0.942745C5.77978 0.497975 5.33005 0.173402 4.81064 0.0531641C4.28492 -0.0669958 3.7275 0.0171071 3.27778 0.299614L0.877163 1.79019C0.26269 2.17484 -0.0793291 2.86606 0.0157216 3.5572C0.389408 6.41212 2.60635 15.9024 15.2051 17.9699C15.3127 17.988 15.4204 18 15.5281 18C16.1868 18 16.8013 17.6754 17.1687 17.1285L18.7015 14.8145C18.9929 14.3698 19.0752 13.8349 18.9296 13.33C18.7839 12.8311 18.4165 12.4104 17.9288 12.176Z"></path></svg></span>

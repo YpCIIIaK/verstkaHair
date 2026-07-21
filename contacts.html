@@ -70,8 +70,6 @@
     </div>
   </header>
 
-  <!-- ==== Модалка «Связаться с нами» ====
-       Нативный dialog: фокус, Esc и подложка — из коробки, без своего JS -->
   <dialog class="modal" id="modal-contact" aria-labelledby="modal-contact-title">
     <button class="modal__close" type="button" aria-label="Закрыть" data-modal-close>
       <svg viewBox="0 0 15 15" fill="none" aria-hidden="true">
@@ -85,7 +83,6 @@
       <p>Наши менеджеры ответят вам в течение 10 минут</p>
     </div>
 
-    <!-- Форма без класса — стили через родителя (под натяжку на WP/CF7) -->
     <form action="#" method="post">
       <div class="modal__fields">
         <div class="field">
@@ -112,7 +109,6 @@
         <p>Доверьте здоровье ваших волос профессионалам. Оставьте заявку или свяжитесь с нами удобным способом, и мы подберем для вас оптимальное решение.</p>
       </div>
 
-      <!-- Карта: Яндекс-виджет по адресу клиники (как в UAK trade) -->
       <div class="contacts-page__map">
         <iframe title="Hairline — г. Астана, ул. Кайыма Мухамедханова 11/1"
                 src="https://yandex.ru/map-widget/v1/?text=%D0%90%D1%81%D1%82%D0%B0%D0%BD%D0%B0%20%D0%9A%D0%B0%D0%B9%D1%8B%D0%BC%D0%B0%20%D0%9C%D1%83%D1%85%D0%B0%D0%BC%D0%B5%D0%B4%D1%85%D0%B0%D0%BD%D0%BE%D0%B2%D0%B0%2011/1&z=16"
@@ -170,7 +166,6 @@
           <h2>Оставьте заявку</h2>
           <p class="cta-card__note">Наши менеджеры ответят вам в течение 10 минут</p>
 
-          <!-- Форма без класса — стили через родителя (под натяжку на WP/CF7) -->
           <form action="#" method="post">
             <div class="cta-card__fields">
               <div class="field field--dark">
@@ -183,7 +178,7 @@
                   <label for="cta-phone">Номер телефона*</label>
                   <span class="field__icon" aria-hidden="true"></span>
                 </div>
-              <!-- Кастомный список: нативный select не даёт стилизовать выпадающую панель -->
+
               <div class="select" data-select>
                 <button class="select__toggle" type="button" aria-haspopup="listbox" aria-expanded="false">
                   <span data-select-label>Какая услуга вас интересует? Выберите из списка</span>
@@ -280,7 +275,7 @@
 
   <script src="assets/vendor/lenis.min.js"></script>
   <script src="src/lib/main.js?v=22"></script>
-  <!-- Виджеты связи: телефон + WhatsApp -->
+
   <div class="fab-stack">
         <a class="fab fab--phone" href="tel:+77028216361" aria-label="Позвонить">
       <span class="fab__icon"><svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M17.9288 12.176L14.4006 10.5051C13.5138 10.0844 12.4371 10.3609 11.8986 11.1542L11.2906 12.0377C10.3277 11.7012 7.91442 10.5893 6.32451 7.45787L7.52806 6.45419C8.20581 5.8832 8.38312 4.92155 7.93974 4.17025L6.0458 0.942745C5.77978 0.497975 5.33005 0.173402 4.81064 0.0531641C4.28492 -0.0669958 3.7275 0.0171071 3.27778 0.299614L0.877163 1.79019C0.26269 2.17484 -0.0793291 2.86606 0.0157216 3.5572C0.389408 6.41212 2.60635 15.9024 15.2051 17.9699C15.3127 17.988 15.4204 18 15.5281 18C16.1868 18 16.8013 17.6754 17.1687 17.1285L18.7015 14.8145C18.9929 14.3698 19.0752 13.8349 18.9296 13.33C18.7839 12.8311 18.4165 12.4104 17.9288 12.176Z"></path></svg></span>

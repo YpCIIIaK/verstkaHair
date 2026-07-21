@@ -4,7 +4,6 @@
   const mq = (q) => window.matchMedia(q);
   const prefersReduced = mq("(prefers-reduced-motion: reduce)").matches;
 
-  /* ==== Lenis smooth-scroll (самохостинг) ==== */
   let lenis = null;
   if (typeof Lenis !== "undefined" && !prefersReduced) {
     lenis = new Lenis({ duration: 1.1, smoothWheel: true, touchMultiplier: 1.5 });
@@ -12,7 +11,6 @@
     requestAnimationFrame(raf);
   }
 
-  /* ==== Маска телефона ==== */
   const initPhoneMask = () => {
     const inputs = document.querySelectorAll('input[type="tel"]');
     if (!inputs.length) return;
@@ -21,7 +19,6 @@
       let value = String(raw).replace(/\D/g, "");
       const trimmed = String(raw).trim();
 
-      /* +7 / 8 в начале — код страны, не часть номера */
       if (trimmed.startsWith("+7") && value.startsWith("7")) {
         value = value.slice(1);
       } else if (value.length > 10 && (value.startsWith("7") || value.startsWith("8"))) {
@@ -48,8 +45,6 @@
       const prevDigits = this.dataset.phoneDigits || "";
       let value = extractDigits(this.value);
 
-      /* Backspace/Delete снял только скобку/пробел — цифры те же,
-         маска иначе сразу вернёт ")" и удаление «залипнет» на +7 (XXX) */
       const isDelete =
         event.inputType === "deleteContentBackward" ||
         event.inputType === "deleteContentForward" ||
@@ -75,7 +70,6 @@
 
   initPhoneMask();
 
-  /* ==== Плавающая подпись поля: класс по реальному value (мобилки / autofill) ==== */
   const syncFieldFilled = (input) => {
     const field = input.closest(".field");
     if (!field) return;
@@ -90,12 +84,10 @@
     sync();
   });
 
-  /* Повторная проверка после возможного автозаполнения браузером */
   window.setTimeout(() => {
     document.querySelectorAll(".field input").forEach(syncFieldFilled);
   }, 300);
 
-  /* ==== Фиксированная шапка: выезд сверху + компакт при скролле (как UAK Trade) ==== */
   const header = document.querySelector("[data-header]");
   if (header) {
     const showHeader = () => header.classList.add("is-visible");
@@ -104,8 +96,7 @@
 
     const expand = () => header.classList.remove("is-scrolled");
     const collapse = () => header.classList.add("is-scrolled");
-    /* Разворот по направлению: вверх в зоне <100px — сразу полная высота,
-       не дожидаясь нуля (иначе с Lenis кажется запоздалым). */
+
     let lastY = window.scrollY;
     const onScroll = (y) => {
       const goingUp = y < lastY;
@@ -122,7 +113,6 @@
     }
   }
 
-  /* ==== Мобильное меню ==== */
   const burger = document.querySelector("[data-menu-toggle]");
   const nav = document.querySelector("[data-nav]");
   if (burger && nav) {
@@ -141,12 +131,8 @@
     );
   }
 
-  /* ==== Выпадающий список «Услуги» ====
-     Показ/скрытие — на CSS (:hover и :focus-within), здесь только синхронизация
-     aria-expanded и закрытие по Escape */
   document.querySelectorAll("[data-nav-drop]").forEach((item) => {
-    /* «Услуги» — ссылка на страницу каталога, а не кнопка: по клику переходим,
-       по наведению раскрываем список */
+
     const btn = item.querySelector("[aria-haspopup]");
     if (!btn) return;
     const set = (open) => {
@@ -171,9 +157,6 @@
     });
   });
 
-  /* ==== Сравнение до/после ====
-     Тянем мышью, пальцем или стрелками. Позицию держит нативный range —
-     он же даёт клавиатуру и скринридер, поэтому своих обработчиков drag не нужно */
   document.querySelectorAll("[data-compare]").forEach((box) => {
     const range = box.querySelector("[data-compare-range]");
     if (!range) return;
@@ -183,8 +166,6 @@
 
     range.addEventListener("input", paint);
 
-    /* Клик по картинке = мгновенный перенос шторки: у range шаг был бы от текущей
-       позиции thumb, а тут ждут прыжка ровно под курсор */
     box.addEventListener("pointerdown", (e) => {
       if (e.target === range) {
         const { left, width } = box.getBoundingClientRect();
@@ -194,8 +175,6 @@
     });
   });
 
-  /* ==== Слайдер на нативном скролле ====
-     Листаем по одной карточке. Стрелка гаснет, когда листать больше некуда */
   document.querySelectorAll("[data-slider-track]").forEach((track) => {
     const scope = track.closest("section") || document;
     const prev = scope.querySelector("[data-slider-prev]");
@@ -225,18 +204,16 @@
     sync();
   });
 
-  /* ==== Drag-scroll лент (отзывы, команда) — мышь и тач, без конфликта с кликами ==== */
   document.querySelectorAll("[data-drag-scroll]").forEach((el) => {
     let drag = null;
 
     el.addEventListener("dragstart", (e) => e.preventDefault());
 
     el.addEventListener("pointerdown", (e) => {
-      if (e.pointerType === "touch") return; /* нативный pan-x */
+      if (e.pointerType === "touch") return;
       if (e.button !== 0) return;
       if (e.target.closest("a, button, input, textarea, select, label")) return;
 
-      /* Блокируем нативный drag картинок / выделение текста */
       e.preventDefault();
 
       drag = {
@@ -275,8 +252,6 @@
     el.addEventListener("pointercancel", end);
   });
 
-  /* ==== Аккордеон FAQ ====
-     Открыт всегда один: раскрывая вопрос, закрываем соседний */
   document.querySelectorAll("[data-accordion]").forEach((list) => {
     const items = [...list.querySelectorAll(".faq-item")];
 
@@ -295,8 +270,6 @@
     });
   });
 
-  /* ==== Выпадающий список ====
-     Значение уходит в скрытый input — форма отправляется как обычно */
   document.querySelectorAll("[data-select]").forEach((select) => {
     const toggle = select.querySelector(".select__toggle");
     const label = select.querySelector("[data-select-label]");
@@ -336,15 +309,11 @@
       options[(next + options.length) % options.length].focus();
     });
 
-    /* Клик мимо — закрываем */
     document.addEventListener("click", (e) => {
       if (!select.contains(e.target)) open(false);
     });
   });
 
-  /* ==== Модалки ====
-     Нативный dialog сам держит фокус, Esc и подложку — здесь только открытие,
-     закрытие по кнопке и клик мимо окна */
   let scrollLock = null;
   const lockScroll = () => {
     if (scrollLock) return;
@@ -369,7 +338,6 @@
     if (lenis?.start) lenis.start();
   };
 
-  /* Колесо внутри модалки врача — не отдаём Lenis */
   document.querySelectorAll(".team-modal, .team-modal__text").forEach((el) => {
     el.addEventListener(
       "wheel",
@@ -380,10 +348,9 @@
     );
   });
 
-  /* ==== Fancybox: сертификаты (зум), без конфликта с горизонтальным драгом ==== */
   if (typeof Fancybox !== "undefined") {
     const isMobile = mq("(max-width: 767px)").matches;
-    /* На мобилке стек скрыт, на десктопе — лента landscape: убираем fancybox у скрытых, без дублей в галерее */
+
     const hideSel = isMobile
       ? ".certs__item--stack [data-fancybox]"
       : ".certs__track--landscape [data-fancybox]";
@@ -411,7 +378,6 @@
         if (Math.hypot(e.clientX - x0, e.clientY - y0) > DRAG_PX) dragged = true;
       });
 
-      /* capture: гасим клик после драга до того, как Fancybox его поймает */
       link.addEventListener("click", (e) => {
         if (!dragged) return;
         e.preventDefault();
@@ -421,8 +387,7 @@
     });
 
     Fancybox.bind('[data-fancybox="certs"]', {
-      /* Клик по открытому фото тоже зумит (не только колесо/кнопки).
-         toggleZoom часто «молчит», если fit ≈ full — поэтому iterateZoom + maxScale */
+
       contentClick: "iterateZoom",
       Images: {
         zoom: true,
@@ -467,7 +432,7 @@
     dlg.querySelectorAll("[data-modal-close]").forEach((b) =>
       b.addEventListener("click", () => dlg.close())
     );
-    /* Клик по подложке: она — часть самого dialog, поэтому сверяем с его рамкой */
+
     dlg.addEventListener("click", (e) => {
       if (e.target !== dlg) return;
       const r = dlg.getBoundingClientRect();
@@ -478,8 +443,6 @@
     dlg.addEventListener("close", unlockScroll);
   });
 
-  /* ==== История: таймлайн ====
-     Лента едет через --active: шаг 337 задан шириной пункта, CSS считает сам */
   const histTrack = document.querySelector("[data-history-track]");
   const histBox = document.querySelector("[data-history-slides]");
   if (histTrack && histBox) {
@@ -498,7 +461,7 @@
       if (resetOffset) histTrack.style.setProperty("--drag-offset", "0px");
       years.forEach((el, k) => el.classList.toggle("is-active", k === cur));
       slides.forEach((el, k) => el.classList.toggle("is-active", k === cur));
-      /* Стрелки есть в каждом слайде — гасим во всех, видима всё равно одна пара */
+
       histBox.querySelectorAll("[data-history-prev]").forEach((b) => (b.disabled = cur === 0));
       histBox.querySelectorAll("[data-history-next]").forEach(
         (b) => (b.disabled = cur === slides.length - 1)
@@ -556,10 +519,6 @@
     show(cur);
   }
 
-  /* ==== Блог: фильтр по категориям ====
-     Заголовочным делаем самый новый пост выбранной категории (для «Все» — просто
-     самый новый). Он уезжает из сетки в широкую карточку, остальные — в сетку.
-     На мобилке featured нет: все карточки в списке, по 5 + «Загрузить еще» */
   const blogFeat = document.querySelector("[data-blog-featured]");
   const blogChips = [...document.querySelectorAll("[data-blog-filter]")];
   const blogCards = [...document.querySelectorAll("[data-blog-card]")];
@@ -629,7 +588,6 @@
     apply("all", { reset: true });
   }
 
-  /* ==== Якорная навигация с учётом липкой шапки ==== */
   document.querySelectorAll('a[href^="#"]').forEach((link) => {
     link.addEventListener("click", (e) => {
       const id = link.getAttribute("href");
@@ -644,13 +602,12 @@
     });
   });
 
-  /* ==== Reveal: секции + footer плавно появляются при загрузке / скролле ==== */
   const revealEls = [
     ...document.querySelectorAll(
       ".reveal, main > section:not(.page-hero), main > article.article, main > .blog-page, main > .about-page, .footer"
     ),
   ];
-  /* убрать дубли, если у секции уже стоит .reveal */
+
   const revealUnique = [...new Set(revealEls)];
 
   const showReveal = (el, delay = 0) => {
@@ -684,7 +641,6 @@
 
     revealUnique.forEach((el) => io.observe(el));
 
-    /* страховка: ничего не должно остаться невидимым */
     window.setTimeout(() => {
       revealUnique.forEach((el) => showReveal(el));
     }, 2500);

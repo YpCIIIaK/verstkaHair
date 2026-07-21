@@ -1,7 +1,5 @@
 
 
-/* ==== Footer ====
-   Исключение из правила 40px: фон тянется до границ, отступ только у контента */
 .footer {
   width: 100%;
   padding-block: calc(80 * var(--wm));
@@ -11,7 +9,6 @@
   color: var(--text-white);
 }
 
-/* --- Верхняя часть: почта слева, колонки справа --- */
 .footer__top {
   display: flex;
   justify-content: space-between;
@@ -24,7 +21,7 @@
   flex-direction: column;
   gap: calc(20 * var(--wm));
 }
-/* Заголовок без класса — обращаемся через родителя (под натяжку на WP) */
+
 .footer__cta h2 {
   font-family: var(--font-sans);
   font-size: var(--text-h3);
@@ -42,7 +39,6 @@
   border-bottom: 1px solid var(--text-white);
 }
 
-/* --- Колонки ссылок --- */
 .footer__cols {
   width: calc(785 * var(--wm));
   display: flex;
@@ -60,19 +56,18 @@
 }
 
 .footer__list { display: flex; flex-direction: column; gap: calc(14 * var(--wm)); }
-/* Волнистая линия и подъём при наведении — из утилиты .link-line (global.css) */
+
 .footer__list a,
 .footer__contact {
-  align-self: flex-start;              /* чтобы линия шла по ширине текста, а не колонки */
+  align-self: flex-start;
   font-size: var(--text-menu);
   font-weight: var(--weight-menu);
   line-height: var(--leading-menu);
   color: var(--text-white);
 }
-/* Адрес переносится на 2 строки — межстрочку задаём отдельно */
+
 .footer__contact--address { line-height: 1.3; }
 
-/* --- Разделитель --- */
 .footer__line {
   height: 1px;
   margin-block: calc(40 * var(--wm));
@@ -80,7 +75,6 @@
   background: var(--text-white);
 }
 
-/* --- Нижняя строка --- */
 .footer__bottom {
   display: flex;
   justify-content: space-between;
@@ -99,7 +93,7 @@
 
 @media (max-width: 767px) {
   .footer {
-    /* Секции снизу отдают 32; +32 сверху = 64, как между блоками */
+
     margin-top: calc(32 * var(--wm));
     padding-block: calc(24 * var(--wm)) calc(30 * var(--wm));
     border-start-start-radius: calc(24 * var(--wm));
